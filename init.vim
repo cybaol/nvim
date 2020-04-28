@@ -1,28 +1,23 @@
 
-
 " ***
 " *** Auto Load With First Uses
 " ***
-
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" ***
-" *** Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
-" ***
-"let has_machine_specific_file = 0
-"if empty(glob('~/.config/nvim/_machine_specific.vim'))
-	"let has_machine_specific_file = 1
-	"silent! exec "!cp ~/.config/nvim/default_configs/_machine_specific_default.vim ~/.config/nvim/_machine_specific.vim"
-"endif
+" change pip mirror
+if empty(glob('~/.pip/pip.conf'))
+    silent! exec "!mkdir ~/.pip"
+    silent! exec "!cp ~/.config/nvim/default_configs/pip.conf ~/.pip/"
+endif
+
 source ~/.config/nvim/_machine_specific.vim
 
 
-
-" ***
+"***
 " *** System
 " ***
 set nocompatible
@@ -31,9 +26,7 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 set encoding=utf-8
-
-set clipboard=unnamed
-
+set clipboard=unnamedplus
 " Prevent incorrect backgroung rendering
 let &t_ut=''
 
@@ -84,6 +77,7 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " ***
 set splitright
 set splitbelow
+map ss :set nosplitright<CR>:vsplit<CR>
 
 " ***
 " *** Status/command bar
@@ -100,11 +94,10 @@ set wildmode=longest,list,full
 
 " Searching options
 set hlsearch
-exec "nohlsearch"
+exec ":nohlsearch"
 set incsearch
 set ignorecase
 set smartcase
-set smartindent
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -151,17 +144,24 @@ let g:terminal_color_14 = '#9AEDFE'
 "change word to uppercase
 inoremap <C-u> <esc>gUiwea
 
-" <esc> -> ctrl + n
-inoremap <C-n> <esc>
+" <caps> -> <esc>
+au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+noremap i k
+noremap k j
+noremap j h
 
 " shift window
-map H <C-w>h
-map L <C-w>l
-map K <C-w>k
-map J <C-w>j
+noremap H <C-w>h
+noremap L <C-w>l
+noremap K <C-w>k
+noremap J <C-w>j
 
-map <LEADER>fd /\(\<\w\+\>\)\_s*\1
+" copy to system clipboard
+vnoremap Y "+y
 
+map <LEADER>re /\(\<\w\+\>\)\_s*\1
 
 " ***
 " *** Quick Run via <F10>
@@ -193,33 +193,38 @@ function! CompileRunGcc()
 endfunction
 
 
+
 " ***
 " *** Plugin Install With Vim-Plug
 " ***
 
 call plug#begin('~/.config/nvim/plugged')
-
+" Themes
 Plug 'mhinz/vim-startify'
-Plug 'liuchengxu/space-vim-theme'
+Plug 'connorholyday/vim-snazzy'
 
 " Visualizer enhancement
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
+
+" Clipboard bar
+Plug 'junegunn/vim-peekaboo'
 
 " File navigation
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-"Plug 'junegunn/fzf.vim'
-"Plug 'francoiscabrol/ranger.vim'
+Plug 'junegunn/fzf', {'do' : {-> fzf#install()} }
+Plug 'francoiscabrol/ranger.vim'
 
 " Undo Tree
 Plug 'mbbill/undotree'
 
-" Syntax checking
-Plug 'dense-analysis/ale'
-
 " Local highlight in python variable
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
+" Debuger
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
 
 " Find & Search
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
@@ -255,11 +260,12 @@ call plug#end()
 " ***
 " *** theme settings
 " ***
-set termguicolors " enable true colors support"
-colorscheme space_vim_theme
-set background=dark
-let g:space_vim_italic=0
-let g:space_vim_italicize_strings=0
+set termguicolors "enable true colors support"
+let g:SnazzyTransparent = 1
+let g:lightline = {
+\ 'colorscheme': 'snazzy',
+\ }
+colorscheme snazzy
 
 " ***
 " *** Nerd Tree
@@ -281,20 +287,23 @@ map c<space> <leader>c<space>
 " *** Undotree
 " ***
 noremap ud :UndotreeToggle<CR>
-let g:undotree_DiffAutoOpen = 1
+let g:undotree_DiffAutoOpen       = 1
 let g:undotree_SetFocusWhenToggle = 1
-let g:undotree_ShortIndicators = 1
-let g:undotree_WindowLayout = 2
-let g:undotree_DiffpanelHeight = 8
-let g:undotree_SplitWidth = 24
+let g:undotree_ShortIndicators    = 1
+let g:undotree_WindowLayout       = 2
+let g:undotree_DiffpanelHeight    = 8
+let g:undotree_SplitWidth         = 24
 function g:Undotree_CustomMap()
 	nmap <buffer> u <plug>UndotreeNextState
 	nmap <buffer> e <plug>UndotreePreviousState
 	nmap <buffer> U 5<plug>UndotreeNextState
 	nmap <buffer> E 5<plug>UndotreePreviousState
-endfunc
+endfunction
 
-
+" ***
+" *** FZF
+" ***
+map <C-f> :FZF<CR>
 
 " ***
 " *** You Complete Me
@@ -303,8 +312,6 @@ let g:ycm_autoclose_preview_window_after_completion = 0
 let g:ycm_autoclose_preview_window_after_insertion  = 1
 let g:ycm_use_clangd                                = 0
 let g:ycm_python_binary_path = g:ycm_python_interpreter_path
-
-
 
 " ***
 " *** Tagbar navigation
@@ -316,28 +323,25 @@ let g:tagbar_left      = 1
 map tb :TagbarToggle<CR>
 
 " ***
-" *** emmet
+" *** Emmet
 " ***
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstal
 let g:user_emmet_leader_key='<C-m>' " shift key
 
 " ***
-" *** ale
+" *** Autopep8
 " ***
-let b:ale_linters = ['pylint']
-let b:ale_fixers = ['autopep8', 'yapf']
-let g:ale_python_pylint_options = "--extension-pkg-whitelist=pygame"
-
-" ***
-" *** autopep8
-" ***
-"let g:ale_fix_on_save = 1
 let g:autopep8_disable_show_diff=1
 autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 
 " ***
-" *** vim-bookmarks
+" *** Tabular
+" ***
+vnoremap <tab> :Tabularize 
+
+" ***
+" *** Vim-bookmarks
 " ***
 let g:bookmark_no_default_key_mappings = 1
 nmap bm <Plug>BookmarkToggle
@@ -359,10 +363,11 @@ let g:bookmark_center               = 1
 let g:bookmark_auto_close           = 1
 let g:bookmark_location_list        = 1
 
-
 " ***
 " *** airline
 " ***
+let g:airline#extensions#tabline#enabled=1
+let g:airline_theme='bubblegum'
 " show status bar icon
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -385,12 +390,11 @@ let g:indentLine_enabled    = 1
 let g:indentLine_setColors  = 1
 let g:indentLine_color_term = 255
 
-
-
 " ***
-" *** coc.nvim
+" *** Coc.nvim
 " ***
-let g:coc_global_extensions = ['coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-highlight', 'coc-vimlsp', 'coc-diagnostic']
+let g:coc_global_extensions = ['coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-highlight', 'coc-yank', 'coc-vimlsp', 'coc-diagnostic']
+set statusline^=%{coc#status()}
 " Use ? to show documentation in preview window
 nnoremap ? :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -401,14 +405,11 @@ function! s:show_documentation()
   endif
 endfunction
 
-nmap <silent> fd <Plug>(coc-definition)
-nmap <silent> fy <Plug>(coc-type-definition)
-nmap <silent> fi <Plug>(coc-implementation)
-nmap <silent> fr <Plug>(coc-reference)
-nmap <silent>rn <Plug>(coc-rename)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-reference)
+nmap <silent> rn <Plug>(coc-rename)
 
+nnoremap <silent> y<space> :<C-u>CocList -A --normal yank<cr>
 
-" Open the _machine_specific.vim file if it has just been created
-"if has_machine_specific_file == 0
-    "exec "e ~/.config/nvim/_machine_specific.vim"
-"endif
