@@ -1,6 +1,5 @@
-
 " ***
-" *** Auto Load With First Uses
+" *** Auto Load for First Usage
 " ***
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -17,7 +16,8 @@ endif
 source ~/.config/nvim/_machine_specific.vim
 
 
-"***
+
+" ***
 " *** System
 " ***
 set nocompatible
@@ -26,7 +26,7 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 set encoding=utf-8
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 " Prevent incorrect backgroung rendering
 let &t_ut=''
 
@@ -39,7 +39,7 @@ set noswapfile
 " *** Main code display
 " ***
 set number
-set relativenumber
+"set relativenumber
 set ruler
 set cursorline
 syntax enable
@@ -77,7 +77,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " ***
 set splitright
 set splitbelow
-map ss :set nosplitright<CR>:vsplit<CR>
 
 " ***
 " *** Status/command bar
@@ -89,7 +88,7 @@ set formatoptions-=tc
 
 " Show command autocomplete
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
-set wildmenu                                                 " show a navigable menu for tab completion
+set wildmenu                                                  " show a navigable menu for tab completion
 set wildmode=longest,list,full
 
 " Searching options
@@ -108,34 +107,10 @@ if has('persistent_undo')
     set undodir=~/.config/nvim/tmp/undo,.
 endif
 
-
 " ***
 " *** Restore Cursor Position
 " ***
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" ***
-" *** Terminal Behaviors
-" ***
-let g:neoterm_autoscroll = 1
-autocmd TermOpen term://* startinsert
-tnoremap <C-N> <C-\><C-N>
-tnoremap <C-O> <C-\><C-N><C-O>
-let g:terminal_color_0  = '#000000'
-let g:terminal_color_1  = '#FF5555'
-let g:terminal_color_2  = '#50FA7B'
-let g:terminal_color_3  = '#F1FA8C'
-let g:terminal_color_4  = '#BD93F9'
-let g:terminal_color_5  = '#FF79C6'
-let g:terminal_color_6  = '#8BE9FD'
-let g:terminal_color_7  = '#BFBFBF'
-let g:terminal_color_8  = '#4D4D4D'
-let g:terminal_color_9  = '#FF6E67'
-let g:terminal_color_10 = '#5AF78E'
-let g:terminal_color_11 = '#F4F99D'
-let g:terminal_color_12 = '#CAA9FA'
-let g:terminal_color_13 = '#FF92D0'
-let g:terminal_color_14 = '#9AEDFE'
 
 " ***
 " *** Basic Mappings
@@ -147,6 +122,8 @@ inoremap <C-u> <esc>gUiwea
 " <caps> -> <esc>
 au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+map ss :set nosplitright<CR>:vsplit<CR>
 
 noremap i k
 noremap k j
@@ -161,111 +138,107 @@ noremap J <C-w>j
 " copy to system clipboard
 vnoremap Y "+y
 
-map <LEADER>re /\(\<\w\+\>\)\_s*\1
-
-" ***
-" *** Quick Run via <F10>
-" ***
-map <F10> :call CompileRunGcc()<CR>
-function! CompileRunGcc()
-  exec "w"
-  if &filetype == 'cpp'
-    exec "!g++ -O3 -std=c++11 % -o %<"
-    exec "!time ./%<"
-  elseif &filetype == 'c'
-    exec "!gcc -O3 -std=c11 % -o %<"
-    exec "!time ./%<"
-  elseif &filetype == 'java'
-    exec "!javac %"
-    exec "!time java %<"
-  elseif &filetype == 'sh'
-    :!time bash %
-  elseif &filetype == 'python'
-    silent! exec "!clear"
-    exec "!time python3 %"
-  elseif &filetype == 'html'
-    exec "!chromium % &"
-  elseif &filetype == 'markdown'
-    exec "MarkdownPreview"
-  elseif &filetype == 'vimwiki'
-    exec "MarkdownPreview"
-  endif
-endfunction
+map re /\(\<\w\+\>\)\_s*\1
 
 
 
 " ***
-" *** Plugin Install With Vim-Plug
+" *** Plugins Install With Vim-Plug
 " ***
 
 call plug#begin('~/.config/nvim/plugged')
+
 " Themes
 Plug 'mhinz/vim-startify'
-Plug 'connorholyday/vim-snazzy'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'vim-airline/vim-airline-themes'
 
 " Visualizer enhancement
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
+Plug 'ryanoasis/vim-devicons'
 
 " Clipboard bar
-Plug 'junegunn/vim-peekaboo'
+"Plug 'junegunn/vim-peekaboo'
 
 " File navigation
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'mbbill/undotree'
+
+" Ultisnips
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" More vivid highlight enhancement for C++
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+" Quick Run
+Plug 'skywind3000/asyncrun.vim'
+
+" Local highlight in Python variable
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
+" Debugger
+Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+
+" Find & Search
+Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
 Plug 'junegunn/fzf', {'do' : {-> fzf#install()} }
 Plug 'francoiscabrol/ranger.vim'
 
 " Undo Tree
 Plug 'mbbill/undotree'
 
-" Local highlight in python variable
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-
-" Debuger
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python --enable-go'}
-
-" Find & Search
-Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
-
 " Auto Complete
-"Plug 'Valloric/YouCompleteMe'
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Format
-Plug 'tell-k/vim-autopep8'
 Plug 'godlygeek/tabular'
 
-"Tag bar navigation
+" Tag bar navigation
 Plug 'majutsushi/tagbar'
-
-" Bookmarks
-Plug 'MattesGroeger/vim-bookmarks'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+Plug 'gabrielelana/vim-markdown'
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 
 " HTML, CSS, JavaScript, PHP, JSON, etc.
-Plug 'mattn/emmet-vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'pangloss/vim-javascript', { 'for' :['javascript', 'vim-plug'] }
+Plug 'hail2u/vim-css3-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'pangloss/vim-javascript', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'yuezk/vim-js', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'jelera/vim-javascript-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
+Plug 'elzr/vim-json'
+
+" PDF preview
+Plug 'makerj/vim-pdf'
 
 call plug#end()
 
 
 
 " ***
-" *** theme settings
+" *** Dress up my neovim
 " ***
-set termguicolors "enable true colors support"
-let g:SnazzyTransparent = 1
-let g:lightline = {
-\ 'colorscheme': 'snazzy',
-\ }
-colorscheme snazzy
+set termguicolors    "enable true colors support"
+colorscheme dracula
+
+" ***
+" *** cpp highlight enhanced
+" ***
+let g:cpp_class_scope_highlight                   = 1
+let g:cpp_member_variable_highlight               = 1
+let g:cpp_class_decl_highlight                    = 1
+let g:cpp_posix_standard                          = 1
+"let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_experimental_template_highlight         = 1
+let g:cpp_concepts_highlight                      = 1
+let g:cpp_no_function_highlight                   = 1
+let c_no_curly_error                              = 1
 
 " ***
 " *** Nerd Tree
@@ -274,8 +247,7 @@ let NERDTreeHighlightCursorline = 1
 let NERDTreeShowLineNumbers     = 1
 let NERDTreeChDirMode           = 1
 let NERDTreeShowBookmarks       = 1
-let NERDTreeWinSize             = 25
-let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.egg$', '^\.git$', '^\.repo$', '^\.svn$', '^\.hg$' ]
+let NERDTreeWinSize             = 40
 map nt :NERDTreeToggle<CR>
 
 " ***
@@ -293,12 +265,6 @@ let g:undotree_ShortIndicators    = 1
 let g:undotree_WindowLayout       = 2
 let g:undotree_DiffpanelHeight    = 8
 let g:undotree_SplitWidth         = 24
-function g:Undotree_CustomMap()
-	nmap <buffer> u <plug>UndotreeNextState
-	nmap <buffer> e <plug>UndotreePreviousState
-	nmap <buffer> U 5<plug>UndotreeNextState
-	nmap <buffer> E 5<plug>UndotreePreviousState
-endfunction
 
 " ***
 " *** FZF
@@ -306,12 +272,12 @@ endfunction
 map <C-f> :FZF<CR>
 
 " ***
-" *** You Complete Me
+" *** Markdown Preview
 " ***
-let g:ycm_autoclose_preview_window_after_completion = 0
-let g:ycm_autoclose_preview_window_after_insertion  = 1
-let g:ycm_use_clangd                                = 0
-let g:ycm_python_binary_path = g:ycm_python_interpreter_path
+let g:mkdp_path_to_chrome = "chromium"
+let g:mkdp_auto_close     = 0
+nmap <F6> <Plug>MarkdownPreview
+nmap <F7> <Plug>StopMarkdownPreview
 
 " ***
 " *** Tagbar navigation
@@ -323,17 +289,11 @@ let g:tagbar_left      = 1
 map tb :TagbarToggle<CR>
 
 " ***
-" *** Emmet
+" *** Html CSS3 JavaScript PHP JSON
 " ***
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstal
-let g:user_emmet_leader_key='<C-m>' " shift key
-
-" ***
-" *** Autopep8
-" ***
-let g:autopep8_disable_show_diff=1
-autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow  = 1
 
 " ***
 " *** Tabular
@@ -341,69 +301,68 @@ autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 vnoremap <tab> :Tabularize 
 
 " ***
-" *** Vim-bookmarks
+" *** Ultisnips
 " ***
-let g:bookmark_no_default_key_mappings = 1
-nmap bm <Plug>BookmarkToggle
-nmap ma <Plug>BookmarkAnnotate
-nmap ml <Plug>BookmarkShowAll
-nmap mi <Plug>BookmarkNext
-nmap mn <Plug>BookmarkPrev
-nmap mC <Plug>BookmarkClear
-nmap mX <Plug>BookmarkClearAll
-nmap mu <Plug>BookmarkMoveUp
-nmap me <Plug>BookmarkMoveDown
-nmap <Leader>g <Plug>BookmarkMoveToLine
-let g:bookmark_save_per_working_dir = 1
-let g:bookmark_auto_save            = 1
-let g:bookmark_highlight_lines      = 1
-let g:bookmark_manage_per_buffer    = 1
-let g:bookmark_save_per_working_dir = 1
-let g:bookmark_center               = 1
-let g:bookmark_auto_close           = 1
-let g:bookmark_location_list        = 1
+let g:UltiSnipsExpandTrigger       = "<leader>"
+let g:UltiSnipsJumpForwardTrigger  = "<leader>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-z>"
+let g:UltiSnipsSnippetDirectories  = [$HOME.'/.config/nvim/Ultisnips/']
+let g:UltiSnipsUsePythonVersion    = 3
 
 " ***
-" *** airline
+" *** Quick Run via <F10>
 " ***
-let g:airline#extensions#tabline#enabled=1
-let g:airline_theme='bubblegum'
-" show status bar icon
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-" <leader>1~9 shift buffer 1~9
-map <leader>1 :b 1<CR>
-map <leader>2 :b 2<CR>
-map <leader>3 :b 3<CR>
-map <leader>4 :b 4<CR>
-map <leader>5 :b 5<CR>
-map <leader>6 :b 6<CR>
-map <leader>7 :b 7<CR>
-map <leader>8 :b 8<CR>
-map <leader>9 :b 9<CR>
+nnoremap <F10> :call <SID>compile_and_run()<CR>
+function! s:compile_and_run()
+    exec 'w'
+    if &filetype == 'cpp'
+        exec "AsyncRun! g++ -O3 -lpthread -std=c++11 % -o %<; time ./%<"
+    elseif &filetype == 'c'
+        exec "AsyncRun! gcc -O3 -lpthread -std=c11 % -o %<; time ./%<"
+    elseif &filetype == 'python'
+        exec "AsyncRun! time python3 %"
+    elseif &filetype == 'html'
+        exec "AsyncRun! chromium % &"
+    elseif &filetype == 'java'
+        exec "AsyncRun! javac %; time java %<"
+    elseif &filetype == 'sh'
+        exec "AsyncRun! time bash %"
+    endif
+endfunction
+
+let g:asyncrun_open = 15
+
+" ***
+" *** Airline
+" ***
+let g:airline_powerline_fonts            = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme                      = 'deus'
 
 " ***
 " *** Indentline
 " ***
 let g:indentLine_enabled    = 1
-let g:indentLine_setColors  = 1
 let g:indentLine_color_term = 255
+
+" ***
+" *** Vim-devicons
+" ***
+let g:webdevicons_enable_nerdtree           = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:webdevicons_enable_airline_tabline    = 1
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_startify           = 1
+
+" ***
+" *** Semshi
+" ***
+nmap <silent> rr :Semshi rename<CR>
 
 " ***
 " *** Coc.nvim
 " ***
-let g:coc_global_extensions = ['coc-json', 'coc-html', 'coc-css', 'coc-python', 'coc-highlight', 'coc-yank', 'coc-vimlsp', 'coc-diagnostic']
-set statusline^=%{coc#status()}
-" Use ? to show documentation in preview window
-nnoremap ? :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+let g:coc_global_extensions = ['coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-vimlsp']
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -411,5 +370,4 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-reference)
 nmap <silent> rn <Plug>(coc-rename)
 
-nnoremap <silent> y<space> :<C-u>CocList -A --normal yank<cr>
-
+nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<CR>
