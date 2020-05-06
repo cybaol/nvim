@@ -6,10 +6,15 @@ there are some bugs still.
 
 ## Dependence Installation
 
-#### tagbar depends on 'ctags'
+#### vista depends on 'universal-ctags'
 ```bash
-sudo apt install ctags
+sudo apt-get install libjansson-dev
+
+git clone --depth=1 https://github.com/universal-ctags/ctags.git
+cd ctags
 ```
+and then [click here](https://github.com/universal-ctags/ctags/blob/master/docs/autotools.rst) installing from official docs
+
 #### coc.nvim depends on 'nodejs'
 ```bash
 sudo apt install nodejs

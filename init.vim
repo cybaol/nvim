@@ -33,15 +33,14 @@ let &t_ut=''
 " backup & temp file
 set noundofile
 set nobackup
+set nowritebackup
 set noswapfile
 
 " ***
 " *** Main code display
 " ***
 set number
-"set relativenumber
 set ruler
-set cursorline
 syntax enable
 syntax on
 
@@ -124,6 +123,7 @@ au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
 map ss :set nosplitright<CR>:vsplit<CR>
+map st :vs term://$SHELL<CR>
 
 noremap i k
 noremap k j
@@ -157,12 +157,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
 Plug 'yggdroot/indentline'
 Plug 'ryanoasis/vim-devicons'
+Plug 'airblade/vim-gitgutter'
 
 " Clipboard bar
-"Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-peekaboo'
 
 " File navigation
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mbbill/undotree'
 
@@ -185,6 +187,7 @@ Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-
 " Find & Search
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
 Plug 'junegunn/fzf', {'do' : {-> fzf#install()} }
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'francoiscabrol/ranger.vim'
 
 " Undo Tree
@@ -197,8 +200,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Format
 Plug 'godlygeek/tabular'
 
-" Tag bar navigation
-Plug 'majutsushi/tagbar'
+" Taglist
+Plug 'liuchengxu/vista.vim'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
@@ -251,6 +254,22 @@ let NERDTreeWinSize             = 40
 map nt :NERDTreeToggle<CR>
 
 " ***
+" *** NerdTree-git-plugin
+" ***
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+" ***
 " *** Nerdcommenter
 " ***
 map c<space> <leader>c<space>
@@ -280,13 +299,18 @@ nmap <F6> <Plug>MarkdownPreview
 nmap <F7> <Plug>StopMarkdownPreview
 
 " ***
-" *** Tagbar navigation
+" *** Vista.vim
 " ***
-let g:tagbar_ctags_bin = 'ctags'
-let g:tagbar_width     = 30
-let g:tagbar_autofocus = 1
-let g:tagbar_left      = 1
-map tb :TagbarToggle<CR>
+nnoremap <C-v> :Vista<CR>
+let g:vista_icon_indent          = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive    = 'ctags'
+let g:vista_fzf_preview          = ['right:50%']
+let g:vista#renderer#enable_icon = 1
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+set statusline+=%{NearestMethodOrFunction()}
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " ***
 " *** Html CSS3 JavaScript PHP JSON
@@ -298,13 +322,13 @@ let g:javascript_plugin_flow  = 1
 " ***
 " *** Tabular
 " ***
-vnoremap <tab> :Tabularize 
+vnoremap <space><tab> :Tabularize 
 
 " ***
 " *** Ultisnips
 " ***
-let g:UltiSnipsExpandTrigger       = "<leader>"
-let g:UltiSnipsJumpForwardTrigger  = "<leader>"
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-z>"
 let g:UltiSnipsSnippetDirectories  = [$HOME.'/.config/nvim/Ultisnips/']
 let g:UltiSnipsUsePythonVersion    = 3
@@ -338,6 +362,13 @@ let g:asyncrun_open = 15
 let g:airline_powerline_fonts            = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme                      = 'deus'
+" shift buffers
+nnoremap b[ :bp<CR>
+nnoremap [b :bp<CR>
+nnoremap b] :bn<CR>
+nnoremap ]b :bn<CR>
+" close current buffer
+noremap <C-x> :bd!<CR>
 
 " ***
 " *** Indentline
@@ -362,7 +393,27 @@ nmap <silent> rr :Semshi rename<CR>
 " ***
 " *** Coc.nvim
 " ***
-let g:coc_global_extensions = ['coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-vimlsp']
+set hidden
+set updatetime=40
+set shortmess+=c
+set signcolumn=yes
+
+let g:coc_global_extensions = ['coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-pairs', 'coc-vimlsp']
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+nnoremap <silent> ? :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -370,4 +421,4 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-reference)
 nmap <silent> rn <Plug>(coc-rename)
 
-nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<CR>
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
