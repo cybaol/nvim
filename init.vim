@@ -1,7 +1,18 @@
+" *******************************************************************
+"                              My Neovim
+"        Author      : Kino
+"        Email       : cybao292261@163.com
+"        Address     : github.com/cybaol/nvim
+"        Description : these configs can make your work productive
+"
+"               CopyRight (C) 2020 All rights reserved
+" *******************************************************************
+
 " ***
 " *** Auto Load for First Usage
 " ***
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
+    silent exec "!mkdir ~/.config/nvim/autoload"
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -11,6 +22,11 @@ endif
 if empty(glob('~/.pip/pip.conf'))
     silent! exec "!mkdir ~/.pip"
     silent! exec "!cp ~/.config/nvim/default_configs/pip.conf ~/.pip/"
+endif
+
+" cpp debugger configs
+if empty(glob('~/.vimspector.json'))
+    silent! exec "!cp ~/.config/nvim/default_configs/vimspector_cpp.json ~/.vimspector.json"
 endif
 
 source ~/.config/nvim/_machine_specific.vim
@@ -182,7 +198,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " Debugger
-Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-c --enable-python'}
+Plug 'puremourning/vimspector', {'do': './vimspector/install_gadget.py --enable-c --enable-python'}
 
 " Find & Search
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
@@ -244,6 +260,14 @@ let g:cpp_no_function_highlight                   = 1
 let c_no_curly_error                              = 1
 
 " ***
+" *** vimspector
+" ***
+let g:vimspector_enable_mappings = 'HUMAN'
+sign define vimspectorBP text=☛ texthl=Normal
+sign define vimspectorBPDisabled text=☞ texthl=Normal
+nnoremap <F7> :call vimspector#Reset()<CR>
+
+" ***
 " *** Nerd Tree
 " ***
 let NERDTreeHighlightCursorline = 1
@@ -293,15 +317,12 @@ map <C-f> :FZF<CR>
 " ***
 " *** Markdown Preview
 " ***
-let g:mkdp_path_to_chrome = "chromium"
-let g:mkdp_auto_close     = 0
-nmap <F6> <Plug>MarkdownPreview
-nmap <F7> <Plug>StopMarkdownPreview
+let g:mkdp_browser = 'chromium'
 
 " ***
 " *** Vista.vim
 " ***
-nnoremap <C-v> :Vista<CR>
+nnoremap tb :Vista<CR>
 let g:vista_icon_indent          = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive    = 'ctags'
 let g:vista_fzf_preview          = ['right:50%']
@@ -334,9 +355,9 @@ let g:UltiSnipsSnippetDirectories  = [$HOME.'/.config/nvim/Ultisnips/']
 let g:UltiSnipsUsePythonVersion    = 3
 
 " ***
-" *** Quick Run via <F10>
+" *** Quick Run via R
 " ***
-nnoremap <F10> :call <SID>compile_and_run()<CR>
+nnoremap R :call <SID>compile_and_run()<CR>
 function! s:compile_and_run()
     exec 'w'
     if &filetype == 'cpp'

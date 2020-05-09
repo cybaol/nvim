@@ -20,6 +20,15 @@ and then [click here](https://github.com/universal-ctags/ctags/blob/master/docs/
 sudo apt install nodejs
 npm install -g neovim
 ```
+#### vimspector depends on 'debugpy'
+```bash
+pip3 install debugpy
+```
+#### vscode-cpptools depends on 'mono-core'
+```bash
+sudo apt install gdb
+```
+
 ## ccls Installation
 ```bash
 sudo apt install ccls
@@ -51,5 +60,7 @@ sudo apt install silversearcher-ag
 
 sudo apt install ranger
 ranger --copy-config=all
+
+[nerd fonts](www.nerdfonts.com)
 ```
 now you can use it!
