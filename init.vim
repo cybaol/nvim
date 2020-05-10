@@ -227,9 +227,6 @@ Plug 'jelera/vim-javascript-syntax', { 'for': ['vim-plug', 'php', 'html', 'javas
 Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'elzr/vim-json'
 
-" PDF preview
-"Plug 'makerj/vim-pdf'
-
 call plug#end()
 
 
