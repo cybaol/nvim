@@ -57,8 +57,10 @@ sudo apt install fzf
 sudo apt install silversearcher-ag
 
 sudo apt install ranger
-git clone https://github.com/ranger.git ~/.config/ranger
+git clone https://github.com/cybaol/ranger.git ~/.config/ranger
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+git clone https://github.com/maximtrp/ranger-archives ~/.config/ranger/plugins/ranger-archives
+make install
 
 [nerd fonts](www.nerdfonts.com)
 ```
