@@ -218,11 +218,6 @@ Plug 'godlygeek/tabular'
 " Taglist
 Plug 'liuchengxu/vista.vim'
 
-" Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
-Plug 'gabrielelana/vim-markdown'
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-
 " HTML, CSS, JavaScript, PHP, JSON, etc.
 Plug 'hail2u/vim-css3-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'pangloss/vim-javascript', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
@@ -233,7 +228,7 @@ Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'elzr/vim-json'
 
 " PDF preview
-Plug 'makerj/vim-pdf'
+"Plug 'makerj/vim-pdf'
 
 call plug#end()
 
@@ -312,11 +307,6 @@ let g:undotree_SplitWidth         = 24
 " *** FZF
 " ***
 map <C-f> :FZF<CR>
-
-" ***
-" *** Markdown Preview
-" ***
-let g:mkdp_browser = 'chromium'
 
 " ***
 " *** Vista.vim
