@@ -12,7 +12,6 @@
 " *** Auto Load for First Usage
 " ***
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-    silent exec "!mkdir ~/.config/nvim/autoload"
 	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -198,7 +197,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " Debugger
-Plug 'puremourning/vimspector', {'do': './vimspector/install_gadget.py --enable-c --enable-python'}
+Plug 'puremourning/vimspector', {'do': '~/.config/nvim/plugged/vimspector/install_gadget.py --enable-c --enable-python'}
 
 " Find & Search
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }

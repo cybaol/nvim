@@ -40,16 +40,14 @@ please [click here](https://github.com/MaskRay/ccls/wiki) installing from ccls w
 ```vim
 sudo apt install neovim
 
-sudo nvim /etc/hosts
+sudo vim /etc/hosts
 
 add '199.233.68.133 raw.githubusercontent.com' to hosts
 add '151.101.108.223 pypi.python.org' to hosts
 
-git clone --depth=1 https://github.com/cybaol/nvim.git ~/.config/
+git clone https://github.com/cybaol/nvim.git ~/.config/nvim
 
-nvim
-
-:PlugInstall
+vim
 
 :checkhealth
 ```
@@ -59,7 +57,8 @@ sudo apt install fzf
 sudo apt install silversearcher-ag
 
 sudo apt install ranger
-ranger --copy-config=all
+git clone https://github.com/ranger.git ~/.config/ranger
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
 
 [nerd fonts](www.nerdfonts.com)
 ```
