@@ -56,6 +56,7 @@ set noswapfile
 " ***
 set number
 set ruler
+set cursorline
 syntax enable
 syntax on
 
@@ -173,6 +174,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'yggdroot/indentline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
+Plug 'luochen1990/rainbow'
 
 " Clipboard bar
 Plug 'junegunn/vim-peekaboo'
@@ -226,6 +228,9 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['vim-plug', 'php', 'html', 'javascrip
 Plug 'jelera/vim-javascript-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
 Plug 'elzr/vim-json'
+
+" PDF preview
+Plug 'makerj/vim-pdf'
 
 call plug#end()
 
@@ -339,6 +344,11 @@ let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-z>"
 let g:UltiSnipsSnippetDirectories  = [$HOME.'/.config/nvim/Ultisnips/']
 let g:UltiSnipsUsePythonVersion    = 3
+
+" ***
+" *** rainbow
+" ***
+let g:rainbow_active = 1
 
 " ***
 " *** Quick Run via R
