@@ -12,9 +12,9 @@
 " *** Auto Load for First Usage
 " ***
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " change pip mirror
@@ -216,6 +216,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Format
 Plug 'godlygeek/tabular'
+Plug 'chiel92/vim-autoformat'
 
 " Taglist
 Plug 'liuchengxu/vista.vim'
@@ -277,17 +278,17 @@ map nt :NERDTreeToggle<CR>
 " *** NerdTree-git-plugin
 " ***
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+            \ "Modified"  : "✹",
+            \ "Staged"    : "✚",
+            \ "Untracked" : "✭",
+            \ "Renamed"   : "➜",
+            \ "Unmerged"  : "═",
+            \ "Deleted"   : "✖",
+            \ "Dirty"     : "✗",
+            \ "Clean"     : "✔︎",
+            \ 'Ignored'   : '☒',
+            \ "Unknown"   : "?"
+            \ }
 
 " ***
 " *** Nerdcommenter
@@ -319,7 +320,7 @@ let g:vista_default_executive    = 'ctags'
 let g:vista_fzf_preview          = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
+    return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
@@ -332,9 +333,14 @@ let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow  = 1
 
 " ***
+" *** autoformat
+" ***
+au BufWrite * :Autoformat
+
+" ***
 " *** Tabular
 " ***
-vnoremap <space><tab> :Tabularize 
+vnoremap <space><tab> :Tabularize<space>
 
 " ***
 " *** Ultisnips
@@ -418,18 +424,18 @@ set signcolumn=yes
 let g:coc_global_extensions = ['coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-pairs', 'coc-vimlsp']
 
 if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
 nnoremap <silent> ? :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 nmap <silent> gd <Plug>(coc-definition)
