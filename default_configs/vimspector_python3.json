@@ -1,21 +1,21 @@
 {
-  "configurations": {
-    "run - debugpy": {
-      "adapter": "debugpy",
-      "configuration": {
-        "request": "launch",
-        "type": "python3",
-        "cwd": "${workspaceRoot}",
-        "program": "${file}",
-        "stopOnEntry": true,
-        "console": "integratedTerminal"
-      },
-      "breakpoints": {
-        "exception": {
-          "raised": "N",
-          "uncaught": ""
+    "configurations": {
+        "run - debugpy": {
+            "adapter": "debugpy",
+            "configuration": {
+                "request": "launch",
+                "type": "python3",
+                "cwd": "${workspaceRoot}",
+                "program": "${file}",
+                "stopOnEntry": true,
+                "console": "integratedTerminal"
+            },
+            "breakpoints": {
+                "exception": {
+                    "raised": "N",
+                    "uncaught": ""
+                }
+            }
         }
-      }
     }
-  }
 }

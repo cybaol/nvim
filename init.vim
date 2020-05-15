@@ -5,7 +5,7 @@
 "        Address     : github.com/cybaol/nvim
 "        Description : these configs can make your work productive
 "
-"               CopyRight (C) 2020 All rights reserved
+"               CopyRight (C) 2020 All Rights Reserved
 " *******************************************************************
 
 " ***
@@ -335,7 +335,7 @@ let g:javascript_plugin_flow  = 1
 " ***
 " *** autoformat
 " ***
-au BufWrite * :Autoformat
+nnoremap fm :Autoformat<CR>
 
 " ***
 " *** Tabular
