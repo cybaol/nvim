@@ -21,6 +21,7 @@ endif
 if empty(glob('~/.pip/pip.conf'))
     silent! exec "!mkdir ~/.pip"
     silent! exec "!cp ~/.config/nvim/default_configs/pip.conf ~/.pip/"
+    silent! exec "!source ~/.pip/pip.conf"
 endif
 
 " cpp debugger configs
@@ -34,6 +35,7 @@ if empty(glob('~/.config/fish/config.fish'))
         silent! exec "!mkdir ~/.config/fish"
     endif
     silent! exec "!cp ~/.config/nvim/default_configs/config.fish ~/.config/fish/"
+    silent! exec "!source ~/.config/fish/config.fish"
 endif
 
 source ~/.config/nvim/_machine_specific.vim
