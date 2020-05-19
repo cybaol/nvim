@@ -2,8 +2,6 @@
 
 ### my platform : Deepin v20 Beta (based on Debian10)
 
-there are some bugs still.
-
 ## Dependence Installation
 
 #### vista depends on 'universal-ctags'
@@ -17,16 +15,13 @@ and then [click here](https://github.com/universal-ctags/ctags/blob/master/docs/
 
 #### coc.nvim depends on 'nodejs'
 ```bash
-sudo apt install nodejs
-npm install -g neovim
+sudo apt install nodejs npm
+sudo npm install -g neovim
 ```
-#### vimspector depends on 'debugpy'
-```bash
-pip3 install debugpy
-```
-#### vscode-cpptools depends on 'mono-core'
+#### vimspector for 'cpp' & 'python'
 ```bash
 sudo apt install gdb
+pip3 install debugpy
 ```
 
 ## ccls Installation
@@ -61,7 +56,6 @@ git clone https://github.com/cybaol/ranger.git ~/.config/ranger
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
 git clone https://github.com/maximtrp/ranger-archives ~/.config/ranger/plugins/ranger-archives
 make install
-
-[nerd fonts](www.nerdfonts.com)
 ```
-now you can use it!
+if you want to have a better experience, recommend to install [nerdfonts](www.nerdfonts.com)
+now you can use it !

@@ -21,7 +21,6 @@ endif
 if empty(glob('~/.pip/pip.conf'))
     silent! exec "!mkdir ~/.pip"
     silent! exec "!cp ~/.config/nvim/default_configs/pip.conf ~/.pip/"
-    silent! exec "!source ~/.pip/pip.conf"
 endif
 
 " cpp debugger configs
@@ -431,7 +430,7 @@ set updatetime=40
 set shortmess+=c
 set signcolumn=yes
 
-let g:coc_global_extensions = ['coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-pairs', 'coc-vimlsp']
+let g:coc_global_extensions = ['coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-pairs', 'coc-yank', 'coc-vimlsp']
 
 if exists('*complete_info')
     inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -454,4 +453,5 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-reference)
 nmap <silent> rn <Plug>(coc-rename)
 
+nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<CR>
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
