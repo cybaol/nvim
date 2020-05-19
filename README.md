@@ -57,5 +57,5 @@ git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger
 git clone https://github.com/maximtrp/ranger-archives ~/.config/ranger/plugins/ranger-archives
 make install
 ```
-if you want to have a better experience, recommend to install [nerdfonts](www.nerdfonts.com)
+if you want to have a better experience, recommend to install [nerdfonts](https://www.nerdfonts.com)  
 now you can use it !
