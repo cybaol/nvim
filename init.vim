@@ -23,11 +23,6 @@ if empty(glob('~/.pip/pip.conf'))
     silent! exec "!cp ~/.config/nvim/default_configs/pip.conf ~/.pip/"
 endif
 
-" cpp debugger configs
-if empty(glob('~/.vimspector.json'))
-    silent! exec "!cp ~/.config/nvim/default_configs/vimspector_cpp.json ~/.vimspector.json"
-endif
-
 " fish shell
 if empty(glob('~/.config/fish/config.fish'))
     if empty(glob("~/.config/fish"))
@@ -269,6 +264,16 @@ let c_no_curly_error                              = 1
 " *** vimspector
 " ***
 let g:vimspector_enable_mappings = 'HUMAN'
+function! s:read_template_into_buffer(template)
+    " has to be a function to avoid the extra space fzf#run insers otherwise
+    execute '0r ~/.config/nvim/vimspector-json/'.a:template
+endfunction
+command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
+            \   'source': 'ls -1 ~/.config/nvim/vimspector-json',
+            \   'down': 20,
+            \   'sink': function('<sid>read_template_into_buffer')
+            \ })
+noremap vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
 sign define vimspectorBP text=☛ texthl=Normal
 sign define vimspectorBPDisabled text=☞ texthl=Normal
 nnoremap <F7> :call vimspector#Reset()<CR>
