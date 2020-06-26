@@ -186,8 +186,12 @@ Plug 'junegunn/vim-peekaboo'
 " File navigation
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/nerdcommenter'
 Plug 'mbbill/undotree'
+
+" Quick comment & moving
+Plug 'scrooloose/nerdcommenter'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
 
 " Ultisnips
 Plug 'SirVer/ultisnips'
@@ -308,6 +312,14 @@ let g:NERDTreeIndicatorMapCustom = {
 " *** Nerdcommenter
 " ***
 map c<space> <leader>c<space>
+
+" ***
+" *** vim-easymotion
+" ***
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_do_shade   = 0
+let g:EasyMotion_smartcase  = 1
+nmap em <Plug>(easymotion-overwin-f2)
 
 " ***
 " *** Undotree
