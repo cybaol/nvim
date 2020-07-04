@@ -229,7 +229,11 @@ Plug 'chiel92/vim-autoformat'
 " Taglist
 Plug 'liuchengxu/vista.vim'
 
+" Markdown
+Plug 'iamcco/markdown-preview.vim'
+
 " HTML, CSS, JavaScript, PHP, JSON, etc.
+Plug 'turbio/bracey.vim', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'pangloss/vim-javascript', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'yuezk/vim-js', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
@@ -311,7 +315,8 @@ let g:NERDTreeIndicatorMapCustom = {
 " ***
 " *** Nerdcommenter
 " ***
-map c<space> <leader>c<space>
+map gc <leader>c<space>
+let g:NERDSpaceDelims = 1
 
 " ***
 " *** vim-easymotion
