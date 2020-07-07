@@ -170,11 +170,10 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Themes
 Plug 'mhinz/vim-startify'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
 
 " Visualizer enhancement
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'yggdroot/indentline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
@@ -215,9 +214,6 @@ Plug 'junegunn/fzf', {'do' : {-> fzf#install()} }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'francoiscabrol/ranger.vim'
 
-" Undo Tree
-Plug 'mbbill/undotree'
-
 " Auto Complete
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -253,7 +249,9 @@ call plug#end()
 " *** Dress up my neovim
 " ***
 set termguicolors    "enable true colors support"
-colorscheme dracula
+colorscheme gruvbox
+set background=dark
+hi Function cterm=bold gui=bold
 
 " ***
 " *** cpp highlight enhanced
@@ -324,7 +322,7 @@ let g:NERDSpaceDelims = 1
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_do_shade   = 0
 let g:EasyMotion_smartcase  = 1
-nmap em <Plug>(easymotion-overwin-f2)
+nmap mv <Plug>(easymotion-overwin-f2)
 
 " ***
 " *** Undotree
@@ -383,7 +381,7 @@ let g:UltiSnipsSnippetDirectories  = [$HOME.'/.config/nvim/Ultisnips/']
 let g:UltiSnipsUsePythonVersion    = 3
 
 " ***
-" *** rainbow
+" *** Rainbow
 " ***
 let g:rainbow_active = 1
 
@@ -411,11 +409,9 @@ endfunction
 let g:asyncrun_open = 15
 
 " ***
-" *** Airline
+" *** Lightline
 " ***
-let g:airline_powerline_fonts            = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme                      = 'deus'
+set noshowmode
 " shift buffers
 nnoremap b[ :bp<CR>
 nnoremap [b :bp<CR>
@@ -435,9 +431,22 @@ let g:indentLine_color_term = 255
 " ***
 let g:webdevicons_enable_nerdtree           = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:webdevicons_enable_airline_tabline    = 1
-let g:webdevicons_enable_airline_statusline = 1
 let g:webdevicons_enable_startify           = 1
+let g:webdevicons_enable_ctrlp              = 1
+let g:lightline = {
+            \ 'component_function': {
+            \   'filetype': 'MyFiletype',
+            \   'fileformat': 'MyFileformat',
+            \ }
+            \ }
+
+function! MyFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " ***
 " *** Semshi
