@@ -98,7 +98,7 @@ set splitright
 set splitbelow
 
 " ***
-" *** Status/command bar
+" *** Status/Command bar
 " ***
 set laststatus=2
 set autochdir
@@ -170,10 +170,10 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Themes
 Plug 'mhinz/vim-startify'
-Plug 'morhetz/gruvbox'
+Plug 'theniceboy/vim-deus'
 
 " Visualizer enhancement
-Plug 'itchyny/lightline.vim'
+Plug 'liuchengxu/eleline.vim'
 Plug 'yggdroot/indentline'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
@@ -188,7 +188,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mbbill/undotree'
 
 " Quick comment & moving
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 
@@ -211,7 +211,6 @@ Plug 'puremourning/vimspector', {'do': '~/.config/nvim/plugged/vimspector/instal
 " Find & Search
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
 Plug 'junegunn/fzf', {'do' : {-> fzf#install()} }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'francoiscabrol/ranger.vim'
 
 " Auto Complete
@@ -249,9 +248,8 @@ call plug#end()
 " *** Dress up my neovim
 " ***
 set termguicolors    "enable true colors support"
-colorscheme gruvbox
-set background=dark
-hi Function cterm=bold gui=bold
+colorscheme deus
+hi Function cterm=bold ctermfg=LightGray gui=bold
 
 " ***
 " *** cpp highlight enhanced
@@ -311,12 +309,6 @@ let g:NERDTreeIndicatorMapCustom = {
             \ }
 
 " ***
-" *** Nerdcommenter
-" ***
-map gc <leader>c<space>
-let g:NERDSpaceDelims = 1
-
-" ***
 " *** vim-easymotion
 " ***
 let g:EasyMotion_do_mapping = 0
@@ -334,11 +326,6 @@ let g:undotree_ShortIndicators    = 1
 let g:undotree_WindowLayout       = 2
 let g:undotree_DiffpanelHeight    = 8
 let g:undotree_SplitWidth         = 24
-
-" ***
-" *** FZF
-" ***
-map <C-f> :FZF<CR>
 
 " ***
 " *** Vista.vim
@@ -362,7 +349,7 @@ let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow  = 1
 
 " ***
-" *** autoformat
+" *** Autoformat
 " ***
 nnoremap fm :Autoformat<CR>
 
@@ -392,13 +379,13 @@ nnoremap R :call <SID>compile_and_run()<CR>
 function! s:compile_and_run()
     exec 'w'
     if &filetype == 'cpp'
-        exec "AsyncRun! g++ -O3 -lpthread -std=c++11 % -o %<; time ./%<"
+        exec "AsyncRun! g++ -O3 -pthread -std=c++20 % -o %<; time ./%<"
     elseif &filetype == 'c'
-        exec "AsyncRun! gcc -O3 -lpthread -std=c11 % -o %<; time ./%<"
+        exec "AsyncRun! gcc -O3 -pthread -std=c2x % -o %<; time ./%<"
     elseif &filetype == 'python'
         exec "AsyncRun! time python3 %"
     elseif &filetype == 'html'
-        exec "AsyncRun! chromium % &"
+        exec "AsyncRun! firefox % &"
     elseif &filetype == 'java'
         exec "AsyncRun! javac %; time java %<"
     elseif &filetype == 'sh'
@@ -409,9 +396,9 @@ endfunction
 let g:asyncrun_open = 15
 
 " ***
-" *** Lightline
+" *** eleline
 " ***
-set noshowmode
+let g:airline_powerline_fonts = 0
 " shift buffers
 nnoremap b[ :bp<CR>
 nnoremap [b :bp<CR>
@@ -432,21 +419,6 @@ let g:indentLine_color_term = 255
 let g:webdevicons_enable_nerdtree           = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:webdevicons_enable_startify           = 1
-let g:webdevicons_enable_ctrlp              = 1
-let g:lightline = {
-            \ 'component_function': {
-            \   'filetype': 'MyFiletype',
-            \   'fileformat': 'MyFileformat',
-            \ }
-            \ }
-
-function! MyFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! MyFileformat()
-    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
 
 " ***
 " *** Semshi
