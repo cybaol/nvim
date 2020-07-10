@@ -176,6 +176,7 @@ Plug 'theniceboy/vim-deus'
 Plug 'liuchengxu/eleline.vim'
 Plug 'yggdroot/indentline'
 Plug 'ryanoasis/vim-devicons'
+Plug 'kristijanhusak/defx-icons'
 Plug 'airblade/vim-gitgutter'
 Plug 'luochen1990/rainbow'
 
@@ -183,8 +184,8 @@ Plug 'luochen1990/rainbow'
 Plug 'junegunn/vim-peekaboo'
 
 " File navigation
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-git'
 Plug 'mbbill/undotree'
 
 " Quick comment & moving
@@ -199,6 +200,9 @@ Plug 'honza/vim-snippets'
 " More vivid highlight enhancement for C++
 Plug 'octol/vim-cpp-enhanced-highlight'
 
+" Leetcode
+Plug 'ianding1/leetcode.vim'
+
 " Quick Run
 Plug 'skywind3000/asyncrun.vim'
 
@@ -210,7 +214,7 @@ Plug 'puremourning/vimspector', {'do': '~/.config/nvim/plugged/vimspector/instal
 
 " Find & Search
 Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
-Plug 'junegunn/fzf', {'do' : {-> fzf#install()} }
+Plug 'Yggdroot/LeaderF', {'do': './install.sh' }
 Plug 'francoiscabrol/ranger.vim'
 
 " Auto Complete
@@ -283,30 +287,60 @@ sign define vimspectorBPDisabled text=☞ texthl=Normal
 nnoremap <F7> :call vimspector#Reset()<CR>
 
 " ***
-" *** Nerd Tree
+" *** Leetcode
 " ***
-let NERDTreeHighlightCursorline = 1
-let NERDTreeShowLineNumbers     = 1
-let NERDTreeChDirMode           = 1
-let NERDTreeShowBookmarks       = 1
-let NERDTreeWinSize             = 40
-map nt :NERDTreeToggle<CR>
+let g:leetcode_browser = 'firefox'
+nnoremap <leader>ll :LeetCodeList<CR>
+nnoremap <leader>lt :LeetCodeTest<CR>
+nnoremap <leader>ls :LeetCodeSubmit<CR>
+nnoremap <leader>li :LeetCodeSignIn<CR>
 
 " ***
-" *** NerdTree-git-plugin
+" *** Defx.nvim
 " ***
-let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified"  : "✹",
-            \ "Staged"    : "✚",
-            \ "Untracked" : "✭",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "═",
-            \ "Deleted"   : "✖",
-            \ "Dirty"     : "✗",
-            \ "Clean"     : "✔︎",
+call defx#custom#option('_', {
+            \ 'columns': 'indent:git:icons:filename',
+            \ 'winwidth': 35,
+            \ 'split': 'vertical',
+            \ 'direction': 'topleft',
+            \ 'listed': 1,
+            \ 'show_ignored_files': 0,
+            \ 'root_marker': '≡ ',
+            \ })
+
+nnoremap <silent> ;e :Defx<CR>
+
+function! s:defx_mappings() abort
+    setl number
+    nnoremap <silent><buffer><expr> <CR>  <SID>defx_toggle_tree()
+    nnoremap <silent><buffer><expr> zh    defx#do_action('toggle_ignored_files')
+endfunction
+
+function! s:defx_toggle_tree() abort
+    " Open current file or toggle directory expand/collapse
+    if defx#is_directory()
+        return defx#do_action('open_or_close_tree')
+    endif
+    return defx#do_action('multi', ['drop'])
+endfunction
+
+autocmd FileType defx call s:defx_mappings()
+
+" ***
+" *** Defx-git
+" ***
+let g:defx_git#indicators = {
+            \ 'Modified'  : '✹',
+            \ 'Staged'    : '✚',
+            \ 'Untracked' : '✭',
+            \ 'Renamed'   : '➜',
+            \ 'Unmerged'  : '═',
+            \ 'Deleted'   : '✖',
             \ 'Ignored'   : '☒',
-            \ "Unknown"   : "?"
+            \ 'Unknown'   : '?'
             \ }
+
+let g:defx_git#column_length = 0
 
 " ***
 " *** vim-easymotion
@@ -416,9 +450,7 @@ let g:indentLine_color_term = 255
 " ***
 " *** Vim-devicons
 " ***
-let g:webdevicons_enable_nerdtree           = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:webdevicons_enable_startify           = 1
+let g:webdevicons_enable_startify = 1
 
 " ***
 " *** Semshi
