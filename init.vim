@@ -17,6 +17,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+if empty(glob('~/.cache/dein/repos/github.com/Shougo/dein.vim'))
+    silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/installer.sh
+    silent !sh ~/installer.sh ~/.cache/dein
+    silent !rm ~/installer.sh
+endif
+
 " change pip mirror
 if empty(glob('~/.pip/pip.conf'))
     silent! exec "!mkdir ~/.pip"
@@ -135,13 +141,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " *** Basic Mappings
 " ***
 
-"change word to uppercase
-inoremap <C-u> <esc>gUiwea
-
-" <caps> -> <esc>
-au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
-
 map ss :set nosplitright<CR>:vsplit<CR>
 map st :vs term://$SHELL<CR>
 
@@ -163,96 +162,111 @@ map re /\(\<\w\+\>\)\_s*\1
 
 
 " ***
-" *** Plugins Install With Vim-Plug
+" *** Plugins Install With Dein
 " ***
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+    call dein#begin('~/.cache/dein')
+
+    call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+    call dein#add('haya14busa/dein-command.vim')
+
+    " Themes
+    call dein#add('mhinz/vim-startify')
+    call dein#add('rakr/vim-one')
+
+    " Visualizer enhancement
+    call dein#add('liuchengxu/eleline.vim')
+    call dein#add('yggdroot/indentline')
+    call dein#add('ryanoasis/vim-devicons')
+    call dein#add('kristijanhusak/defx-icons')
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('luochen1990/rainbow')
+
+    " Clipboard bar
+    call dein#add('junegunn/vim-peekaboo')
+
+    " File navigation
+    call dein#add('Shougo/defx.nvim')
+    call dein#add('kristijanhusak/defx-git')
+    call dein#add('mbbill/undotree')
+
+    " Quick comment & moving
+    call dein#add('tpope/vim-commentary')
+    call dein#add('easymotion/vim-easymotion')
+    call dein#add('tpope/vim-surround')
+
+    " Ultisnips
+    call dein#add('SirVer/ultisnips')
+    call dein#add('honza/vim-snippets')
+
+    " More vivid highlight enhancement for C++
+    call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': ['vim', 'c', 'cpp'] })
+
+    " Leetcode
+    call dein#add('ianding1/leetcode.vim')
+
+    " Quick Run
+    call dein#add('skywind3000/asyncrun.vim')
+
+    " Local highlight in Python variable
+    call dein#add('numirias/semshi', {'on_ft': ['vim', 'python'] })
+
+    " Debugger
+    call dein#add('puremourning/vimspector', {'build': '~/.cache/dein/repos/github.com/puremourning/vimspector/install_gadget.py --enable-c --enable-python'})
+
+    " Find & Search
+    call dein#add('brooth/far.vim', { 'on_event': ['F', 'Far', 'Fardo'] })
+    call dein#add('Yggdroot/LeaderF', {'build': './install.sh' })
+    call dein#add('francoiscabrol/ranger.vim') " dependency to bclose.vim
+    call dein#add('rbgrouleff/bclose.vim')
+
+    " Auto Complete
+    call dein#add('jiangmiao/auto-pairs')
+    call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
+
+    " Format
+    call dein#add('godlygeek/tabular')
+    call dein#add('chiel92/vim-autoformat')
+
+    " Taglist
+    call dein#add('liuchengxu/vista.vim')
+
+    " Markdown
+    call dein#add('iamcco/markdown-preview.vim', {'on_ft': ['vim', 'markdown'] })
+
+    " HTML, CSS, JavaScript, JSON, etc.
+    call dein#add('turbio/bracey.vim', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
+    call dein#add('hail2u/vim-css3-syntax', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
+    call dein#add('pangloss/vim-javascript', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
+    call dein#add('yuezk/vim-js', {'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
+    call dein#add('MaxMEllon/vim-jsx-pretty', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
+    call dein#add('jelera/vim-javascript-syntax', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
+    call dein#add('elzr/vim-json', {'on_ft': ['vim', 'json'] })
+
+    " PDF Preview
+    call dein#add('makerj/vim-pdf', {'on_ft': ['vim', 'pdf'] })
+
+    call dein#end()
+    call dein#save_state()
+endif
 
 call plug#begin('~/.config/nvim/plugged')
-
-" Themes
-Plug 'mhinz/vim-startify'
-Plug 'theniceboy/vim-deus'
-
-" Visualizer enhancement
-Plug 'liuchengxu/eleline.vim'
-Plug 'yggdroot/indentline'
-Plug 'ryanoasis/vim-devicons'
-Plug 'kristijanhusak/defx-icons'
-Plug 'airblade/vim-gitgutter'
-Plug 'luochen1990/rainbow'
-
-" Clipboard bar
-Plug 'junegunn/vim-peekaboo'
-
-" File navigation
-Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins' }
-Plug 'kristijanhusak/defx-git'
-Plug 'mbbill/undotree'
-
-" Quick comment & moving
-Plug 'tpope/vim-commentary'
-Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-surround'
-
-" Ultisnips
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" More vivid highlight enhancement for C++
-Plug 'octol/vim-cpp-enhanced-highlight'
-
-" Leetcode
-Plug 'ianding1/leetcode.vim'
-
-" Quick Run
-Plug 'skywind3000/asyncrun.vim'
-
-" Local highlight in Python variable
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-
-" Debugger
-Plug 'puremourning/vimspector', {'do': '~/.config/nvim/plugged/vimspector/install_gadget.py --enable-c --enable-python'}
-
-" Find & Search
-Plug 'brooth/far.vim', { 'on': ['F', 'Far', 'Fardo'] }
-Plug 'Yggdroot/LeaderF', {'do': './install.sh' }
-Plug 'francoiscabrol/ranger.vim'
-
-" Auto Complete
-Plug 'jiangmiao/auto-pairs'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Format
-Plug 'godlygeek/tabular'
-Plug 'chiel92/vim-autoformat'
-
-" Taglist
-Plug 'liuchengxu/vista.vim'
-
-" Markdown
-Plug 'iamcco/markdown-preview.vim'
-
-" HTML, CSS, JavaScript, PHP, JSON, etc.
-Plug 'turbio/bracey.vim', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'hail2u/vim-css3-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'pangloss/vim-javascript', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'yuezk/vim-js', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'jelera/vim-javascript-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
-Plug 'elzr/vim-json'
-
-" PDF preview
-Plug 'makerj/vim-pdf'
-
 call plug#end()
 
+if dein#check_install()
+    call dein#install()
+endif
 
 
-" ***
-" *** Dress up my neovim
-" ***
+
+" " ***
+" " *** Dress up my neovim
+" " ***
+set t_Co=256
 set termguicolors    "enable true colors support"
-colorscheme deus
+color one
 hi Function cterm=bold ctermfg=LightGray gui=bold
 
 " ***
@@ -343,6 +357,12 @@ let g:defx_git#indicators = {
 let g:defx_git#column_length = 0
 
 " ***
+" *** Ranger
+" ***
+let g:ranger_map_keys = 0
+map ra :Ranger<CR>
+
+" ***
 " *** vim-easymotion
 " ***
 let g:EasyMotion_do_mapping = 0
@@ -369,14 +389,9 @@ let g:vista_icon_indent          = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive    = 'ctags'
 let g:vista_fzf_preview          = ['right:50%']
 let g:vista#renderer#enable_icon = 1
-function! NearestMethodOrFunction() abort
-    return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-set statusline+=%{NearestMethodOrFunction()}
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " ***
-" *** Html CSS3 JavaScript PHP JSON
+" *** Html CSS3 JavaScript JSON
 " ***
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
@@ -413,17 +428,17 @@ nnoremap R :call <SID>compile_and_run()<CR>
 function! s:compile_and_run()
     exec 'w'
     if &filetype == 'cpp'
-        exec "AsyncRun! g++ -O3 -pthread -std=c++20 % -o %<; time ./%<"
+        exec "AsyncRun! g++ -O3 -pthread -std=c++20 % -o %<; ./%<"
     elseif &filetype == 'c'
-        exec "AsyncRun! gcc -O3 -pthread -std=c2x % -o %<; time ./%<"
+        exec "AsyncRun! gcc -O3 -pthread -std=c2x % -o %<; ./%<"
     elseif &filetype == 'python'
-        exec "AsyncRun! time python3 %"
+        exec "AsyncRun! python3 %"
     elseif &filetype == 'html'
         exec "AsyncRun! firefox % &"
     elseif &filetype == 'java'
-        exec "AsyncRun! javac %; time java %<"
+        exec "AsyncRun! javac %; java %<"
     elseif &filetype == 'sh'
-        exec "AsyncRun! time bash %"
+        exec "AsyncRun! bash %"
     endif
 endfunction
 
