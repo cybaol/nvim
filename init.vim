@@ -188,13 +188,13 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/vim-peekaboo')
 
     " File navigation
-    call dein#add('Shougo/defx.nvim')
+    call dein#add('Shougo/defx.nvim', { 'build': ':UpdateRemotePlugins' })
     call dein#add('kristijanhusak/defx-git')
-    call dein#add('mbbill/undotree')
+    call dein#add('mbbill/undotree', { 'on_event': 'UndotreeToggle' })
 
     " Quick comment & moving
     call dein#add('tpope/vim-commentary')
-    call dein#add('easymotion/vim-easymotion')
+    call dein#add('easymotion/vim-easymotion', { 'on_map': '<Plug>(easymotion-overwin-f2)' })
     call dein#add('tpope/vim-surround')
 
     " Ultisnips
@@ -202,51 +202,55 @@ if dein#load_state('~/.cache/dein')
     call dein#add('honza/vim-snippets')
 
     " More vivid highlight enhancement for C++
-    call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': ['vim', 'c', 'cpp'] })
+    call dein#add('octol/vim-cpp-enhanced-highlight')
 
     " Leetcode
-    call dein#add('ianding1/leetcode.vim')
+    call dein#add('ianding1/leetcode.vim', { 'on_event': ['LeetCodeList', 'LeetCodeTest', 'LeetCodeSubmit', 'LeetCodeSignIn'] })
 
     " Quick Run
-    call dein#add('skywind3000/asyncrun.vim')
+    call dein#add('skywind3000/asyncrun.vim', { 'on_func': '<SID>compile_and_run()' })
 
     " Local highlight in Python variable
-    call dein#add('numirias/semshi', {'on_ft': ['vim', 'python'] })
+    call dein#add('numirias/semshi', { 'on_ft': 'python' })
 
     " Debugger
-    call dein#add('puremourning/vimspector', {'build': '~/.cache/dein/repos/github.com/puremourning/vimspector/install_gadget.py --enable-c --enable-python'})
+    call dein#add('puremourning/vimspector', {'build': '~/.cache/dein/repos/github.com/puremourning/vimspector/install_gadget.py --enable-c --enable-python', 'on_ft': ['c', 'cpp', 'python'] })
 
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_event': ['F', 'Far', 'Fardo'] })
-    call dein#add('Yggdroot/LeaderF', {'build': './install.sh' })
-    call dein#add('francoiscabrol/ranger.vim') " dependency to bclose.vim
-    call dein#add('rbgrouleff/bclose.vim')
+    call dein#add('Yggdroot/LeaderF', { 'build': './install.sh' })
+    call dein#add('francoiscabrol/ranger.vim', { 'on_event': 'Ranger' }) " dependency to bclose.vim
+    call dein#add('rbgrouleff/bclose.vim', { 'on_event': 'Ranger' })
 
     " Auto Complete
     call dein#add('jiangmiao/auto-pairs')
-    call dein#add('neoclide/coc.nvim', {'merged':0, 'rev': 'release'})
+    call dein#add('neoclide/coc.nvim', { 'merged':0, 'rev': 'release'})
 
     " Format
-    call dein#add('godlygeek/tabular')
-    call dein#add('chiel92/vim-autoformat')
+    call dein#add('godlygeek/tabular', { 'on_event': 'Tabularize'})
+    call dein#add('chiel92/vim-autoformat', { 'on_event': 'Autoformat' })
 
     " Taglist
-    call dein#add('liuchengxu/vista.vim')
+    call dein#add('liuchengxu/vista.vim', { 'on_event': 'Vista' })
 
     " Markdown
-    call dein#add('iamcco/markdown-preview.vim', {'on_ft': ['vim', 'markdown'] })
+    call dein#add('iamcco/markdown-preview.nvim', { 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
+                \ 'build': 'sh -c "cd app & yarn install"' })
 
     " HTML, CSS, JavaScript, JSON, etc.
-    call dein#add('turbio/bracey.vim', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
-    call dein#add('hail2u/vim-css3-syntax', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
-    call dein#add('pangloss/vim-javascript', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
-    call dein#add('yuezk/vim-js', {'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
-    call dein#add('MaxMEllon/vim-jsx-pretty', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
-    call dein#add('jelera/vim-javascript-syntax', { 'on_ft': ['vim', 'html', 'javascript', 'css', 'less'] })
-    call dein#add('elzr/vim-json', {'on_ft': ['vim', 'json'] })
+    call dein#add('turbio/bracey.vim', { 'on_ft': 'html' })
+    call dein#add('hail2u/vim-css3-syntax')
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('yuezk/vim-js')
+    call dein#add('MaxMEllon/vim-jsx-pretty')
+    call dein#add('jelera/vim-javascript-syntax')
+    call dein#add('elzr/vim-json')
+
+    " Translator
+    call dein#add('voldikss/vim-translator', { 'on_map': '<Plug>TranslateW' })
 
     " PDF Preview
-    call dein#add('makerj/vim-pdf', {'on_ft': ['vim', 'pdf'] })
+    call dein#add('makerj/vim-pdf', { 'on_ft': 'pdf' })
 
     call dein#end()
     call dein#save_state()
@@ -471,6 +475,11 @@ let g:webdevicons_enable_startify = 1
 " *** Semshi
 " ***
 nmap <silent> rr :Semshi rename<CR>
+
+" ***
+" *** Translator
+" ***
+nmap <silent> ts <Plug>TranslateW
 
 " ***
 " *** Coc.nvim
