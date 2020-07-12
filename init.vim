@@ -1,4 +1,4 @@
-" *******************************************************************
+"aadhisxkfdssaikdweickndwi *******************************************************************
 "                              My Neovim
 "        Author      : Kino
 "        Email       : cybao292261@163.com
@@ -164,6 +164,8 @@ map re /\(\<\w\+\>\)\_s*\1
 " ***
 " *** Plugins Install With Dein
 " ***
+let g:dein#auto_recache = 1
+
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('~/.cache/dein')
@@ -174,7 +176,7 @@ if dein#load_state('~/.cache/dein')
 
     " Themes
     call dein#add('mhinz/vim-startify')
-    call dein#add('rakr/vim-one')
+    call dein#add('tomasr/molokai')
 
     " Visualizer enhancement
     call dein#add('liuchengxu/eleline.vim')
@@ -188,7 +190,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/vim-peekaboo')
 
     " File navigation
-    call dein#add('Shougo/defx.nvim', { 'build': ':UpdateRemotePlugins' })
+    call dein#add('Shougo/defx.nvim')
     call dein#add('kristijanhusak/defx-git')
     call dein#add('mbbill/undotree', { 'on_event': 'UndotreeToggle' })
 
@@ -219,7 +221,7 @@ if dein#load_state('~/.cache/dein')
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_event': ['F', 'Far', 'Fardo'] })
     call dein#add('Yggdroot/LeaderF', { 'build': './install.sh' })
-    call dein#add('francoiscabrol/ranger.vim', { 'on_event': 'Ranger' }) " dependency to bclose.vim
+    call dein#add('francoiscabrol/ranger.vim', { 'depends': 'bclose.vim', 'on_event': 'Ranger' })
     call dein#add('rbgrouleff/bclose.vim', { 'on_event': 'Ranger' })
 
     " Auto Complete
@@ -270,7 +272,7 @@ endif
 " " ***
 set t_Co=256
 set termguicolors    "enable true colors support"
-color one
+colorscheme molokai
 hi Function cterm=bold ctermfg=LightGray gui=bold
 
 " ***
