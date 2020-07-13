@@ -11,12 +11,6 @@
 " ***
 " *** Auto Load for First Usage
 " ***
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 if empty(glob('~/.cache/dein/repos/github.com/Shougo/dein.vim'))
     silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/installer.sh
     silent !sh ~/installer.sh ~/.cache/dein
@@ -180,7 +174,7 @@ if dein#load_state('~/.cache/dein')
 
     " Visualizer enhancement
     call dein#add('liuchengxu/eleline.vim')
-    call dein#add('yggdroot/indentline')
+    call dein#add('Yggdroot/indentline')
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('kristijanhusak/defx-icons')
     call dein#add('airblade/vim-gitgutter')
@@ -216,7 +210,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('numirias/semshi', { 'on_ft': 'python' })
 
     " Debugger
-    call dein#add('puremourning/vimspector', {'build': '~/.cache/dein/repos/github.com/puremourning/vimspector/install_gadget.py --enable-c --enable-python', 'on_ft': ['c', 'cpp', 'python'] })
+    call dein#add('puremourning/vimspector', {'build': './install_gadget.py --enable-c --enable-python', 'on_ft': ['c', 'cpp', 'python'] })
 
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_event': ['F', 'Far', 'Fardo'] })
@@ -257,8 +251,8 @@ if dein#load_state('~/.cache/dein')
     call dein#save_state()
 endif
 
-call plug#begin('~/.config/nvim/plugged')
-call plug#end()
+filetype plugin indent on
+syntax enable
 
 if dein#check_install()
     call dein#install()
@@ -409,7 +403,7 @@ nnoremap fm :Autoformat<CR>
 " ***
 " *** Tabular
 " ***
-vnoremap <space><tab> :Tabularize<space>
+vnoremap <leader><tab> :Tabularize<space>/
 
 " ***
 " *** Ultisnips
@@ -463,8 +457,9 @@ noremap <C-x> :bd!<CR>
 " ***
 " *** Indentline
 " ***
-let g:indentLine_enabled    = 1
-let g:indentLine_color_term = 255
+let g:indentLine_char         = '┆'
+let g:indentLine_color_term   = 239
+let g:indentLine_bgcolor_term = 202
 
 " ***
 " *** Vim-devicons
