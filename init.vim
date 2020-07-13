@@ -1,4 +1,4 @@
-"aadhisxkfdssaikdweickndwi *******************************************************************
+" *******************************************************************
 "                              My Neovim
 "        Author      : Kino
 "        Email       : cybao292261@163.com
@@ -176,7 +176,7 @@ if dein#load_state('~/.cache/dein')
 
     " Themes
     call dein#add('mhinz/vim-startify')
-    call dein#add('tomasr/molokai')
+    call dein#add('rafi/awesome-vim-colorschemes')
 
     " Visualizer enhancement
     call dein#add('liuchengxu/eleline.vim')
@@ -221,8 +221,7 @@ if dein#load_state('~/.cache/dein')
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_event': ['F', 'Far', 'Fardo'] })
     call dein#add('Yggdroot/LeaderF', { 'build': './install.sh' })
-    call dein#add('francoiscabrol/ranger.vim', { 'depends': 'bclose.vim', 'on_event': 'Ranger' })
-    call dein#add('rbgrouleff/bclose.vim', { 'on_event': 'Ranger' })
+    call dein#add('kevinhwang91/rnvimr', {'build': 'make sync', 'on_event': 'RnvimrToggle' })
 
     " Auto Complete
     call dein#add('jiangmiao/auto-pairs')
@@ -365,8 +364,7 @@ let g:defx_git#column_length = 0
 " ***
 " *** Ranger
 " ***
-let g:ranger_map_keys = 0
-map ra :Ranger<CR>
+nnoremap <silent> ra :RnvimrToggle<CR>
 
 " ***
 " *** vim-easymotion

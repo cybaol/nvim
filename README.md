@@ -44,6 +44,7 @@ nvim
 ```bash
 sudo pacman -S fzf the_silver_searcher
 sudo pacman -S ranger
+sudo pacman -S lazygit
 
 git clone https://github.com/cybaol/ranger.git ~/.config/ranger
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
