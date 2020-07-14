@@ -1,4 +1,33 @@
 {
+    "coc.preferences.hoverTarget": "preview",
+    "coc.preferences.enableFloatHighlight": true,
+    "coc.preferences.snippetStatusText": "Ⓢ ",
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "diagnostic.signOffset": 1,
+    "diagnostic.errorSign": "x",
+    "diagnostic.warningSign": "!",
+    "diagnostic.infoSign": "ღ",
+    "diagnostic.hintSign": "ஐ",
+    "diagnostic.displayByAle": false,
+    "diagnostic.refreshOnInsertMode": false,
+    "diagnostic.refreshAfterSave": false,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.virtualTextPrefix": " ❯❯❯ ",
+    "diagnostic.virtualText": true,
+    "html.format.enable": true,
+    "javascript.referencesCodeLens.enable": true,
+    "javascript.showUnused": true,
+    "javascript.suggest.names": true,
+    "javascript.suggestionActions.enabled": true,
+    "json.format.enable": true,
+    "python.autoComplete.addBrackets": true,
+    "python.jediEnabled": false,
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": [
+        "--style",
+        "{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 1}"
+    ],
+    "yank.enableCompletion": false,
     "languageserver": {
         "clangd": {
             "command": "clangd",

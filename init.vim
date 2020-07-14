@@ -203,9 +203,6 @@ if dein#load_state('~/.cache/dein')
     " Leetcode
     call dein#add('ianding1/leetcode.vim', { 'on_event': ['LeetCodeList', 'LeetCodeTest', 'LeetCodeSubmit', 'LeetCodeSignIn'] })
 
-    " Quick Run
-    call dein#add('skywind3000/asyncrun.vim', { 'on_func': '<SID>compile_and_run()' })
-
     " Local highlight in Python variable
     call dein#add('numirias/semshi', { 'on_ft': 'python' })
 
@@ -231,14 +228,13 @@ if dein#load_state('~/.cache/dein')
     " Markdown
     call dein#add('iamcco/markdown-preview.nvim', { 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
                 \ 'build': 'sh -c "cd app & yarn install"' })
+    call dein#add('dhruvasagar/vim-table-mode', { 'on_event': 'TableModeToggle', 'on_ft': ['text', 'markdown'] })
 
     " HTML, CSS, JavaScript, JSON, etc.
-    call dein#add('turbio/bracey.vim', { 'on_ft': 'html' })
+    call dein#add('turbio/bracey.vim', { 'build': 'npm install --prefix server', 'on_ft': ['html', 'css', 'javascript'] })
+    call dein#add('othree/html5.vim')
     call dein#add('hail2u/vim-css3-syntax')
     call dein#add('pangloss/vim-javascript')
-    call dein#add('yuezk/vim-js')
-    call dein#add('MaxMEllon/vim-jsx-pretty')
-    call dein#add('jelera/vim-javascript-syntax')
     call dein#add('elzr/vim-json')
 
     " Translator
@@ -406,6 +402,11 @@ nnoremap fm :Autoformat<CR>
 vnoremap <leader><tab> :Tabularize<space>/
 
 " ***
+" *** vim-table-mode
+" ***
+noremap <leader>tm :TableModeToggle<CR>
+
+" ***
 " *** Ultisnips
 " ***
 let g:UltiSnipsExpandTrigger       = "<tab>"
@@ -420,27 +421,30 @@ let g:UltiSnipsUsePythonVersion    = 3
 let g:rainbow_active = 1
 
 " ***
-" *** Quick Run via R
+" *** Compile function
 " ***
-nnoremap R :call <SID>compile_and_run()<CR>
-function! s:compile_and_run()
-    exec 'w'
-    if &filetype == 'cpp'
-        exec "AsyncRun! g++ -O3 -pthread -std=c++20 % -o %<; ./%<"
-    elseif &filetype == 'c'
-        exec "AsyncRun! gcc -O3 -pthread -std=c2x % -o %<; ./%<"
+noremap R :call CompileRunGcc()<CR>
+function! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc -O3 -Wall -pthread -std=c2x % -o %<; ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ -O3 -Wall -pthread -std=c++20 % -o %<; ./%<"
     elseif &filetype == 'python'
-        exec "AsyncRun! python3 %"
+        set splitbelow
+        :sp
+        :term python3 %
     elseif &filetype == 'html'
-        exec "AsyncRun! firefox % &"
+        exec "Bracey"
+    elseif &filetype == 'markdown'
+        exec "MarkdownPreview"
     elseif &filetype == 'java'
-        exec "AsyncRun! javac %; java %<"
+        exec "!javac %"
+        exec "!java %<"
     elseif &filetype == 'sh'
-        exec "AsyncRun! bash %"
+        :!bash %
     endif
 endfunction
-
-let g:asyncrun_open = 15
 
 " ***
 " *** eleline
@@ -484,7 +488,32 @@ set updatetime=40
 set shortmess+=c
 set signcolumn=yes
 
-let g:coc_global_extensions = ['coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-pairs', 'coc-yank', 'coc-vimlsp']
+let g:coc_global_extensions = [
+            \'coc-css',
+            \'coc-diagnostic',
+            \'coc-html',
+            \'coc-json',
+            \'coc-pairs',
+            \'coc-pyright',
+            \'coc-python',
+            \'coc-tsserver',
+            \'coc-vimlsp',
+            \'coc-yank',
+            \]
+
+" Use <tab> for trigger completion and navigate to the next complete item
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 if exists('*complete_info')
     inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -508,4 +537,3 @@ nmap <silent> gr <Plug>(coc-reference)
 nmap <silent> rn <Plug>(coc-rename)
 
 nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<CR>
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
