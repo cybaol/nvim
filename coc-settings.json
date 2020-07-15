@@ -3,9 +3,15 @@
     "coc.preferences.enableFloatHighlight": true,
     "coc.preferences.snippetStatusText": "Ⓢ ",
     "coc.preferences.extensionUpdateCheck": "daily",
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "html",
+        "javascript",
+        "python"
+    ],
     "diagnostic.signOffset": 1,
-    "diagnostic.errorSign": "x",
-    "diagnostic.warningSign": "!",
+    "diagnostic.errorSign": "♀",
+    "diagnostic.warningSign": "♂",
     "diagnostic.infoSign": "ღ",
     "diagnostic.hintSign": "ஐ",
     "diagnostic.displayByAle": false,
@@ -14,6 +20,19 @@
     "diagnostic.checkCurrentLine": true,
     "diagnostic.virtualTextPrefix": " ❯❯❯ ",
     "diagnostic.virtualText": true,
+    "diagnostic-languageserver.filetypes": {
+        "vim": "vint",
+        "email": "languagetool",
+        "markdown": ["write-good", "markdownlint"],
+        "sh": "shellcheck",
+        "elixir": ["mix_credo", "mix_credo_compile"],
+        "eelixir": ["mix_credo", "mix_credo_compile"],
+        "php": ["phpstan", "psalm"]
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+        "elixir": "mix_format",
+        "eelixir": "mix_format"
+    },
     "html.format.enable": true,
     "javascript.referencesCodeLens.enable": true,
     "javascript.showUnused": true,
@@ -27,12 +46,55 @@
         "--style",
         "{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 1}"
     ],
+    "suggest.detailMaxLength": 60,
+    "suggest.noselect": true,
+    "suggest.enablePreselect": false,
+    "suggest.triggerAfterInsertEnter": false,
+    "suggest.timeout": 5000,
+    "suggest.enablePreview": true,
+    "suggest.floatEnable": true,
+    "suggest.detailField": "preview",
+    "suggest.snippetIndicator": "",
+    "suggest.triggerCompletionWait": 100,
+    "suggest.echodocSupport": true,
+    "suggest.completionItemKindLabels": {
+        "class": "\uf0e8",
+        "color": "\ue22b",
+        "constant": "\uf8fe",
+        "default": "\uf29c",
+        "enum": "\uf435",
+        "enumMember": "\uf02b",
+        "event": "\ufacd",
+        "field": "\uf93d",
+        "file": "\uf723",
+        "folder": "\uf115",
+        "function": "\u0192",
+        "interface": "\uf417",
+        "keyword": "\uf1de",
+        "method": "\uf6a6",
+        "module": "\uf40d",
+        "operator": "\uf915",
+        "property": "\ue624",
+        "reference": "\ufa46",
+        "snippet": "\ue60b",
+        "struct": "\ufb44",
+        "text": "\ue612",
+        "typeParameter": "\uf728",
+        "unit": "\uf475",
+        "value": "\uf89f",
+        "variable": "\ue71b"
+    },
     "yank.enableCompletion": false,
     "languageserver": {
-        "clangd": {
-            "command": "clangd",
-            "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+        "ccls": {
+            "command": "ccls",
+            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+            "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+            "initializationOptions": {
+                "cache": {
+                    "directory": "/tmp/ccls"
+                }
+            }
         }
     }
 }

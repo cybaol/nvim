@@ -2,7 +2,7 @@
 
 ### my Platform : Manjaro
 
-## Dependence Installation
+## Dependency Installation
 
 #### vista depends on 'universal-ctags'
 ```bash
@@ -20,9 +20,9 @@ sudo pacman -S gdb
 pip install debugpy
 ```
 
-## clangd Installation
+## ccls Installation
 ```bash
-sudo pacman -S llvm
+sudo pacman -S ccls
 ```
 
 ## Start Installation

@@ -74,7 +74,7 @@ set shiftwidth=4
 set softtabstop=4
 set list
 set listchars=tab:▸\ ,trail:▫
-set scrolloff=7
+set scrolloff=5
 
 " Prevent auto line split
 set wrap
@@ -180,9 +180,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('airblade/vim-gitgutter')
     call dein#add('luochen1990/rainbow')
 
-    " Clipboard bar
-    call dein#add('junegunn/vim-peekaboo')
-
     " File navigation
     call dein#add('Shougo/defx.nvim')
     call dein#add('kristijanhusak/defx-git')
@@ -203,7 +200,7 @@ if dein#load_state('~/.cache/dein')
     " Leetcode
     call dein#add('ianding1/leetcode.vim', { 'on_event': ['LeetCodeList', 'LeetCodeTest', 'LeetCodeSubmit', 'LeetCodeSignIn'] })
 
-    " Local highlight in Python variable
+    " Python
     call dein#add('numirias/semshi', { 'on_ft': 'python' })
 
     " Debugger
@@ -261,7 +258,7 @@ endif
 " " ***
 set t_Co=256
 set termguicolors    "enable true colors support"
-colorscheme molokai
+colorscheme dracula
 hi Function cterm=bold ctermfg=LightGray gui=bold
 
 " ***
@@ -350,6 +347,11 @@ let g:defx_git#indicators = {
             \ }
 
 let g:defx_git#column_length = 0
+
+" ***
+" *** Far
+" ***
+nnoremap <c-f> :F <space>%<left><left>
 
 " ***
 " *** Ranger
@@ -507,11 +509,11 @@ inoremap <silent><expr> <TAB>
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
