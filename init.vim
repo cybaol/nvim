@@ -187,7 +187,7 @@ if dein#load_state('~/.cache/dein')
 
     " Quick comment & moving
     call dein#add('tpope/vim-commentary')
-    call dein#add('easymotion/vim-easymotion', { 'on_map': '<Plug>(easymotion-overwin-f2)' })
+    call dein#add('haya14busa/vim-easymotion', { 'on_map': '<Plug>(easymotion-overwin-f2)' })
     call dein#add('tpope/vim-surround')
 
     " Ultisnips
@@ -207,13 +207,13 @@ if dein#load_state('~/.cache/dein')
     call dein#add('puremourning/vimspector', {'build': './install_gadget.py --enable-c --enable-python', 'on_ft': ['c', 'cpp', 'python'] })
 
     " Find & Search
-    call dein#add('brooth/far.vim', { 'on_event': ['F', 'Far', 'Fardo'] })
+    call dein#add('brooth/far.vim')
     call dein#add('Yggdroot/LeaderF', { 'build': './install.sh' })
-    call dein#add('kevinhwang91/rnvimr', {'build': 'make sync', 'on_event': 'RnvimrToggle' })
+    call dein#add('kevinhwang91/rnvimr', { 'on_event': 'RnvimrToggle' })
 
     " Auto Complete
     call dein#add('jiangmiao/auto-pairs')
-    call dein#add('neoclide/coc.nvim', { 'merged':0, 'rev': 'release'})
+    call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
 
     " Format
     call dein#add('godlygeek/tabular', { 'on_event': 'Tabularize'})
@@ -253,9 +253,9 @@ endif
 
 
 
-" " ***
-" " *** Dress up my neovim
-" " ***
+" ***
+" *** Dress up my neovim
+" ***
 set t_Co=256
 set termguicolors    "enable true colors support"
 colorscheme dracula
