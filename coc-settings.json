@@ -1,5 +1,4 @@
 {
-    "coc.preferences.hoverTarget": "preview",
     "coc.preferences.enableFloatHighlight": true,
     "coc.preferences.snippetStatusText": "Ⓢ ",
     "coc.preferences.extensionUpdateCheck": "daily",
@@ -33,7 +32,7 @@
         "elixir": "mix_format",
         "eelixir": "mix_format"
     },
-    "html.format.enable": true,
+    "html.format.enable": false,
     "javascript.referencesCodeLens.enable": true,
     "javascript.showUnused": true,
     "javascript.suggest.names": true,

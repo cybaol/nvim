@@ -117,6 +117,9 @@ set incsearch
 set ignorecase
 set smartcase
 
+" ***
+" *** Backup & Undo
+" ***
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
 set backupdir=~/.config/nvim/tmp/backup,.
@@ -238,7 +241,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('voldikss/vim-translator', { 'on_map': '<Plug>TranslateW' })
 
     " PDF Preview
-    call dein#add('makerj/vim-pdf', { 'on_ft': 'pdf' })
+    call dein#add('makerj/vim-pdf')
 
     call dein#end()
     call dein#save_state()

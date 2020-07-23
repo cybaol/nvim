@@ -1,6 +1,6 @@
 ### Please Read README Before Usage !
 
-### my Platform : Manjaro
+### my Platform : Arch Linux
 
 ## Dependency Installation
 
@@ -29,7 +29,7 @@ sudo pacman -S ccls
 ```vim
 sudo pacman -S neovim
 
-sudo vim /etc/hosts
+sudo nvim /etc/hosts
 
 add '151.101.108.133 raw.githubusercontent.com' to hosts
 add '151.101.108.223 pypi.python.org' to hosts
@@ -48,6 +48,7 @@ sudo pacman -S lazygit
 
 git clone https://github.com/cybaol/ranger.git ~/.config/ranger
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+echo "default_linemode devicons" >> $HOME/.config/ranger/rc.conf
 git clone https://github.com/maximtrp/ranger-archives ~/.config/ranger/plugins/ranger-archives
 make install
 ```
