@@ -2,7 +2,7 @@
 
 ### my Platform : Arch Linux
 
-## Dependency Installation
+## Dependence Installation
 
 #### vista depends on 'universal-ctags'
 ```bash
@@ -18,6 +18,11 @@ sudo npm install -g neovim
 ```bash
 sudo pacman -S gdb
 pip install debugpy
+```
+
+#### markdownpreview.nvim depends on 'yarn'
+```bash
+sudo pacman -S yarn
 ```
 
 ## ccls Installation
