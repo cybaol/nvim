@@ -46,44 +46,33 @@ filetype plugin on
 filetype plugin indent on
 set encoding=utf-8
 set clipboard+=unnamedplus
-" Prevent incorrect backgroung rendering
-let &t_ut=''
+let &t_ut=''    " Prevent incorrect background rendering
 
-" backup & temp file
 set noundofile
 set nobackup
 set nowritebackup
 set noswapfile
 
-" ***
-" *** Main code display
-" ***
 set number
 set ruler
 set cursorline
 syntax enable
 syntax on
 
-" ***
-" *** Editor behavior
-" ***
-" Better tab
+set autoindent
 set expandtab
 set tabstop=4
 set shiftwidth=4
-set softtabstop=4
+set smartindent
+set softtabstop=-1
+
 set list
 set listchars=tab:▸\ ,trail:▫
 set scrolloff=5
 
-" Prevent auto line split
 set wrap
 set tw=0
-
-set indentexpr=
-" Better backspace
 set backspace=indent,eol,start
-
 set foldmethod=indent
 set foldlevel=99
 
@@ -91,35 +80,22 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-" ***
-" *** Window behaviors
-" ***
 set splitright
 set splitbelow
 
-" ***
-" *** Status/Command bar
-" ***
-set laststatus=2
 set autochdir
-set showcmd
 set formatoptions-=tc
+set laststatus=2
+set showcmd
+set wildmenu
+set wildmode=longest:list,full
 
-" Show command autocomplete
-set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
-set wildmenu                                                  " show a navigable menu for tab completion
-set wildmode=longest,list,full
-
-" Searching options
 set hlsearch
 exec ":nohlsearch"
 set incsearch
 set ignorecase
 set smartcase
 
-" ***
-" *** Backup & Undo
-" ***
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
 set backupdir=~/.config/nvim/tmp/backup,.
@@ -129,9 +105,7 @@ if has('persistent_undo')
     set undodir=~/.config/nvim/tmp/undo,.
 endif
 
-" ***
-" *** Restore Cursor Position
-" ***
+" Restore Cursor Position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " ***
