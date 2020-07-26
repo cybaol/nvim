@@ -46,7 +46,7 @@ filetype plugin on
 filetype plugin indent on
 set encoding=utf-8
 set clipboard+=unnamedplus
-let &t_ut=''    " Prevent incorrect background rendering
+let &t_ut=''
 
 set noundofile
 set nobackup
@@ -54,6 +54,7 @@ set nowritebackup
 set noswapfile
 
 set number
+set relativenumber
 set ruler
 set cursorline
 syntax enable
@@ -91,7 +92,6 @@ set wildmenu
 set wildmode=longest:list,full
 
 set hlsearch
-exec ":nohlsearch"
 set incsearch
 set ignorecase
 set smartcase
@@ -105,8 +105,9 @@ if has('persistent_undo')
     set undodir=~/.config/nvim/tmp/undo,.
 endif
 
-" Restore Cursor Position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+
 
 " ***
 " *** Basic Mappings
@@ -119,6 +120,12 @@ noremap i k
 noremap k j
 noremap j h
 
+" shift buffers
+nnoremap bp :bp<CR>
+nnoremap bn :bn<CR>
+" close current buffer
+noremap <C-x> :bd!<CR>
+
 " shift window
 noremap H <C-w>h
 noremap L <C-w>l
@@ -127,6 +134,8 @@ noremap J <C-w>j
 
 " copy to system clipboard
 vnoremap Y "+y
+
+nnoremap nh :nohlsearch<CR>
 
 map re /\(\<\w\+\>\)\_s*\1
 
@@ -429,13 +438,6 @@ endfunction
 " *** eleline
 " ***
 let g:airline_powerline_fonts = 0
-" shift buffers
-nnoremap b[ :bp<CR>
-nnoremap [b :bp<CR>
-nnoremap b] :bn<CR>
-nnoremap ]b :bn<CR>
-" close current buffer
-noremap <C-x> :bd!<CR>
 
 " ***
 " *** Indentline
