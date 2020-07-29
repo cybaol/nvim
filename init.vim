@@ -116,8 +116,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 map ss :set nosplitright<CR>:vsplit<CR>
 map st :vs term://$SHELL<CR>
 
-noremap i k
-noremap k j
+noremap i <PageUp>
+noremap k <PageDown>
 noremap j h
 
 " shift buffers
@@ -173,7 +173,7 @@ if dein#load_state('~/.cache/dein')
 
     " Quick comment & moving
     call dein#add('tpope/vim-commentary')
-    call dein#add('haya14busa/vim-easymotion', { 'on_map': '<Plug>(easymotion-overwin-f2)' })
+    call dein#add('easymotion/vim-easymotion', { 'on_map': '<Plug>(easymotion-overwin-f2)' })
     call dein#add('tpope/vim-surround')
 
     " Ultisnips
