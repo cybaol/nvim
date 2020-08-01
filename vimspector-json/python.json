@@ -7,13 +7,14 @@
                 "type": "python",
                 "cwd": "${workspaceRoot}",
                 "program": "${file}",
-                "stopOnEntry": true,
+                "stopOnEntry": false ,
                 "console": "integratedTerminal"
             },
             "breakpoints": {
                 "exception": {
                     "raised": "N",
-                    "uncaught": ""
+                    "uncaught": "",
+                    "userUnhandled": ""
                 }
             }
         }
