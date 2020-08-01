@@ -263,7 +263,8 @@ let c_no_curly_error                              = 1
 " ***
 " *** vimspector
 " ***
-let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_enable_mappings   = 'HUMAN'
+let g:vimspector_terminal_minwidth = 35
 function! s:read_template_into_buffer(template)
     " has to be a function to avoid the extra space fzf#run insers otherwise
     execute '0r ~/.config/nvim/vimspector-json/'.a:template
@@ -415,9 +416,9 @@ noremap R :call CompileRunGcc()<CR>
 function! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
-        exec "!gcc -O3 -Wall -pthread -std=c2x % -o %<; ./%<"
+        exec "!gcc -ggdb3 -Wall -pthread -std=c2x % -o %<; ./%<"
     elseif &filetype == 'cpp'
-        exec "!g++ -O3 -Wall -pthread -std=c++20 % -o %<; ./%<"
+        exec "!g++ -ggdb3 -Wall -pthread -std=c++20 % -o %<; ./%<"
     elseif &filetype == 'python'
         set splitbelow
         :sp

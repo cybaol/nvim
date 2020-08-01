@@ -4,7 +4,7 @@
             "adapter": "debugpy",
             "configuration": {
                 "request": "launch",
-                "type": "python3",
+                "type": "python",
                 "cwd": "${workspaceRoot}",
                 "program": "${file}",
                 "stopOnEntry": true,
