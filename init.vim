@@ -69,20 +69,19 @@ set softtabstop=-1
 
 set list
 set listchars=tab:▸\ ,trail:▫
-set scrolloff=5
-
+set scrolloff=4
+set ttimeoutlen=0
+set notimeout
+set viewoptions=cursor,folds,slash,unix
 set wrap
 set tw=0
 set backspace=indent,eol,start
 set foldmethod=indent
 set foldlevel=99
 
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 set splitright
 set splitbelow
+set ttyfast
 
 set autochdir
 set formatoptions-=tc
@@ -113,8 +112,12 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " *** Basic Mappings
 " ***
 
+let g:neoterm_autoscroll = 1
+autocmd TermOpen term://* startinsert
 map ss :set nosplitright<CR>:vsplit<CR>
 map st :vs term://$SHELL<CR>
+tnoremap <C-N> <C-\><C-N>
+tnoremap <C-O> <C-\><C-N><C-O>
 
 noremap i <PageUp>
 noremap k <PageDown>
@@ -131,6 +134,9 @@ noremap H <C-w>h
 noremap L <C-w>l
 noremap K <C-w>k
 noremap J <C-w>j
+
+" make Y to copy till the end of line
+nnoremap Y y$
 
 " copy to system clipboard
 vnoremap Y "+y
