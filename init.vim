@@ -70,6 +70,7 @@ set softtabstop=-1
 set list
 set listchars=tab:▸\ ,trail:▫
 set scrolloff=4
+set lazyredraw
 set ttimeoutlen=0
 set notimeout
 set viewoptions=cursor,folds,slash,unix
@@ -87,6 +88,7 @@ set autochdir
 set formatoptions-=tc
 set laststatus=2
 set showcmd
+set noshowmode
 set wildmenu
 set wildmode=longest:list,full
 
@@ -165,7 +167,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('rafi/awesome-vim-colorschemes')
 
     " Visualizer enhancement
-    call dein#add('liuchengxu/eleline.vim')
+    call dein#add('vim-airline/vim-airline')
     call dein#add('Yggdroot/indentline')
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('kristijanhusak/defx-icons')
@@ -189,11 +191,8 @@ if dein#load_state('~/.cache/dein')
     " More vivid highlight enhancement for C++
     call dein#add('octol/vim-cpp-enhanced-highlight')
 
-    " Leetcode
-    call dein#add('ianding1/leetcode.vim', { 'on_event': ['LeetCodeList', 'LeetCodeTest', 'LeetCodeSubmit', 'LeetCodeSignIn'] })
-
     " Python
-    call dein#add('numirias/semshi', { 'on_ft': 'python' })
+    call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft': 'python' })
 
     " Debugger
     call dein#add('puremourning/vimspector', {'build': './install_gadget.py --enable-c --enable-python', 'on_ft': ['c', 'cpp', 'python'] })
@@ -284,15 +283,6 @@ noremap vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
 sign define vimspectorBP text=☛ texthl=Normal
 sign define vimspectorBPDisabled text=☞ texthl=Normal
 nnoremap <F7> :call vimspector#Reset()<CR>
-
-" ***
-" *** Leetcode
-" ***
-let g:leetcode_browser = 'firefox'
-nnoremap <leader>ll :LeetCodeList<CR>
-nnoremap <leader>lt :LeetCodeTest<CR>
-nnoremap <leader>ls :LeetCodeSubmit<CR>
-nnoremap <leader>li :LeetCodeSignIn<CR>
 
 " ***
 " *** Defx.nvim
@@ -442,9 +432,11 @@ function! CompileRunGcc()
 endfunction
 
 " ***
-" *** eleline
+" *** airline
 " ***
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts              = 1
+let g:airline#extensions#tabline#enabled   = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " ***
 " *** Indentline
