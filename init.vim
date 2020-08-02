@@ -448,7 +448,10 @@ let g:indentLine_bgcolor_term = 202
 " ***
 " *** Vim-devicons
 " ***
+let g:webdevicons_enable = 1
 let g:webdevicons_enable_startify = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
 
 " ***
 " *** Semshi
