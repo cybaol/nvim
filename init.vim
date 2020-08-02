@@ -115,7 +115,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " ***
 
 let g:neoterm_autoscroll = 1
-autocmd TermOpen term://* startinsert
 map ss :set nosplitright<CR>:vsplit<CR>
 map st :vs term://$SHELL<CR>
 tnoremap <C-N> <C-\><C-N>
@@ -280,8 +279,6 @@ command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
             \   'sink': function('<sid>read_template_into_buffer')
             \ })
 noremap vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
-sign define vimspectorBP text=☛ texthl=Normal
-sign define vimspectorBPDisabled text=☞ texthl=Normal
 nnoremap <F7> :call vimspector#Reset()<CR>
 
 " ***
