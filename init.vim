@@ -159,8 +159,8 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
     call dein#begin('~/.cache/dein')
 
-    call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-    call dein#add('haya14busa/dein-command.vim')
+    call dein#add('Shougo/dein.vim')
+    call dein#add('wsdjeg/dein-ui.vim')
 
     " Themes
     call dein#add('mhinz/vim-startify')
