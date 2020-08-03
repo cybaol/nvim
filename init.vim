@@ -113,6 +113,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " ***
 " *** Basic Mappings
 " ***
+let mapleader = " "
 
 let g:neoterm_autoscroll = 1
 map ss :set nosplitright<CR>:vsplit<CR>
@@ -142,7 +143,7 @@ nnoremap Y y$
 " copy to system clipboard
 vnoremap Y "+y
 
-nnoremap nh :nohlsearch<CR>
+nnoremap <leader><CR> :nohlsearch<CR>
 
 map re /\(\<\w\+\>\)\_s*\1
 
@@ -278,7 +279,7 @@ command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
             \   'down': 20,
             \   'sink': function('<sid>read_template_into_buffer')
             \ })
-noremap vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
+noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
 nnoremap <F7> :call vimspector#Reset()<CR>
 
 " ***
@@ -516,4 +517,4 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-reference)
 nmap <silent> rn <Plug>(coc-rename)
 
-nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<CR>
+nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<CR>
