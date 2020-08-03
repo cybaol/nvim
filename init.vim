@@ -409,9 +409,9 @@ noremap R :call CompileRunGcc()<CR>
 function! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
-        exec "!gcc -ggdb3 -Wall -pthread -std=c2x % -o %<; ./%<"
+        exec "!gcc -Os -ggdb3 -fomit-frame-pointer -Wall -pthread -std=c2x -m64 % -o %<; ./%<"
     elseif &filetype == 'cpp'
-        exec "!g++ -ggdb3 -Wall -pthread -std=c++20 % -o %<; ./%<"
+        exec "!g++ -Os -ggdb3 -fomit-frame-pointer -Wall -pthread -std=c++20 -m64 % -o %<; ./%<"
     elseif &filetype == 'python'
         set splitbelow
         :sp
@@ -445,9 +445,9 @@ let g:indentLine_bgcolor_term = 202
 " ***
 " *** Vim-devicons
 " ***
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_startify = 1
-let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable                    = 1
+let g:webdevicons_enable_startify           = 1
+let g:webdevicons_enable_airline_tabline    = 1
 let g:webdevicons_enable_airline_statusline = 1
 
 " ***
