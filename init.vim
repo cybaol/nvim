@@ -186,7 +186,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('tpope/vim-surround')
 
     " Ultisnips
-    call dein#add('SirVer/ultisnips')
     call dein#add('honza/vim-snippets')
 
     " More vivid highlight enhancement for C++
@@ -393,15 +392,6 @@ vnoremap <leader><tab> :Tabularize<space>/
 noremap <leader>tm :TableModeToggle<CR>
 
 " ***
-" *** Ultisnips
-" ***
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-z>"
-let g:UltiSnipsSnippetDirectories  = [$HOME.'/.config/nvim/Ultisnips/']
-let g:UltiSnipsUsePythonVersion    = 3
-
-" ***
 " *** Rainbow
 " ***
 let g:rainbow_active = 1
@@ -477,31 +467,16 @@ let g:coc_global_extensions = [
             \'coc-pairs',
             \'coc-pyright',
             \'coc-python',
+            \'coc-snippets',
             \'coc-tsserver',
             \'coc-vimlsp',
             \'coc-yank',
             \]
 
-" Use <tab> for trigger completion and navigate to the next complete item
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-if exists('*complete_info')
-    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
+" To show documentation details
 nnoremap <silent> ? :call <SID>show_documentation()<CR>
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -516,5 +491,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-reference)
 nmap <silent> rn <Plug>(coc-rename)
+
+imap <tab> <Plug>(coc-snippets-expand)
 
 nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<CR>
