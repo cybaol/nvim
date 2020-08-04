@@ -96,6 +96,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+set shortmess+=c
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -164,7 +165,7 @@ if dein#load_state('~/.cache/dein')
 
     " Themes
     call dein#add('mhinz/vim-startify')
-    call dein#add('rafi/awesome-vim-colorschemes')
+    call dein#add('lifepillar/vim-solarized8')
 
     " Visualizer enhancement
     call dein#add('vim-airline/vim-airline')
@@ -248,8 +249,10 @@ endif
 " *** Dress up my neovim
 " ***
 set t_Co=256
-set termguicolors    "enable true colors support"
-colorscheme dracula
+set termguicolors
+set background=dark
+colorscheme solarized8_high
+let g:solarized_termcolors = 256
 hi Function cterm=bold ctermfg=LightGray gui=bold
 
 " ***
@@ -368,7 +371,7 @@ let g:vista_fzf_preview          = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 
 " ***
-" *** Html CSS3 JavaScript JSON
+" *** Html CSS JavaScript JSON
 " ***
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
@@ -421,9 +424,6 @@ function! CompileRunGcc()
         exec "Bracey"
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
-    elseif &filetype == 'java'
-        exec "!javac %"
-        exec "!java %<"
     elseif &filetype == 'sh'
         :!bash %
     endif
