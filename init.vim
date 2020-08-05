@@ -43,7 +43,6 @@ set nocompatible
 filetype on
 filetype indent on
 filetype plugin on
-filetype plugin indent on
 set encoding=utf-8
 set clipboard+=unnamedplus
 let &t_ut=''
@@ -57,7 +56,6 @@ set number
 set relativenumber
 set ruler
 set cursorline
-syntax enable
 syntax on
 
 set autoindent
@@ -96,7 +94,12 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+set hidden
+set updatetime=40
 set shortmess+=c
+set signcolumn=yes
+set cmdheight=2
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -154,7 +157,6 @@ map re /\(\<\w\+\>\)\_s*\1
 " *** Plugins Install With Dein
 " ***
 let g:dein#auto_recache = 1
-
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('~/.cache/dein')
@@ -165,7 +167,7 @@ if dein#load_state('~/.cache/dein')
 
     " Themes
     call dein#add('mhinz/vim-startify')
-    call dein#add('lifepillar/vim-solarized8')
+    call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 
     " Visualizer enhancement
     call dein#add('vim-airline/vim-airline')
@@ -185,8 +187,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('easymotion/vim-easymotion', { 'on_map': '<Plug>(easymotion-overwin-f2)' })
     call dein#add('tpope/vim-surround')
 
-    " Ultisnips
-    call dein#add('honza/vim-snippets')
+    " UltiSnips
+    call dein#add('honza/vim-snippets', { 'merged': 0 })
 
     " More vivid highlight enhancement for C++
     call dein#add('octol/vim-cpp-enhanced-highlight')
@@ -226,10 +228,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('elzr/vim-json')
 
     " Translator
-    call dein#add('voldikss/vim-translator', { 'on_map': '<Plug>TranslateW' })
-
-    " PDF Preview
-    call dein#add('makerj/vim-pdf')
+    call dein#add('voldikss/vim-translator', { 'on_map': ['<Plug>TranslateW', '<Plug>TranslateWV'] })
 
     call dein#end()
     call dein#save_state()
@@ -247,12 +246,11 @@ endif
 " ***
 " *** Dress up my neovim
 " ***
-set t_Co=256
 set termguicolors
 set background=dark
-colorscheme solarized8_high
+colorscheme solarized
 let g:solarized_termcolors = 256
-hi Function cterm=bold ctermfg=LightGray gui=bold
+let g:solarized_termtrans  = 1
 
 " ***
 " *** cpp highlight enhanced
@@ -273,7 +271,6 @@ let c_no_curly_error                              = 1
 let g:vimspector_enable_mappings   = 'HUMAN'
 let g:vimspector_terminal_minwidth = 35
 function! s:read_template_into_buffer(template)
-    " has to be a function to avoid the extra space fzf#run insers otherwise
     execute '0r ~/.config/nvim/vimspector-json/'.a:template
 endfunction
 command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
@@ -306,7 +303,6 @@ function! s:defx_mappings() abort
 endfunction
 
 function! s:defx_toggle_tree() abort
-    " Open current file or toggle directory expand/collapse
     if defx#is_directory()
         return defx#do_action('open_or_close_tree')
     endif
@@ -420,7 +416,7 @@ function! CompileRunGcc()
 endfunction
 
 " ***
-" *** airline
+" *** Airline
 " ***
 let g:airline_powerline_fonts              = 1
 let g:airline#extensions#tabline#enabled   = 1
@@ -450,15 +446,11 @@ nmap <silent> rr :Semshi rename<CR>
 " *** Translator
 " ***
 nmap <silent> ts <Plug>TranslateW
+vmap <silent> ts <Plug>TranslateWV
 
 " ***
 " *** Coc.nvim
 " ***
-set hidden
-set updatetime=40
-set shortmess+=c
-set signcolumn=yes
-
 let g:coc_global_extensions = [
             \'coc-css',
             \'coc-diagnostic',

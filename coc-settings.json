@@ -47,7 +47,7 @@
         "{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 1}"
     ],
     "snippets.ultisnips.directories": [
-        "$HOME/.config/nvim/Ultisnips/",
+        "$HOME/.config/nvim/UltiSnips/",
         "$HOME/.cache/dein/repos/github.com/honza/vim-snippets/UltiSnips"
     ],
     "suggest.detailMaxLength": 60,
