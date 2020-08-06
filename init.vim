@@ -167,9 +167,11 @@ if dein#load_state('~/.cache/dein')
 
     " Themes
     call dein#add('mhinz/vim-startify')
+    call dein#add('dracula/vim', { 'name': 'dracula' })
     call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 
     " Visualizer enhancement
+    call dein#add('bling/vim-bufferline')
     call dein#add('vim-airline/vim-airline')
     call dein#add('Yggdroot/indentline')
     call dein#add('ryanoasis/vim-devicons')
@@ -418,9 +420,9 @@ endfunction
 " ***
 " *** Airline
 " ***
-let g:airline_powerline_fonts              = 1
-let g:airline#extensions#tabline#enabled   = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_powerline_fonts = 1
+let g:bufferline_echo         = 0
+let g:airline_theme           = 'dracula'
 
 " ***
 " *** Indentline
@@ -434,7 +436,6 @@ let g:indentLine_bgcolor_term = 202
 " ***
 let g:webdevicons_enable                    = 1
 let g:webdevicons_enable_startify           = 1
-let g:webdevicons_enable_airline_tabline    = 1
 let g:webdevicons_enable_airline_statusline = 1
 
 " ***
@@ -464,7 +465,6 @@ let g:coc_global_extensions = [
             \'coc-vimlsp',
             \'coc-yank',
             \]
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
