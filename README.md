@@ -2,30 +2,32 @@
 
 ### my Platform : Arch Linux
 
+### my Plugmanager : [dein.vim](https://github.com/Shougo/dein.vim)
+
 ## Dependence Installation
 
-#### vista depends on 'universal-ctags'
+#### [vista.vim](https://github.com/liuchengxu/vista.vim) depends on 'universal-ctags'
 ```bash
 sudo pacman -S universal-ctags
 ```
 
-#### coc.nvim depends on 'nodejs'
+#### [coc.nvim](https://github.com/neoclide/coc.nvim) depends on 'nodejs'
 ```bash
 sudo pacman -S nodejs npm
 sudo npm install -g neovim
 ```
-#### vimspector for 'cpp' & 'python'
+#### [vimspector](https://github.com/puremourning/vimspector) for 'cpp' & 'python'
 ```bash
 sudo pacman -S gdb
 pip install debugpy
 ```
 
-#### markdownpreview.nvim depends on 'yarn'
+#### [markdownpreview.nvim](https://github.com/iamcco/markdown-preview.nvim) depends on 'yarn'
 ```bash
 sudo pacman -S yarn
 ```
 
-## ccls Installation
+## [ccls](https://github.com/MaskRay/ccls) Installation
 ```bash
 sudo pacman -S ccls
 ```
@@ -49,7 +51,6 @@ nvim
 ```bash
 sudo pacman -S fzf the_silver_searcher
 sudo pacman -S ranger
-sudo pacman -S lazygit
 
 git clone https://github.com/cybaol/ranger.git ~/.config/ranger
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
