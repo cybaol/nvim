@@ -1,4 +1,6 @@
 {
+    "coc-actions.hideCursor": false,
+    "coc-actions.showActionKind": true,
     "coc.preferences.enableFloatHighlight": true,
     "coc.preferences.snippetStatusText": "Ⓢ ",
     "coc.preferences.extensionUpdateCheck": "daily",
@@ -40,7 +42,6 @@
     "json.format.enable": true,
     "python.autoComplete.addBrackets": true,
     "python.jediEnabled": false,
-    "python.linting.flake8Enabled": true,
     "python.formatting.provider": "yapf",
     "python.formatting.yapfArgs": [
         "--style",

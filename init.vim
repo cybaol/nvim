@@ -25,9 +25,7 @@ endif
 
 " fish shell
 if empty(glob('~/.config/fish/config.fish'))
-    if empty(glob("~/.config/fish"))
-        silent! exec "!mkdir ~/.config/fish"
-    endif
+    silent! exec "!mkdir -p ~/.config/fish"
     silent! exec "!cp ~/.config/nvim/default_configs/config.fish ~/.config/fish/"
     silent! exec "!source ~/.config/fish/config.fish"
 endif
@@ -141,15 +139,16 @@ noremap L <C-w>l
 noremap K <C-w>k
 noremap J <C-w>j
 
-" make Y to copy till the end of line
-nnoremap Y y$
+" global replacement
+nnoremap <leader>r :%s///g<left><left><left>
 
 " copy to system clipboard
 vnoremap Y "+y
 
 nnoremap <leader><CR> :nohlsearch<CR>
 
-map re /\(\<\w\+\>\)\_s*\1
+" update all plugins with dein.vim
+nnoremap <C-u> :call dein#update()<CR>
 
 
 
@@ -163,7 +162,6 @@ if dein#load_state('~/.cache/dein')
     call dein#begin('~/.cache/dein')
 
     call dein#add('Shougo/dein.vim')
-    call dein#add('wsdjeg/dein-ui.vim')
 
     " Themes
     call dein#add('mhinz/vim-startify')
@@ -453,6 +451,7 @@ vmap <silent> ts <Plug>TranslateWV
 " *** Coc.nvim
 " ***
 let g:coc_global_extensions = [
+            \'coc-actions',
             \'coc-css',
             \'coc-diagnostic',
             \'coc-html',
@@ -461,6 +460,7 @@ let g:coc_global_extensions = [
             \'coc-pyright',
             \'coc-python',
             \'coc-snippets',
+            \'coc-syntax',
             \'coc-tsserver',
             \'coc-vimlsp',
             \'coc-yank',
