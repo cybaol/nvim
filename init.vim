@@ -19,7 +19,7 @@ endif
 
 " change pip mirror
 if empty(glob('~/.pip/pip.conf'))
-    silent! exec "!mkdir ~/.pip"
+    silent! exec "!mkdir -p ~/.pip"
     silent! exec "!cp ~/.config/nvim/default_configs/pip.conf ~/.pip/"
 endif
 
@@ -92,6 +92,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+set regexpengine=1
 
 set hidden
 set updatetime=40
@@ -148,7 +149,7 @@ vnoremap Y "+y
 nnoremap <leader><CR> :nohlsearch<CR>
 
 " update all plugins with dein.vim
-nnoremap <C-u> :call dein#update()<CR>
+nnoremap U :call dein#update()<CR>
 
 
 
@@ -262,7 +263,7 @@ let g:cpp_posix_standard                          = 1
 "let g:cpp_experimental_simple_template_highlight = 1
 let g:cpp_experimental_template_highlight         = 1
 let g:cpp_concepts_highlight                      = 1
-let g:cpp_no_function_highlight                   = 1
+let g:cpp_no_function_highlight                   = 0
 let c_no_curly_error                              = 1
 
 " ***
@@ -330,11 +331,13 @@ let g:defx_git#column_length = 0
 " ***
 " *** Far
 " ***
-nnoremap <c-f> :F <space>%<left><left>
+nnoremap <c-f> :F  %<left><left>
 
 " ***
 " *** Ranger
 " ***
+let g:rnvimr_enable_ex = 1
+highlight link RnvimrNormal CursorLine
 nnoremap <silent> ra :RnvimrToggle<CR>
 
 " ***
@@ -380,7 +383,7 @@ nnoremap fm :Autoformat<CR>
 " ***
 " *** Tabular
 " ***
-vnoremap <leader><tab> :Tabularize<space>/
+vmap <leader><tab> :Tabularize /
 
 " ***
 " *** vim-table-mode
@@ -403,9 +406,7 @@ function! CompileRunGcc()
     elseif &filetype == 'cpp'
         exec "!g++ -Os -ggdb3 -fomit-frame-pointer -Wall -pthread -std=c++20 -m64 % -o %<; ./%<"
     elseif &filetype == 'python'
-        set splitbelow
-        :sp
-        :term python3 %
+        exec "!python3 %"
     elseif &filetype == 'html'
         exec "Bracey"
     elseif &filetype == 'markdown'
@@ -457,7 +458,6 @@ let g:coc_global_extensions = [
             \'coc-html',
             \'coc-json',
             \'coc-pairs',
-            \'coc-pyright',
             \'coc-python',
             \'coc-snippets',
             \'coc-syntax',
