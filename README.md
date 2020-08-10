@@ -27,6 +27,11 @@ pip install debugpy
 sudo pacman -S yarn
 ```
 
+#### [vim-clap](https://github.com/liuchengxu/vim-clap) depends on 'ripgrep'
+```bash
+sudo pacman -S ripgrep
+```
+
 ## [ccls](https://github.com/MaskRay/ccls) Installation
 ```bash
 sudo pacman -S ccls

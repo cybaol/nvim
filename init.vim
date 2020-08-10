@@ -165,7 +165,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/dein.vim')
 
     " Themes
-    call dein#add('mhinz/vim-startify')
+    call dein#add('hardcoreplayers/dashboard-nvim')
     call dein#add('dracula/vim', { 'name': 'dracula' })
     call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 
@@ -175,12 +175,12 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Yggdroot/indentline')
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('kristijanhusak/defx-icons')
+    call dein#add('kristijanhusak/defx-git')
     call dein#add('airblade/vim-gitgutter')
     call dein#add('luochen1990/rainbow')
 
     " File navigation
     call dein#add('Shougo/defx.nvim')
-    call dein#add('kristijanhusak/defx-git')
     call dein#add('mbbill/undotree', { 'on_event': 'UndotreeToggle' })
 
     " Quick comment & moving
@@ -202,7 +202,7 @@ if dein#load_state('~/.cache/dein')
 
     " Find & Search
     call dein#add('brooth/far.vim')
-    call dein#add('Yggdroot/LeaderF', { 'build': './install.sh' })
+    call dein#add('liuchengxu/vim-clap', { 'hook_post_update': ':Clap install-binary!' })
     call dein#add('kevinhwang91/rnvimr', { 'on_event': 'RnvimrToggle' })
 
     " Auto Complete
@@ -424,17 +424,37 @@ let g:bufferline_echo         = 0
 let g:airline_theme           = 'dracula'
 
 " ***
+" *** Dashboard & vim-clap
+" ***
+nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
+nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<CR>
+nnoremap <silent> <Leader>cc :<C-u>Clap colors<CR>
+nnoremap <silent> <Leader>fw :<C-u>Clap grep2<CR>
+nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
+let g:dashboard_default_header  = 'commicgirl6'
+let g:dashboard_custom_shortcut = {
+            \ 'last_session' : 'SPC s l',
+            \ 'find_history' : 'SPC f h',
+            \ 'find_file' : 'SPC f f',
+            \ 'change_colorscheme' : 'SPC c c',
+            \ 'find_word' : 'SPC f w',
+            \ 'book_marks' : 'SPC f b',
+            \ }
+let g:clap_theme  = 'material_design_dark'
+let g:clap_layout = { 'relative': 'editor' }
+
+" ***
 " *** Indentline
 " ***
-let g:indentLine_char         = '┆'
-let g:indentLine_color_term   = 239
-let g:indentLine_bgcolor_term = 202
+let g:indentLine_char            = '┆'
+let g:indentLine_color_term      = 239
+let g:indentLine_bgcolor_term    = 202
+let g:indentLine_fileTypeExclude = ['dashboard', 'defx', 'vista']
 
 " ***
 " *** Vim-devicons
 " ***
 let g:webdevicons_enable                    = 1
-let g:webdevicons_enable_startify           = 1
 let g:webdevicons_enable_airline_statusline = 1
 
 " ***
