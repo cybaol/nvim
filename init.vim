@@ -166,12 +166,10 @@ if dein#load_state('~/.cache/dein')
 
     " Themes
     call dein#add('hardcoreplayers/dashboard-nvim')
-    call dein#add('dracula/vim', { 'name': 'dracula' })
     call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 
     " Visualizer enhancement
-    call dein#add('bling/vim-bufferline')
-    call dein#add('vim-airline/vim-airline')
+    call dein#add('hardcoreplayers/spaceline.vim')
     call dein#add('Yggdroot/indentline')
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('kristijanhusak/defx-icons')
@@ -189,7 +187,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('tpope/vim-surround')
 
     " UltiSnips
-    call dein#add('honza/vim-snippets', { 'merged': 0 })
+    call dein#add('honza/vim-snippets', { 'merged': 0, 'depends': 'coc.nvim' })
 
     " More vivid highlight enhancement for C++
     call dein#add('octol/vim-cpp-enhanced-highlight')
@@ -201,8 +199,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('puremourning/vimspector', {'build': './install_gadget.py --enable-c --enable-python', 'on_ft': ['c', 'cpp', 'python'] })
 
     " Find & Search
-    call dein#add('brooth/far.vim')
-    call dein#add('liuchengxu/vim-clap', { 'hook_post_update': ':Clap install-binary!' })
+    call dein#add('brooth/far.vim', { 'on_cmd': ['F', 'Far', 'Fardo'] })
+    call dein#add('liuchengxu/vim-clap', { 'hook_post_update': ':Clap install-binary!', 'on_cmd': '<C-u>Clap' })
     call dein#add('kevinhwang91/rnvimr', { 'on_event': 'RnvimrToggle' })
 
     " Auto Complete
@@ -417,11 +415,12 @@ function! CompileRunGcc()
 endfunction
 
 " ***
-" *** Airline
+" *** Spaceline
 " ***
-let g:airline_powerline_fonts = 1
-let g:bufferline_echo         = 0
-let g:airline_theme           = 'dracula'
+let g:spaceline_seperate_style   = 'arrow-fade'
+let g:spaceline_git_branch_icon  = ''
+let g:spaceline_custom_diff_icon = ['+', '-', '~']
+let g:spaceline_diff_tool        = 'git-gutter'
 
 " ***
 " *** Dashboard & vim-clap
@@ -450,12 +449,6 @@ let g:indentLine_char            = '┆'
 let g:indentLine_color_term      = 239
 let g:indentLine_bgcolor_term    = 202
 let g:indentLine_fileTypeExclude = ['dashboard', 'defx', 'vista']
-
-" ***
-" *** Vim-devicons
-" ***
-let g:webdevicons_enable                    = 1
-let g:webdevicons_enable_airline_statusline = 1
 
 " ***
 " *** Semshi
