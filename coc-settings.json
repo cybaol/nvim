@@ -40,6 +40,10 @@
     "javascript.suggest.names": true,
     "javascript.suggestionActions.enabled": true,
     "json.format.enable": true,
+    "prettier.eslintIntegration": true,
+    "prettier.disableLanguages": [],
+    "prettier.useTabs": true,
+    "prettier.formatterPriority": 1,
     "python.autoComplete.addBrackets": true,
     "python.jediEnabled": false,
     "python.linting.pylintEnabled": false,
@@ -53,6 +57,7 @@
         "$HOME/.config/nvim/UltiSnips/",
         "$HOME/.cache/dein/repos/github.com/honza/vim-snippets/UltiSnips"
     ],
+    "rainbow-fart.ffplay": "ffplay",
     "suggest.detailMaxLength": 60,
     "suggest.noselect": true,
     "suggest.enablePreselect": false,

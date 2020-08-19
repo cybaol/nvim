@@ -165,7 +165,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/dein.vim')
 
     " Themes
-    call dein#add('hardcoreplayers/dashboard-nvim')
+    call dein#add('hardcoreplayers/dashboard-nvim', { 'frozen': 1 })
     call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 
     " Visualizer enhancement
@@ -278,6 +278,7 @@ command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
             \   'sink': function('<sid>read_template_into_buffer')
             \ })
 noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
+nnoremap <F1> :call vimspector#StepInto()<CR>
 nnoremap <F7> :call vimspector#Reset()<CR>
 
 " ***
@@ -400,9 +401,9 @@ noremap R :call CompileRunGcc()<CR>
 function! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
-        exec "!gcc -Os -ggdb3 -fomit-frame-pointer -Wall -pthread -std=c2x -m64 % -o %<; ./%<"
+        exec "!gcc -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c2x % -o %<; ./%<"
     elseif &filetype == 'cpp'
-        exec "!g++ -Os -ggdb3 -fomit-frame-pointer -Wall -pthread -std=c++20 -m64 % -o %<; ./%<"
+        exec "!g++ -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c++20 % -o %<; ./%<"
     elseif &filetype == 'python'
         exec "!python3 %"
     elseif &filetype == 'html'
@@ -417,10 +418,13 @@ endfunction
 " ***
 " *** Spaceline
 " ***
-let g:spaceline_seperate_style   = 'arrow-fade'
-let g:spaceline_git_branch_icon  = ''
-let g:spaceline_custom_diff_icon = ['+', '-', '~']
-let g:spaceline_diff_tool        = 'git-gutter'
+let g:spaceline_seperate_style       = 'arrow-fade'
+let g:spaceline_custom_diff_icon     = ['+', '-', '~']
+let g:spaceline_diff_tool            = 'git-gutter'
+let g:spaceline_git_branch_icon      = ''
+let g:spaceline_diagnostic_errorsign = '♀'
+let g:spaceline_diagnostic_warnsign  = '♂'
+let g:spaceline_function_icon        = ''
 
 " ***
 " *** Dashboard & vim-clap
@@ -470,7 +474,9 @@ let g:coc_global_extensions = [
             \'coc-diagnostic',
             \'coc-html',
             \'coc-json',
+            \'coc-rainbow-fart',
             \'coc-pairs',
+            \'coc-prettier',
             \'coc-python',
             \'coc-snippets',
             \'coc-syntax',
@@ -491,6 +497,7 @@ function! s:show_documentation()
     endif
 endfunction
 
+" some powerful mappings
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
