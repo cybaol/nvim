@@ -86,7 +86,6 @@ set laststatus=2
 set showcmd
 set noshowmode
 set wildmenu
-set wildmode=longest:list,full
 
 set hlsearch
 set incsearch
@@ -95,10 +94,9 @@ set smartcase
 set regexpengine=1
 
 set hidden
-set updatetime=40
+set updatetime=100
 set shortmess+=c
 set signcolumn=yes
-set cmdheight=2
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -165,7 +163,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/dein.vim')
 
     " Themes
-    call dein#add('hardcoreplayers/dashboard-nvim', { 'frozen': 1 })
+    call dein#add('hardcoreplayers/dashboard-nvim')
     call dein#add('frankier/neovim-colors-solarized-truecolor-only')
 
     " Visualizer enhancement
@@ -285,6 +283,7 @@ nnoremap <F7> :call vimspector#Reset()<CR>
 " *** Defx.nvim
 " ***
 call defx#custom#option('_', {
+            \ 'resume': 1,
             \ 'columns': 'indent:git:icons:filename',
             \ 'winwidth': 35,
             \ 'split': 'vertical',
@@ -300,6 +299,18 @@ function! s:defx_mappings() abort
     setl number
     nnoremap <silent><buffer><expr> <CR>  <SID>defx_toggle_tree()
     nnoremap <silent><buffer><expr> zh    defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> mk    defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> nf    defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> cd    defx#do_action('open')
+    nnoremap <silent><buffer><expr> dd    defx#do_action('remove')
+    nnoremap <silent><buffer><expr> pp    defx#do_action('paste')
+    nnoremap <silent><buffer><expr> rn    defx#do_action('rename')
+    nnoremap <silent><buffer><expr> yy    defx#do_action('copy')
+    nnoremap <silent><buffer><expr> yp    defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> a     defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> q     defx#do_action('quit')
+    nnoremap <silent><buffer><expr> j     line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k     line('.') == 1 ? 'G' : 'k'
 endfunction
 
 function! s:defx_toggle_tree() abort
@@ -333,11 +344,19 @@ let g:defx_git#column_length = 0
 nnoremap <c-f> :F  %<left><left>
 
 " ***
-" *** Ranger
+" *** Rnvimr
 " ***
-let g:rnvimr_enable_ex = 1
+let g:rnvimr_enable_ex   = 1
+let g:rnvimr_pick_enable = 1
 highlight link RnvimrNormal CursorLine
 nnoremap <silent> ra :RnvimrToggle<CR>
+let g:rnvimr_layout  = { 'relative': 'editor',
+            \ 'width': &columns,
+            \ 'height': &lines,
+            \ 'col': 0,
+            \ 'row': 0,
+            \ 'style': 'minimal' }
+let g:rnvimr_presets = [{'width': 1.0, 'height': 1.0}]
 
 " ***
 " *** vim-easymotion
@@ -431,6 +450,7 @@ let g:spaceline_function_icon        = ''
 " ***
 nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
 nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<CR>
+nnoremap <silent> <Leader>nf :<C-u>DashboardNewFile<CR>
 nnoremap <silent> <Leader>cc :<C-u>Clap colors<CR>
 nnoremap <silent> <Leader>fw :<C-u>Clap grep2<CR>
 nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
@@ -439,6 +459,7 @@ let g:dashboard_custom_shortcut = {
             \ 'last_session' : 'SPC s l',
             \ 'find_history' : 'SPC f h',
             \ 'find_file' : 'SPC f f',
+            \ 'new_file' : 'SPC n f',
             \ 'change_colorscheme' : 'SPC c c',
             \ 'find_word' : 'SPC f w',
             \ 'book_marks' : 'SPC f b',
@@ -464,6 +485,7 @@ nmap <silent> rr :Semshi rename<CR>
 " ***
 nmap <silent> ts <Plug>TranslateW
 vmap <silent> ts <Plug>TranslateWV
+let g:translator_default_engines = ['google']
 
 " ***
 " *** Coc.nvim
@@ -504,17 +526,24 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-reference)
 nmap <silent> rn <Plug>(coc-rename)
 
+" coc-diagnostic
+nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>= <Plug>(coc-diagnostic-next)
+
 " coc-snippets
 imap <tab> <Plug>(coc-snippets-expand)
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? coc#_select_confirm() :
-            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+let g:snips_author     = 'Kino'
 let g:coc_snippet_next = '<tab>'
 
-nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<CR>
+nnoremap <silent> <leader>cc :CocCommand<CR>
+nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<CR>
