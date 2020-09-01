@@ -7,12 +7,13 @@
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "html",
-        "javascript",
-        "python"
+        "python",
+        "typescript",
+        "vue "
     ],
-    "diagnostic.signOffset": 1,
-    "diagnostic.errorSign": "♀",
-    "diagnostic.warningSign": "♂",
+    "diagnostic.signOffset": 100,
+    "diagnostic.errorSign": "●",
+    "diagnostic.warningSign": "●",
     "diagnostic.infoSign": "ღ",
     "diagnostic.hintSign": "ஐ",
     "diagnostic.displayByAle": false,
@@ -57,7 +58,6 @@
         "$HOME/.config/nvim/UltiSnips/",
         "$HOME/.cache/dein/repos/github.com/honza/vim-snippets/UltiSnips"
     ],
-    "rainbow-fart.ffplay": "ffplay",
     "suggest.detailMaxLength": 60,
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
@@ -66,7 +66,7 @@
     "suggest.enablePreview": true,
     "suggest.floatEnable": true,
     "suggest.detailField": "preview",
-    "suggest.snippetIndicator": "  ☯",
+    "suggest.snippetIndicator": "",
     "suggest.triggerCompletionWait": 100,
     "suggest.echodocSupport": true,
     "suggest.completionItemKindLabels": {

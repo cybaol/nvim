@@ -79,7 +79,7 @@ set foldlevel=99
 set splitright
 set splitbelow
 set ttyfast
-
+set completeopt=longest,noinsert,menuone,noselect,preview
 set autochdir
 set formatoptions-=tc
 set laststatus=2
@@ -96,7 +96,7 @@ set regexpengine=1
 set hidden
 set updatetime=100
 set shortmess+=c
-set signcolumn=yes
+set signcolumn=number
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -177,7 +177,7 @@ if dein#load_state('~/.cache/dein')
 
     " File navigation
     call dein#add('Shougo/defx.nvim')
-    call dein#add('mbbill/undotree', { 'on_event': 'UndotreeToggle' })
+    call dein#add('mbbill/undotree', { 'on_cmd': 'UndotreeToggle' })
 
     " Quick comment & moving
     call dein#add('tpope/vim-commentary')
@@ -199,29 +199,30 @@ if dein#load_state('~/.cache/dein')
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_cmd': ['F', 'Far', 'Fardo'] })
     call dein#add('liuchengxu/vim-clap', { 'hook_post_update': ':Clap install-binary!', 'on_cmd': '<C-u>Clap' })
-    call dein#add('kevinhwang91/rnvimr', { 'on_event': 'RnvimrToggle' })
+    call dein#add('kevinhwang91/rnvimr', { 'on_cmd': 'RnvimrToggle' })
 
     " Auto Complete
     call dein#add('jiangmiao/auto-pairs')
     call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release' })
 
     " Format
-    call dein#add('godlygeek/tabular', { 'on_event': 'Tabularize'})
-    call dein#add('chiel92/vim-autoformat', { 'on_event': 'Autoformat' })
+    call dein#add('godlygeek/tabular', { 'on_cmd': 'Tabularize'})
+    call dein#add('chiel92/vim-autoformat', { 'on_cmd': 'Autoformat' })
 
     " Taglist
-    call dein#add('liuchengxu/vista.vim', { 'on_event': 'Vista' })
+    call dein#add('liuchengxu/vista.vim', { 'on_cmd': 'Vista' })
 
     " Markdown
     call dein#add('iamcco/markdown-preview.nvim', { 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
                 \ 'build': 'sh -c "cd app & yarn install"' })
-    call dein#add('dhruvasagar/vim-table-mode', { 'on_event': 'TableModeToggle', 'on_ft': ['text', 'markdown'] })
+    call dein#add('dhruvasagar/vim-table-mode', { 'on_cmd': 'TableModeToggle', 'on_ft': ['text', 'markdown'] })
 
-    " HTML, CSS, JavaScript, JSON, etc.
-    call dein#add('turbio/bracey.vim', { 'build': 'npm install --prefix server', 'on_ft': ['html', 'css', 'javascript'] })
+    " Html, CSS, JavaScript, TypeScript, JSON, etc.
+    call dein#add('turbio/bracey.vim', { 'build': 'npm install --prefix server', 'on_ft': 'html' })
     call dein#add('othree/html5.vim')
-    call dein#add('hail2u/vim-css3-syntax')
-    call dein#add('pangloss/vim-javascript')
+    call dein#add('yuezk/vim-js')
+    call dein#add('HerringtonDarkholme/yats.vim')
+    call dein#add('posva/vim-vue')
     call dein#add('elzr/vim-json')
 
     " Translator
@@ -387,13 +388,6 @@ let g:vista_fzf_preview          = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 
 " ***
-" *** Html CSS JavaScript JSON
-" ***
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
-let g:javascript_plugin_flow  = 1
-
-" ***
 " *** Autoformat
 " ***
 nnoremap fm :Autoformat<CR>
@@ -427,6 +421,8 @@ function! CompileRunGcc()
         exec "!python3 %"
     elseif &filetype == 'html'
         exec "Bracey"
+    elseif &filetype == 'javascript'
+        exec "!node --trace-warnings %"
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
     elseif &filetype == 'sh'
@@ -441,8 +437,6 @@ let g:spaceline_seperate_style       = 'arrow-fade'
 let g:spaceline_custom_diff_icon     = ['+', '-', '~']
 let g:spaceline_diff_tool            = 'git-gutter'
 let g:spaceline_git_branch_icon      = ''
-let g:spaceline_diagnostic_errorsign = '♀'
-let g:spaceline_diagnostic_warnsign  = '♂'
 let g:spaceline_function_icon        = ''
 
 " ***
@@ -494,9 +488,9 @@ let g:coc_global_extensions = [
             \'coc-actions',
             \'coc-css',
             \'coc-diagnostic',
+            \'coc-emmet',
             \'coc-html',
             \'coc-json',
-            \'coc-rainbow-fart',
             \'coc-pairs',
             \'coc-prettier',
             \'coc-python',
@@ -504,6 +498,7 @@ let g:coc_global_extensions = [
             \'coc-syntax',
             \'coc-tsserver',
             \'coc-vimlsp',
+            \'coc-vetur',
             \'coc-yank',
             \]
 " Use <c-space> to trigger completion.
