@@ -107,6 +107,16 @@
                     "directory": "/tmp/ccls"
                 }
             }
+        },
+        "golang": {
+            "command": "$HOME/go/bin/gopls",
+            "rootPatterns": ["go.mod"],
+            "filetypes": ["go"],
+            "initializationOptions": {
+                "gocodeCompletionEnabled": true,
+                "diagnosticsEnabled": true,
+                "lintTool": "$HOME/go/bin/golint"
+            }
         }
     }
 }
