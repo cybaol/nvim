@@ -196,6 +196,9 @@ if dein#load_state('~/.cache/dein')
     " Python
     call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft': 'python' })
 
+    " AsyncRun
+    call dein#add('skywind3000/asyncrun.vim', { 'on_cmd': 'AsyncRun' })
+
     " Debugger
     call dein#add('puremourning/vimspector', { 'on_ft': [ 'c', 'cpp', 'python', 'go' ],
                 \ 'build': './install_gadget.py --enable-c --enable-python --enable-go', })
@@ -445,24 +448,26 @@ let g:rainbow_active = 1
 " *** Compile function
 " ***
 noremap R :call CompileRunGcc()<CR>
+let g:asyncrun_open = 6
 function! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
-        exec "!gcc -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c2x % -o %<; ./%<"
+        :AsyncRun -mode=term gcc -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c2x % -o %<; ./%<
     elseif &filetype == 'cpp'
-        exec "!g++ -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c++20 % -o %<; ./%<"
+        :AsyncRun -mode=term g++ -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c++20 % -o %<; ./%<
     elseif &filetype == 'go'
-        exec "!go run %"
+        :AsyncRun -mode=term go run %
     elseif &filetype == 'html'
         exec "Bracey"
     elseif &filetype == 'javascript'
-        exec "!node --trace-warnings %"
+        :AsyncRun -mode=term node --trace-warnings %
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
     elseif &filetype == 'python'
-        exec "!python3 %"
+        let $PYTHONNUNBUFFERED = 1
+        :AsyncRun -mode=term -raw python %
     elseif &filetype == 'sh'
-        :!bash %
+        :AsyncRun -mode=term bash %
     endif
 endfunction
 
