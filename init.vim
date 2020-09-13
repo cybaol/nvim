@@ -163,11 +163,11 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/dein.vim')
 
     " Themes
-    call dein#add('hardcoreplayers/dashboard-nvim')
-    call dein#add('frankier/neovim-colors-solarized-truecolor-only')
+    call dein#add('theniceboy/vim-deus')
+    call dein#add('glepnir/dashboard-nvim')
 
     " Visualizer enhancement
-    call dein#add('hardcoreplayers/spaceline.vim')
+    call dein#add('glepnir/spaceline.vim')
     call dein#add('Yggdroot/indentline')
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('kristijanhusak/defx-icons')
@@ -191,13 +191,14 @@ if dein#load_state('~/.cache/dein')
     call dein#add('octol/vim-cpp-enhanced-highlight')
 
     " Go
-    call dein#add('fatih/vim-go', { 'hook_post_update': ':GoUpdateBinaries', 'on_ft': 'go' })
+    call dein#add('fatih/vim-go', { 'hook_post_update': 'GoInstallBinaries', 'on_ft': 'go' })
 
     " Python
     call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft': 'python' })
 
     " Debugger
-    call dein#add('puremourning/vimspector', {'build': './install_gadget.py --enable-c --enable-python', 'on_ft': ['c', 'cpp', 'python'] })
+    call dein#add('puremourning/vimspector', { 'on_ft': [ 'c', 'cpp', 'python', 'go' ],
+                \ 'build': './install_gadget.py --enable-c --enable-python --enable-go', })
 
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_cmd': ['F', 'Far', 'Fardo'] })
@@ -248,10 +249,9 @@ endif
 " *** Dress up my neovim
 " ***
 set termguicolors
-set background=dark
-colorscheme solarized
-let g:solarized_termcolors = 256
-let g:solarized_termtrans  = 1
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+hi NonText ctermfg=gray guifg=grey10
+colorscheme deus
 
 " ***
 " *** cpp highlight enhanced
@@ -524,11 +524,10 @@ let g:coc_global_extensions = [
             \'coc-actions',
             \'coc-css',
             \'coc-diagnostic',
-            \'coc-emmet',
             \'coc-html',
             \'coc-json',
-            \'coc-pairs',
             \'coc-prettier',
+            \'coc-pyright',
             \'coc-python',
             \'coc-snippets',
             \'coc-syntax',

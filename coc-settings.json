@@ -9,7 +9,7 @@
         "html",
         "python",
         "typescript",
-        "vue "
+        "vue"
     ],
     "diagnostic.signOffset": 100,
     "diagnostic.errorSign": "●",
@@ -47,8 +47,6 @@
     "prettier.formatterPriority": 1,
     "python.autoComplete.addBrackets": true,
     "python.jediEnabled": false,
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
     "python.formatting.provider": "yapf",
     "python.formatting.yapfArgs": [
         "--style",
@@ -58,7 +56,8 @@
         "$HOME/.config/nvim/UltiSnips/",
         "$HOME/.cache/dein/repos/github.com/honza/vim-snippets/UltiSnips"
     ],
-    "suggest.detailMaxLength": 60,
+    "suggest.labelMaxLength": 30,
+    "suggest.detailMaxLength": 30,
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "suggest.triggerAfterInsertEnter": false,
@@ -98,25 +97,26 @@
     },
     "yank.enableCompletion": false,
     "languageserver": {
-        "ccls": {
-            "command": "ccls",
-            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
-            "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
-            "initializationOptions": {
-                "cache": {
-                    "directory": "/tmp/ccls"
-                }
-            }
+        "clangd": {
+            "command": "clangd",
+            "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
         },
         "golang": {
             "command": "$HOME/go/bin/gopls",
             "rootPatterns": ["go.mod"],
             "filetypes": ["go"],
             "initializationOptions": {
-                "gocodeCompletionEnabled": true,
+                "completeUnimport": true,
                 "diagnosticsEnabled": true,
-                "lintTool": "$HOME/go/bin/golint"
+                "gocodeCompletionEnabled": true,
+                "lintTool": "$HOME/go/bin/golint",
+                "usePlaceholders": true
             }
+        },
+        "lua": {
+            "command": "lua-lsp",
+            "filetypes": ["lua"]
         }
     }
 }

@@ -16,6 +16,7 @@ sudo pacman -S universal-ctags
 sudo pacman -S nodejs npm
 sudo npm install -g neovim
 ```
+
 #### [vimspector](https://github.com/puremourning/vimspector) for 'cpp' & 'python'
 ```bash
 sudo pacman -S gdb
@@ -32,9 +33,9 @@ sudo pacman -S yarn
 sudo pacman -S ripgrep
 ```
 
-## [ccls](https://github.com/MaskRay/ccls) Installation
+## [clangd](https://clangd.llvm.org/installation.html) Installation
 ```bash
-sudo pacman -S ccls
+sudo pacman -S clang
 ```
 
 ## Start Installation
