@@ -191,7 +191,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('octol/vim-cpp-enhanced-highlight')
 
     " Go
-    call dein#add('fatih/vim-go', { 'hook_post_update': 'GoInstallBinaries', 'on_ft': 'go' })
+    call dein#add('fatih/vim-go', { 'hook_post_update': ':GoInstallBinaries', 'on_ft': 'go' })
 
     " Python
     call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft': 'python' })
@@ -201,7 +201,7 @@ if dein#load_state('~/.cache/dein')
 
     " Debugger
     call dein#add('puremourning/vimspector', { 'on_ft': [ 'c', 'cpp', 'python', 'go' ],
-                \ 'build': './install_gadget.py --enable-c --enable-python --enable-go', })
+                \ 'build': './install_gadget.py --enable-c --enable-python --enable-go' })
 
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_cmd': ['F', 'Far', 'Fardo'] })
