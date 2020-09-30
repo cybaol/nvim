@@ -17,7 +17,7 @@ sudo pacman -S nodejs npm
 sudo npm install -g neovim
 ```
 
-#### [vimspector](https://github.com/puremourning/vimspector) for 'cpp' & 'python'
+#### [vimspector](https://github.com/puremourning/vimspector) for 'cpp' & 'python' & 'go'
 ```bash
 sudo pacman -S gdb
 pip install debugpy

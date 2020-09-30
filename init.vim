@@ -279,7 +279,7 @@ function! s:read_template_into_buffer(template)
 endfunction
 command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
             \   'source': 'ls -1 ~/.config/nvim/vimspector-json',
-            \   'down': 20,
+            \   'down': 10,
             \   'sink': function('<sid>read_template_into_buffer')
             \ })
 noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
@@ -344,6 +344,14 @@ let g:defx_git#indicators = {
             \ }
 
 let g:defx_git#column_length = 0
+
+" ***
+" *** GitGutter
+" ***
+let g:gitgutter_map_keys             = 0
+let g:gitgutter_sign_allow_clobber   = 0
+let g:gitgutter_preview_win_floating = 1
+nnoremap <leader>gf :GitGutterFold<CR>
 
 " ***
 " *** Far
@@ -452,9 +460,9 @@ let g:asyncrun_open = 6
 function! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
-        :AsyncRun -mode=term gcc -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c2x % -o %<; ./%<
+        :AsyncRun -mode=term clang -ggdb3 -Wall -std=c2x % -o %< && ./%<
     elseif &filetype == 'cpp'
-        :AsyncRun -mode=term g++ -ggdb3 -Wall -fomit-frame-pointer -m64 -std=c++20 % -o %<; ./%<
+        :AsyncRun -mode=term clang++ -ggdb3 -Wall -std=c++20 % -o %< && ./%<
     elseif &filetype == 'go'
         :AsyncRun -mode=term go run %
     elseif &filetype == 'html'
@@ -474,11 +482,10 @@ endfunction
 " ***
 " *** Spaceline
 " ***
-let g:spaceline_seperate_style       = 'arrow-fade'
-let g:spaceline_custom_diff_icon     = ['+', '-', '~']
-let g:spaceline_diff_tool            = 'git-gutter'
-let g:spaceline_git_branch_icon      = ''
-let g:spaceline_function_icon        = ''
+let g:spaceline_custom_diff_icon = ['+','~','-']
+let g:spaceline_diff_tool        = 'git-gutter'
+let g:spaceline_git_branch_icon  = ''
+let g:spaceline_function_icon    = ''
 
 " ***
 " *** Dashboard & vim-clap
