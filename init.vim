@@ -64,7 +64,7 @@ set smartindent
 set softtabstop=-1
 
 set list
-set listchars=tab:▸\ ,trail:▫
+set listchars=tab:\ \ ,trail:▫
 set scrolloff=4
 set lazyredraw
 set ttimeoutlen=0
@@ -72,6 +72,7 @@ set notimeout
 set viewoptions=cursor,folds,slash,unix
 set wrap
 set tw=0
+set indentexpr=
 set backspace=indent,eol,start
 set foldmethod=indent
 set foldlevel=99
@@ -79,6 +80,7 @@ set foldlevel=99
 set splitright
 set splitbelow
 set ttyfast
+set inccommand=split
 set completeopt=longest,noinsert,menuone,noselect,preview
 set autochdir
 set formatoptions-=tc
@@ -512,7 +514,6 @@ let g:clap_layout = { 'relative': 'editor' }
 " ***
 " *** Indentline
 " ***
-let g:indentLine_char            = '┆'
 let g:indentLine_color_term      = 239
 let g:indentLine_bgcolor_term    = 202
 let g:indentLine_fileTypeExclude = ['dashboard', 'defx', 'vista']
