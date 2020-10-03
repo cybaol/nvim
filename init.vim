@@ -64,7 +64,7 @@ set smartindent
 set softtabstop=-1
 
 set list
-set listchars=tab:\ \ ,trail:▫
+set listchars=tab:\¦\ ,trail:▫ " related to NonText "
 set scrolloff=4
 set lazyredraw
 set ttimeoutlen=0
@@ -255,8 +255,8 @@ endif
 " ***
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-hi NonText ctermfg=gray guifg=grey10
 colorscheme deus
+hi NonText ctermfg=gray guifg=grey10
 
 " ***
 " *** cpp highlight enhanced
