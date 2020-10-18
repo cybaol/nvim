@@ -157,6 +157,7 @@ nnoremap U :call dein#update()<CR>
 " *** Plugins Install With Dein
 " ***
 let g:dein#auto_recache = 1
+let g:dein#install_max_processes = 16
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('~/.cache/dein')
@@ -203,7 +204,7 @@ if dein#load_state('~/.cache/dein')
 
     " Debugger
     call dein#add('puremourning/vimspector', { 'on_ft': [ 'c', 'cpp', 'python', 'go' ],
-                \ 'build': './install_gadget.py --enable-c --enable-python --enable-go' })
+                \ 'hook_post_update': ':VimspectorInstall vscode-cpptools debugpy vscode-go' })
 
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_cmd': ['F', 'Far', 'Fardo'] })
@@ -495,7 +496,7 @@ let g:spaceline_function_icon    = ''
 nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
 nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<CR>
 nnoremap <silent> <Leader>nf :<C-u>DashboardNewFile<CR>
-nnoremap <silent> <Leader>cc :<C-u>Clap colors<CR>
+nnoremap <silent> <Leader>cs :<C-u>Clap colors<CR>
 nnoremap <silent> <Leader>fw :<C-u>Clap grep2<CR>
 nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
 let g:dashboard_default_header  = 'commicgirl6'
@@ -504,7 +505,7 @@ let g:dashboard_custom_shortcut = {
             \ 'find_history' : 'SPC f h',
             \ 'find_file' : 'SPC f f',
             \ 'new_file' : 'SPC n f',
-            \ 'change_colorscheme' : 'SPC c c',
+            \ 'change_colorscheme' : 'SPC c s',
             \ 'find_word' : 'SPC f w',
             \ 'book_marks' : 'SPC f b',
             \ }
@@ -588,6 +589,10 @@ endfunction
 inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:snips_author     = 'Kino'
 let g:coc_snippet_next = '<tab>'
+inoremap <silent><expr> <c-j> coc#util#has_float() ? coc#util#float_scroll_i( 1) : "\<c-j>"
+inoremap <silent><expr> <c-k> coc#util#has_float() ? coc#util#float_scroll_i(-1) : "\<c-k>"
+nnoremap <silent><expr> <c-j> coc#util#has_float() ? coc#util#float_scroll_i( 1) : "\<c-j>"
+nnoremap <silent><expr> <c-k> coc#util#has_float() ? coc#util#float_scroll_i(-1) : "\<c-k>"
 
 nnoremap <silent> <leader>cc :CocCommand<CR>
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<CR>
