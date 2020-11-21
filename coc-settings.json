@@ -3,7 +3,7 @@
     "coc-actions.showActionKind": true,
     "coc.preferences.enableFloatHighlight": true,
     "coc.preferences.snippetStatusText": "Ⓢ ",
-    "coc.preferences.extensionUpdateCheck": "daily",
+    "coc.preferences.extensionUpdateCheck": "weekly",
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "html",
@@ -11,7 +11,6 @@
         "typescript",
         "vue"
     ],
-    "diagnostic.signOffset": 1,
     "diagnostic.errorSign": "●",
     "diagnostic.warningSign": "●",
     "diagnostic.infoSign": "ღ",
@@ -96,10 +95,20 @@
     },
     "yank.enableCompletion": false,
     "languageserver": {
+        "bash": {
+            "command": "bash-language-server",
+            "args": ["start"],
+            "filetypes": ["sh"],
+            "ignoredRootPaths": []
+        },
         "clangd": {
             "command": "clangd",
             "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
             "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+        },
+        "digestif": {
+            "command": "digestif",
+            "filetypes": ["tex", "plaintex", "context"]
         },
         "golang": {
             "command": "$HOME/go/bin/gopls",

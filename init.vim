@@ -23,13 +23,6 @@ if empty(glob('~/.pip/pip.conf'))
     silent! exec "!cp ~/.config/nvim/default_configs/pip.conf ~/.pip/"
 endif
 
-" fish shell
-if empty(glob('~/.config/fish/config.fish'))
-    silent! exec "!mkdir -p ~/.config/fish"
-    silent! exec "!cp ~/.config/nvim/default_configs/config.fish ~/.config/fish/"
-    silent! exec "!source ~/.config/fish/config.fish"
-endif
-
 source ~/.config/nvim/_machine_specific.vim
 
 
@@ -98,7 +91,7 @@ set regexpengine=1
 set hidden
 set updatetime=100
 set shortmess+=c
-set signcolumn=number
+set signcolumn=yes
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -186,6 +179,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('tpope/vim-commentary')
     call dein#add('easymotion/vim-easymotion', { 'on_map': '<Plug>(easymotion-overwin-f2)' })
     call dein#add('tpope/vim-surround')
+    call dein#add('gcmt/wildfire.vim')
 
     " UltiSnips
     call dein#add('honza/vim-snippets', { 'merged': 0, 'depends': 'coc.nvim' })
@@ -199,12 +193,16 @@ if dein#load_state('~/.cache/dein')
     " Python
     call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft': 'python' })
 
+    " Latex
+    call dein#add('lervag/vimtex', { 'on_ft': 'tex' })
+    call dein#add('KeitaNakamura/tex-conceal.vim')
+
     " AsyncRun
     call dein#add('skywind3000/asyncrun.vim', { 'on_cmd': 'AsyncRun' })
 
     " Debugger
     call dein#add('puremourning/vimspector', { 'on_ft': [ 'c', 'cpp', 'python', 'go' ],
-                \ 'hook_post_update': ':VimspectorInstall vscode-cpptools debugpy vscode-go' })
+                \ 'hook_post_update': ':VimspectorUpdate vscode-cpptools debugpy vscode-go' })
 
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_cmd': ['F', 'Far', 'Fardo'] })
@@ -231,8 +229,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('turbio/bracey.vim', { 'build': 'npm install --prefix server', 'on_ft': 'html' })
     call dein#add('othree/html5.vim')
     call dein#add('yuezk/vim-js')
-    call dein#add('HerringtonDarkholme/yats.vim')
-    call dein#add('posva/vim-vue')
     call dein#add('elzr/vim-json')
 
     " Translator
@@ -257,6 +253,7 @@ endif
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 colorscheme deus
+hi Conceal ctermfg=gray guifg=grey10
 hi NonText ctermfg=gray guifg=grey10
 
 " ***
@@ -286,7 +283,6 @@ command! -bang -nargs=* LoadVimSpectorJsonTemplate call fzf#run({
             \   'sink': function('<sid>read_template_into_buffer')
             \ })
 noremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
-nnoremap <F1> :call vimspector#StepInto()<CR>
 nnoremap <F7> :call vimspector#Reset()<CR>
 
 " ***
@@ -393,6 +389,18 @@ let g:go_highlight_variable_declarations     = 0
 let g:go_doc_keywordprg_enabled              = 0
 
 " ***
+" *** Vimtex
+" ***
+set iskeyword+=:
+let g:tex_flavor                      = 'latex'
+let g:vimtex_view_method              = 'zathura'
+let g:vimtex_quickfix_mode            = 0
+set conceallevel=2
+let g:tex_conceal                     = 'abdmg'
+let g:vimtex_compiler_latexmk_engines = { '_': '-xelatex' }
+autocmd FileType tex highlight Conceal ctermfg=168 guifg=#FF8C00
+
+" ***
 " *** Rnvimr
 " ***
 let g:rnvimr_enable_ex   = 1
@@ -472,6 +480,8 @@ function! CompileRunGcc()
         exec "Bracey"
     elseif &filetype == 'javascript'
         :AsyncRun -mode=term node --trace-warnings %
+    elseif &filetype == 'lua'
+        :AsyncRun -mode=term lua %
     elseif &filetype == 'markdown'
         exec "MarkdownPreview"
     elseif &filetype == 'python'
@@ -515,9 +525,11 @@ let g:clap_layout = { 'relative': 'editor' }
 " ***
 " *** Indentline
 " ***
+let g:indentLine_setColors       = 0
+let g:indentLine_setConceal      = 0
 let g:indentLine_color_term      = 239
 let g:indentLine_bgcolor_term    = 202
-let g:indentLine_fileTypeExclude = ['dashboard', 'defx', 'vista']
+let g:indentLine_fileTypeExclude = ['dashboard', 'defx', 'tex', 'vista']
 
 " ***
 " *** Semshi
@@ -545,10 +557,10 @@ let g:coc_global_extensions = [
             \'coc-python',
             \'coc-snippets',
             \'coc-syntax',
-            \'coc-tsserver',
             \'coc-tslint-plugin',
+            \'coc-tsserver',
             \'coc-vimlsp',
-            \'coc-vetur',
+            \'coc-vimtex',
             \'coc-yank',
             \]
 " Use <c-space> to trigger completion.
@@ -559,8 +571,10 @@ nnoremap <silent> ? :call <SID>show_documentation()<CR>
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
     else
-        call CocAction('doHover')
+        execute '!' . &keywordprg . " " . expand('<cword>')
     endif
 endfunction
 
@@ -586,13 +600,16 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 let g:snips_author     = 'Kino'
 let g:coc_snippet_next = '<tab>'
-inoremap <silent><expr> <c-j> coc#util#has_float() ? coc#util#float_scroll_i( 1) : "\<c-j>"
-inoremap <silent><expr> <c-k> coc#util#has_float() ? coc#util#float_scroll_i(-1) : "\<c-k>"
-nnoremap <silent><expr> <c-j> coc#util#has_float() ? coc#util#float_scroll_i( 1) : "\<c-j>"
-nnoremap <silent><expr> <c-k> coc#util#has_float() ? coc#util#float_scroll_i(-1) : "\<c-k>"
+
+" float scroll
+nnoremap <nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"
+nnoremap <nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
+inoremap <nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 nnoremap <silent> <leader>cc :CocCommand<CR>
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<CR>
