@@ -8,8 +8,7 @@
         "css",
         "html",
         "python",
-        "typescript",
-        "vue"
+        "typescript"
     ],
     "diagnostic.errorSign": "●",
     "diagnostic.warningSign": "●",
@@ -17,7 +16,6 @@
     "diagnostic.hintSign": "ஐ",
     "diagnostic.displayByAle": false,
     "diagnostic.refreshOnInsertMode": false,
-    "diagnostic.refreshAfterSave": false,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.virtualTextPrefix": " ❯❯❯ ",
     "diagnostic.virtualText": true,
@@ -43,8 +41,6 @@
     "prettier.disableLanguages": [],
     "prettier.useTabs": true,
     "prettier.trailingComma": "all",
-    "python.autoComplete.addBrackets": true,
-    "python.jediEnabled": false,
     "python.formatting.provider": "yapf",
     "python.formatting.yapfArgs": [
         "--style",

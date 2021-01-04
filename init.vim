@@ -5,7 +5,7 @@
 "        Address     : github.com/cybaol/nvim
 "        Description : these configs can make your work productive
 "
-"               CopyRight (C) 2020 All Rights Reserved
+"               CopyRight (C) 2020-2025 All Rights Reserved
 " *******************************************************************
 
 " ***
@@ -51,10 +51,10 @@ syntax on
 
 set autoindent
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set smartindent
-set softtabstop=-1
 
 set list
 set listchars=tab:\¦\ ,trail:▫ " related to NonText "
@@ -159,12 +159,12 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/dein.vim')
 
     " Themes
-    call dein#add('theniceboy/vim-deus')
+    call dein#add('ajmwagar/vim-deus')
     call dein#add('glepnir/dashboard-nvim')
 
     " Visualizer enhancement
     call dein#add('glepnir/spaceline.vim')
-    call dein#add('Yggdroot/indentline')
+    call dein#add('Yggdroot/indentLine')
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('kristijanhusak/defx-icons')
     call dein#add('kristijanhusak/defx-git')
@@ -184,14 +184,15 @@ if dein#load_state('~/.cache/dein')
     " UltiSnips
     call dein#add('honza/vim-snippets', { 'merged': 0, 'depends': 'coc.nvim' })
 
-    " More vivid highlight enhancement for C++
-    call dein#add('octol/vim-cpp-enhanced-highlight')
+    " Syntax highlight enhancement
+    call dein#add('nvim-treesitter/nvim-treesitter', { 'hook_post_update': ':TSUpdate' })
 
     " Go
-    call dein#add('fatih/vim-go', { 'hook_post_update': ':GoInstallBinaries', 'on_ft': 'go' })
+    call dein#add('fatih/vim-go', { 'on_ft': 'go', 'hook_post_update': ':GoInstallBinaries' })
 
     " Python
-    call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft': 'python' })
+    call dein#add('Vimjas/vim-python-pep8-indent', { 'on_ft': 'python' })
+    call dein#add('numirias/semshi', { 'on_ft': 'python', 'hook_post_update': ':UpdateRemotePlugins' })
 
     " Latex
     call dein#add('lervag/vimtex', { 'on_ft': 'tex' })
@@ -206,7 +207,7 @@ if dein#load_state('~/.cache/dein')
 
     " Find & Search
     call dein#add('brooth/far.vim', { 'on_cmd': ['F', 'Far', 'Fardo'] })
-    call dein#add('liuchengxu/vim-clap', { 'hook_post_update': ':Clap install-binary!', 'on_cmd': '<C-u>Clap' })
+    call dein#add('junegunn/fzf.vim')
     call dein#add('kevinhwang91/rnvimr', { 'on_cmd': 'RnvimrToggle' })
 
     " Auto Complete
@@ -215,7 +216,8 @@ if dein#load_state('~/.cache/dein')
 
     " Format
     call dein#add('godlygeek/tabular', { 'on_cmd': 'Tabularize'})
-    call dein#add('chiel92/vim-autoformat', { 'on_cmd': 'Autoformat' })
+    call dein#add('google/vim-maktaba', { 'merged': 0 })
+    call dein#add('google/vim-codefmt')
 
     " Taglist
     call dein#add('liuchengxu/vista.vim', { 'on_cmd': 'Vista' })
@@ -223,10 +225,10 @@ if dein#load_state('~/.cache/dein')
     " Markdown
     call dein#add('iamcco/markdown-preview.nvim', { 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
                 \ 'build': 'sh -c "cd app & yarn install"' })
-    call dein#add('dhruvasagar/vim-table-mode', { 'on_cmd': 'TableModeToggle', 'on_ft': ['text', 'markdown'] })
+    call dein#add('dhruvasagar/vim-table-mode', { 'on_ft': ['text', 'markdown'], 'on_cmd': 'TableModeToggle' })
 
     " Html, CSS, JavaScript, TypeScript, JSON, etc.
-    call dein#add('turbio/bracey.vim', { 'build': 'npm install --prefix server', 'on_ft': 'html' })
+    call dein#add('turbio/bracey.vim', { 'on_ft': 'html', 'build': 'npm install --prefix server' })
     call dein#add('othree/html5.vim')
     call dein#add('yuezk/vim-js')
     call dein#add('elzr/vim-json')
@@ -257,17 +259,9 @@ hi Conceal ctermfg=gray guifg=grey10
 hi NonText ctermfg=gray guifg=grey10
 
 " ***
-" *** cpp highlight enhanced
+" *** nvim-treesitter
 " ***
-let g:cpp_class_scope_highlight                   = 1
-let g:cpp_member_variable_highlight               = 1
-let g:cpp_class_decl_highlight                    = 1
-let g:cpp_posix_standard                          = 1
-"let g:cpp_experimental_simple_template_highlight = 1
-let g:cpp_experimental_template_highlight         = 1
-let g:cpp_concepts_highlight                      = 1
-let g:cpp_no_function_highlight                   = 0
-let c_no_curly_error                              = 1
+source ~/.config/nvim/modules/nvim-treesitter.vim
 
 " ***
 " *** vimspector
@@ -444,9 +438,9 @@ let g:vista_fzf_preview          = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 
 " ***
-" *** Autoformat
+" *** Vim-codefmt
 " ***
-nnoremap fm :Autoformat<CR>
+nnoremap fm :FormatCode<CR>
 
 " ***
 " *** Tabular
@@ -475,7 +469,7 @@ function! CompileRunGcc()
     elseif &filetype == 'cpp'
         :AsyncRun -mode=term clang++ -ggdb3 -Wall -std=c++20 % -o %< && ./%<
     elseif &filetype == 'go'
-        :AsyncRun -mode=term go run %
+        :AsyncRun -mode=term go run .
     elseif &filetype == 'html'
         exec "Bracey"
     elseif &filetype == 'javascript'
@@ -486,7 +480,7 @@ function! CompileRunGcc()
         exec "MarkdownPreview"
     elseif &filetype == 'python'
         let $PYTHONNUNBUFFERED = 1
-        :AsyncRun -mode=term -raw python %
+        :AsyncRun -mode=term -raw python3 %
     elseif &filetype == 'sh'
         :AsyncRun -mode=term bash %
     endif
@@ -501,14 +495,16 @@ let g:spaceline_git_branch_icon  = ''
 let g:spaceline_function_icon    = ''
 
 " ***
-" *** Dashboard & vim-clap
+" *** Dashboard & FZF
 " ***
-nnoremap <silent> <Leader>fh :<C-u>Clap history<CR>
-nnoremap <silent> <Leader>ff :<C-u>Clap files ++finder=rg --ignore --hidden --files<CR>
-nnoremap <silent> <Leader>nf :<C-u>DashboardNewFile<CR>
-nnoremap <silent> <Leader>cs :<C-u>Clap colors<CR>
-nnoremap <silent> <Leader>fw :<C-u>Clap grep2<CR>
-nnoremap <silent> <Leader>fb :<C-u>Clap marks<CR>
+let g:dashboard_default_executive = 'fzf'
+nmap <Leader>sl :<C-u>SessionLoad<CR>
+nnoremap <silent> <Leader>fh :DashboardFindHistory<CR>
+nnoremap <silent> <Leader>ff :DashboardFindFile<CR>
+nnoremap <silent> <Leader>nf :DashboardNewFile<CR>
+nnoremap <silent> <Leader>cs :DashboardChangeColorscheme<CR>
+nnoremap <silent> <Leader>fw :DashboardFindWord<CR>
+nnoremap <silent> <Leader>fb :DashboardJumpMark<CR>
 let g:dashboard_default_header  = 'commicgirl6'
 let g:dashboard_custom_shortcut = {
             \ 'last_session' : 'SPC s l',
@@ -519,8 +515,6 @@ let g:dashboard_custom_shortcut = {
             \ 'find_word' : 'SPC f w',
             \ 'book_marks' : 'SPC f b',
             \ }
-let g:clap_theme  = 'material_design_dark'
-let g:clap_layout = { 'relative': 'editor' }
 
 " ***
 " *** Indentline
@@ -554,7 +548,6 @@ let g:coc_global_extensions = [
             \'coc-json',
             \'coc-prettier',
             \'coc-pyright',
-            \'coc-python',
             \'coc-snippets',
             \'coc-syntax',
             \'coc-tslint-plugin',
