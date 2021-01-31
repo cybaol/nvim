@@ -3,7 +3,7 @@
     "coc-actions.showActionKind": true,
     "coc.preferences.enableFloatHighlight": true,
     "coc.preferences.snippetStatusText": "Ⓢ ",
-    "coc.preferences.extensionUpdateCheck": "weekly",
+    "coc.preferences.extensionUpdateCheck": "daily",
     "coc.preferences.formatOnSaveFiletypes": [
         "css",
         "html",
@@ -116,8 +116,31 @@
             }
         },
         "lua": {
-            "command": "lua-lsp",
-            "filetypes": ["lua"]
+            "command": "lua-language-server",
+            "filetypes": ["lua"],
+            "rootPatterns": [".git/"],
+            "settings": {
+                "Lua": {
+                    "completion": {
+                        "keywordSnippet": "Disable"
+                    },
+                    "diagnostics": {
+                        "enable": true,
+                        "globals": ["hs", "vim", "it", "describe", "before_each", "after_each"],
+                        "disable": ["lowercase-global"]
+                    },
+                    "runtime": {
+                        "version": "Lua 5.4"
+                    },
+                    "workspace": {
+                        "library": {
+                            "/usr/share/nvim/runtime/lua": true
+                        },
+                        "maxPreload": 2000,
+                        "preloadFileSize": 1000
+                    }
+                }
+            }
         }
     }
 }

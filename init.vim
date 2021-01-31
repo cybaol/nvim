@@ -159,7 +159,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Shougo/dein.vim')
 
     " Themes
-    call dein#add('ajmwagar/vim-deus')
+    call dein#add('theniceboy/nvim-deus')
     call dein#add('glepnir/dashboard-nvim')
 
     " Visualizer enhancement
@@ -191,7 +191,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('fatih/vim-go', { 'on_ft': 'go', 'hook_post_update': ':GoInstallBinaries' })
 
     " Python
-    call dein#add('Vimjas/vim-python-pep8-indent', { 'on_ft': 'python' })
     call dein#add('numirias/semshi', { 'on_ft': 'python', 'hook_post_update': ':UpdateRemotePlugins' })
 
     " Latex
@@ -255,7 +254,6 @@ endif
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 colorscheme deus
-hi Conceal ctermfg=gray guifg=grey10
 hi NonText ctermfg=gray guifg=grey10
 
 " ***
@@ -392,7 +390,6 @@ let g:vimtex_quickfix_mode            = 0
 set conceallevel=2
 let g:tex_conceal                     = 'abdmg'
 let g:vimtex_compiler_latexmk_engines = { '_': '-xelatex' }
-autocmd FileType tex highlight Conceal ctermfg=168 guifg=#FF8C00
 
 " ***
 " *** Rnvimr
@@ -505,7 +502,6 @@ nnoremap <silent> <Leader>nf :DashboardNewFile<CR>
 nnoremap <silent> <Leader>cs :DashboardChangeColorscheme<CR>
 nnoremap <silent> <Leader>fw :DashboardFindWord<CR>
 nnoremap <silent> <Leader>fb :DashboardJumpMark<CR>
-let g:dashboard_default_header  = 'commicgirl6'
 let g:dashboard_custom_shortcut = {
             \ 'last_session' : 'SPC s l',
             \ 'find_history' : 'SPC f h',
@@ -519,7 +515,6 @@ let g:dashboard_custom_shortcut = {
 " ***
 " *** Indentline
 " ***
-let g:indentLine_setColors       = 0
 let g:indentLine_setConceal      = 0
 let g:indentLine_color_term      = 239
 let g:indentLine_bgcolor_term    = 202

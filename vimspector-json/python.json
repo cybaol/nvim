@@ -7,7 +7,7 @@
                 "type": "python",
                 "cwd": "${workspaceRoot}",
                 "program": "${file}",
-                "stopOnEntry": false ,
+                "stopOnEntry": false,
                 "console": "integratedTerminal"
             },
             "breakpoints": {

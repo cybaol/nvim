@@ -56,19 +56,15 @@ sudo pacman -S clang
 sudo luarocks --lua-version=5.3 install digestif
 ```
 
-## [lua-lsp](https://github.com/Alloyed/lua-lsp) Installation
+## [lua-language-server](https://github.com/sumneko/lua-language-server) Installation
 
 ```bash
-sudo luarocks --lua-version=5.3 install lua-lsp &&
-sudo luarocks install luacheck &&
-sudo luarocks --lua-version=5.3 install lcf &&
-sudo luarocks install lua-cjson
+yay -S lua-language-server-git
 ```
 
 ## Start Installation
 
-```vim
-sudo pacman -S yay &&
+```bash
 yay -S neovim-nightly-bin
 
 sudo nvim /etc/hosts
