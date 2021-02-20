@@ -1,13 +1,13 @@
 {
-    "configurations": {
-        "run": {
-            "adapter": "vscode-go",
-            "configuration": {
-                "request": "launch",
-                "program": "${fileDirname}/${fileBasename}",
-                "mode": "debug",
-                "dlvToolPath": "$HOME/go/bin/dlv"
-            }
-        }
+  "configurations": {
+    "run": {
+      "adapter": "vscode-go",
+      "configuration": {
+        "request": "launch",
+        "program": "${fileDirname}/${fileBasename}",
+        "mode": "debug",
+        "dlvToolPath": "$HOME/go/bin/dlv"
+      }
     }
+  }
 }

@@ -41,19 +41,13 @@ sudo pacman -S universal-ctags
 ## [bash-language-server](https://github.com/bash-lsp/bash-language-server) Installation
 
 ```bash
-sudo npm i -g bash-language-server
+sudo pacman -S bash-language-server
 ```
 
 ## [clangd](https://clangd.llvm.org/installation.html) Installation
 
 ```bash
 sudo pacman -S clang
-```
-
-## [digestif](https://github.com/astoff/digestif) Installation
-
-```bash
-sudo luarocks --lua-version=5.3 install digestif
 ```
 
 ## [lua-language-server](https://github.com/sumneko/lua-language-server) Installation
