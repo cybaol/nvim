@@ -7,7 +7,7 @@ function! CompileRunGcc()
   elseif &filetype == 'cpp'
     :AsyncRun -mode=term clang++ -ggdb3 -Wall -std=c++20 % -o %< && ./%<
   elseif &filetype == 'go'
-    :AsyncRun -mode=term go run .
+    :AsyncRun -mode=term go run %
   elseif &filetype == 'html'
     exec "Bracey"
   elseif &filetype == 'javascript'

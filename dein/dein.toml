@@ -53,7 +53,7 @@ hook_add = '''
 [[plugins]]
 repo = 'mhartington/formatter.nvim'
 hook_add = '''
-  nnoremap <silent> fm :Format<CR>
+  nnoremap <silent> fm :w<CR>:Format<CR>
 '''
 
 [[plugins]]
@@ -91,7 +91,6 @@ hook_add = '''
 
 [[plugins]]
 repo = 'kyazdani42/nvim-tree.lua'
-hook_add = 'source ~/.config/nvim/modules/nvim-tree-configs.vim'
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
@@ -192,8 +191,6 @@ hook_add = '''
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_post_update = ':GoInstallBinaries'
-hook_add = 'source ~/.config/nvim/modules/vim-go-configs.vim'
-
 
 [[plugins]]
 repo = 'yuezk/vim-js'

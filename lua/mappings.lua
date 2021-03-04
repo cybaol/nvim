@@ -28,7 +28,8 @@ function mappings.load_mappings()
   vim.api.nvim_set_keymap('', 'L', '<C-w>l', {noremap = true})
 
   -- global replace
-  vim.api.nvim_set_keymap('n', '<leader>r', ':%s///g<left><left><left>', {noremap = true})
+  vim.api.nvim_set_keymap('n', '<leader>r', ':%s///g<left><left><left>',
+                          {noremap = true})
 
   -- copy to system clipboard
   vim.api.nvim_set_keymap('v', 'Y', '"+y', {noremap = true})
