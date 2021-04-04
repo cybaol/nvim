@@ -19,6 +19,15 @@ require'formatter'.setup {
         }
       end
     },
+    html = {
+      function()
+        return {
+          exe = "js-beautify",
+          args = {"--indent-size", 2, vim.api.nvim_buf_get_name(0)},
+          stdin = true
+        }
+      end
+    },
     json = {
       function()
         return {
@@ -42,8 +51,8 @@ require'formatter'.setup {
     lua = {
       function()
         return {
-          exe = "lua-format",
-          args = {"--indent-width", 2, vim.api.nvim_buf_get_name(0)},
+          exe = "luafmt",
+          args = {"--indent-count", 2, "--stdio"},
           stdin = true
         }
       end

@@ -21,33 +21,22 @@ require'bufferline'.setup {
 require'colorizer'.setup {}
 
 -- nvim-tree.lua
-vim.g.nvim_tree_hide_dotfiles = 1;
-vim.api.nvim_tree_indent_markers = 1
+local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+vim.g.nvim_tree_hide_dotfiles  = 1
+vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_bindings = {
-  ["<CR>"]  = ":lua require'nvim-tree'.on_keypress('edit')<CR>",
-  ["zh"]    = ":lua require'nvim-tree'.on_keypress('toggle_dotfiles')<CR>",
-  ["<Tab>"] = ":lua require'nvim-tree'.on_keypress('preview')<CR>",
-  ["cd"]    = ":lua require'nvim-tree'.on_keypress('cd')<CR>",
-  ["a"]     = ":lua require'nvim-tree'.on_keypress('create')<CR>",
-  ["rm"]    = ":lua require'nvim-tree'.on_keypress('remove')<CR>",
-  ["rn"]    = ":lua require'nvim-tree'.on_keypress('rename')<CR>",
-  ["dd"]    = ":lua require'nvim-tree'.on_keypress('cut')<CR>",
-  ["yy"]    = ":lua require'nvim-tree'.on_keypress('copy')<CR>",
-  ["p"]     = ":lua require'nvim-tree'.on_keypress('paste')<CR>",
-  ["k"]     = ":lua require'nvim-tree'.on_keypress('prev_git_item')<CR>",
-  ["j"]     = ":lua require'nvim-tree'.on_keypress('next_git_item')<CR>",
-  ["q"]     = ":lua require'nvim-tree'.on_keypress('close')<CR>"
-}
-vim.g.nvim_tree_icons = {
-  default = '',
-  symlink = '',
-  git = {
-    unstaged  = "✚",
-    staged    = "✚",
-    unmerged  = "≠",
-    renamed   = "≫",
-    untracked = "★"
-  }
+  ["<cr>"] = tree_cb("edit"),
+  ["cd"]   = tree_cb("cd"),
+  ["a"]    = tree_cb("create"),
+  ["rm"]   = tree_cb("remove"),
+  ["rn"]   = tree_cb("rename"),
+  ["dd"]   = tree_cb("cut"),
+  ["yy"]   = tree_cb("copy"),
+  ["p"]    = tree_cb("paste"),
+  ["k"]    = tree_cb("prev_git_item"),
+  ["j"]    = tree_cb("next_git_item"),
+  ["zh"]   = tree_cb("toggle_dotfiles"),
+  ["q"]    = tree_cb("close"),
 }
 vim.api.nvim_set_keymap('n', 'nt', ':NvimTreeToggle<CR>', {noremap = true})
 

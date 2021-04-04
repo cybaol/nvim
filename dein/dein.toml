@@ -64,6 +64,13 @@ repo = 'glepnir/galaxyline.nvim'
 merged = false
 
 [[plugins]]
+repo = 'phaazon/hop.nvim'
+on_map = 'HopChar2'
+hook_add = '''
+  nnoremap mv :HopChar2<CR>
+'''
+
+[[plugins]]
 repo = 'glepnir/indent-guides.nvim'
 
 [[plugins]]
@@ -169,16 +176,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
-on_map = '<Plug>(easymotion-overwin-f2)'
-hook_add = '''
-  let g:EasyMotion_do_mapping = 0
-  let g:EasyMotion_do_shade   = 0
-  let g:EasyMotion_smartcase  = 1
-  nmap mv <Plug>(easymotion-overwin-f2)
-'''
-
-[[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
   let g:gitgutter_map_keys             = 0
@@ -225,7 +222,6 @@ on_ft = [ 'c', 'cpp', 'python', 'go' ]
 hook_post_update = ':VimspectorUpdate vscode-cpptools debugpy vscode-go'
 hook_add = '''
   let g:vimspector_enable_mappings   = 'HUMAN'
-  let g:vimspector_terminal_minwidth = 35
   function! s:read_template_into_buffer(template)
       execute '0r ~/.config/nvim/vimspector-json/'.a:template
   endfunction
@@ -236,6 +232,8 @@ hook_add = '''
               \ })
   nnoremap <leader>vs :tabe .vimspector.json<CR>:LoadVimSpectorJsonTemplate<CR>
   nnoremap <F7> :call vimspector#Reset()<CR>
+  nmap <Leader>di <Plug>VimspectorBalloonEval
+  xmap <Leader>di <Plug>VimspectorBalloonEval
 '''
 
 [[plugins]]

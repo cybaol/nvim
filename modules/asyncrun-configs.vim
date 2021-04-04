@@ -3,9 +3,9 @@ let g:asyncrun_open = 6
 function! CompileRunGcc()
   exec "w"
   if &filetype == 'c'
-    :AsyncRun -mode=term clang -ggdb3 -Wall -std=c2x % -o %< && ./%<
+    :AsyncRun -mode=term gcc -g -lm -Wall -std=c2x % -o %< && ./%<
   elseif &filetype == 'cpp'
-    :AsyncRun -mode=term clang++ -ggdb3 -Wall -std=c++20 % -o %< && ./%<
+    :AsyncRun -mode=term g++ -g -lm -Wall -std=c++20 % -o %< && ./%<
   elseif &filetype == 'go'
     :AsyncRun -mode=term go run %
   elseif &filetype == 'html'

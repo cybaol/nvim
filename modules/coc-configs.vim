@@ -1,5 +1,6 @@
 let g:coc_global_extensions = [
             \'coc-actions',
+            \'coc-cmake',
             \'coc-css',
             \'coc-diagnostic',
             \'coc-html',

@@ -19,13 +19,6 @@ sudo npm install -g neovim
 sudo pacman -S bat fd fzf perl ripgrep the_silver_searcher
 ```
 
-#### [vimspector](https://github.com/puremourning/vimspector) for 'cpp' & 'python' & 'go'
-
-```bash
-sudo pacman -S gdb &&
-pip install debugpy
-```
-
 #### [vimtex](https://github.com/lervag/vimtex) depends on 'Tex Live' & 'zathura'
 
 ```bash

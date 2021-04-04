@@ -26,7 +26,7 @@ function options:load_options()
     hidden         = true;
     splitright     = true;
     splitbelow     = true;
-    showcmd        = false;
+    showcmd        = true;
     showmode       = false;
     timeout        = false;
     inccommand     = "split";
