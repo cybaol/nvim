@@ -40,24 +40,26 @@ sudo pacman -S bash-language-server
 ## [clangd](https://clangd.llvm.org/installation.html) Installation
 
 ```bash
-sudo pacman -S clang
+sudo pacman -S clang llvm-libs
+```
+
+## [cmake-language-server](https://github.com/regen100/cmake-language-server) Installation
+```bash
+yay -S cmake-language-server
 ```
 
 ## [lua-language-server](https://github.com/sumneko/lua-language-server) Installation
 
 ```bash
-yay -S lua-language-server-git
+sudo pacman -S lua-language-server
 ```
 
 ## Start Installation
 
 ```bash
-yay -S neovim-nightly-bin
+sudo pacman -S neovim
 
 sudo nvim /etc/hosts
-
-add '151.101.108.133 raw.githubusercontent.com' to hosts
-add '151.101.108.223 pypi.python.org' to hosts
 
 git clone https://github.com/cybaol/nvim.git ~/.config/nvim
 

@@ -15,7 +15,7 @@ function dein.load_repos()
     vim.api.nvim_set_var('dein#auto_recache', 1)
     vim.api.nvim_set_var('dein#install_max_processes', 16)
 
-    if not vim.o.runtimepath:match('/dein.vim') then
+    if not vim.api.nvim_get_option('runtimepath'):match('dein.vim') then
       if not is_dir(dein_dir) then
         os.execute(dein_cmd)
       end

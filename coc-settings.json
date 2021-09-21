@@ -19,6 +19,7 @@
   "diagnostic.checkCurrentLine": true,
   "diagnostic.virtualTextPrefix": " ❯❯❯ ",
   "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
   "diagnostic-languageserver.filetypes": {
     "vim": "vint",
     "email": "languagetool",
@@ -91,6 +92,12 @@
   },
   "yank.enableCompletion": false,
   "languageserver": {
+    "asm-lsp": {
+      "command": "asm-lsp",
+      "filetypes": [
+        "asm", "s", "S"
+      ]
+    },
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
@@ -101,6 +108,16 @@
       "command": "clangd",
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+    },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": ["cmake"],
+      "rootPatterns": [
+        "build/"
+      ],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
     },
     "golang": {
       "command": "$HOME/go/bin/gopls",

@@ -1,6 +1,5 @@
 let g:coc_global_extensions = [
             \'coc-actions',
-            \'coc-cmake',
             \'coc-css',
             \'coc-diagnostic',
             \'coc-html',
@@ -9,7 +8,6 @@ let g:coc_global_extensions = [
             \'coc-pyright',
             \'coc-snippets',
             \'coc-syntax',
-            \'coc-toml',
             \'coc-tslint-plugin',
             \'coc-tsserver',
             \'coc-vimlsp',
@@ -43,7 +41,6 @@ nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>= <Plug>(coc-diagnostic-next)
 
 " coc-snippets
-imap <tab> <Plug>(coc-snippets-expand)
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :

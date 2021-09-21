@@ -9,6 +9,9 @@ require 'eviline'
 -- indent-guides.nvim
 require'indent_guides'.setup {}
 
+-- nvim-autopairs
+require'nvim-autopairs'.setup {}
+
 -- nvim-bufferline.lua
 require'bufferline'.setup {
   options = {
@@ -25,24 +28,22 @@ local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 vim.g.nvim_tree_hide_dotfiles  = 1
 vim.g.nvim_tree_indent_markers = 1
 vim.g.nvim_tree_bindings = {
-  ["<cr>"] = tree_cb("edit"),
-  ["cd"]   = tree_cb("cd"),
-  ["a"]    = tree_cb("create"),
-  ["rm"]   = tree_cb("remove"),
-  ["rn"]   = tree_cb("rename"),
-  ["dd"]   = tree_cb("cut"),
-  ["yy"]   = tree_cb("copy"),
-  ["p"]    = tree_cb("paste"),
-  ["k"]    = tree_cb("prev_git_item"),
-  ["j"]    = tree_cb("next_git_item"),
-  ["zh"]   = tree_cb("toggle_dotfiles"),
-  ["q"]    = tree_cb("close"),
+  { key = "<cr>", cb = tree_cb("edit") },
+  { key = "s",    cb = tree_cb("cd") },
+  { key = "a",    cb = tree_cb("create") },
+  { key = "d",    cb = tree_cb("remove") },
+  { key = "r",    cb = tree_cb("rename") },
+  { key = "x",    cb = tree_cb("cut") },
+  { key = "Y",    cb = tree_cb("copy") },
+  { key = "p",    cb = tree_cb("paste") },
+  { key = "zh",   cb = tree_cb("toggle_dotfiles") },
+  { key = "q",    cb = tree_cb("close") },
 }
 vim.api.nvim_set_keymap('n', 'nt', ':NvimTreeToggle<CR>', {noremap = true})
 
 -- nvim-treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"cpp", "toml", "typescript"},
+  ensure_installed = {"cmake", "cpp", "toml", "typescript"},
   highlight = {
     enable = true
   },
