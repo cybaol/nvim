@@ -10,7 +10,9 @@ require 'eviline'
 require'indent_guides'.setup {}
 
 -- nvim-autopairs
-require'nvim-autopairs'.setup {}
+require'nvim-autopairs'.setup {
+  map_cr = false
+}
 
 -- nvim-bufferline.lua
 require'bufferline'.setup {
@@ -24,21 +26,8 @@ require'bufferline'.setup {
 require'colorizer'.setup {}
 
 -- nvim-tree.lua
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-vim.g.nvim_tree_hide_dotfiles  = 1
+require'nvim-tree'.setup {}
 vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_bindings = {
-  { key = "<cr>", cb = tree_cb("edit") },
-  { key = "s",    cb = tree_cb("cd") },
-  { key = "a",    cb = tree_cb("create") },
-  { key = "d",    cb = tree_cb("remove") },
-  { key = "r",    cb = tree_cb("rename") },
-  { key = "x",    cb = tree_cb("cut") },
-  { key = "Y",    cb = tree_cb("copy") },
-  { key = "p",    cb = tree_cb("paste") },
-  { key = "zh",   cb = tree_cb("toggle_dotfiles") },
-  { key = "q",    cb = tree_cb("close") },
-}
 vim.api.nvim_set_keymap('n', 'nt', ':NvimTreeToggle<CR>', {noremap = true})
 
 -- nvim-treesitter
