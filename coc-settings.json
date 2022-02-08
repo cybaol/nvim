@@ -42,19 +42,15 @@
   "prettier.disableLanguages": [],
   "prettier.useTabs": true,
   "prettier.trailingComma": "all",
-  "python.formatting.provider": "yapf",
-  "python.formatting.yapfArgs": [
-    "--style",
-    "{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 1}"
-  ],
+  "python.formatting.provider": "black",
   "snippets.ultisnips.directories": [
-    "$HOME/.config/nvim/UltiSnips/",
-    "$HOME/.cache/dein/repos/github.com/honza/vim-snippets/UltiSnips"
+    "$HOME/.config/nvim/UltiSnips/"
   ],
   "suggest.labelMaxLength": 30,
   "suggest.detailMaxLength": 30,
   "suggest.noselect": true,
   "suggest.enablePreselect": false,
+  "suggest.maxCompleteItemCount": 100,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.timeout": 5000,
   "suggest.enablePreview": true,
@@ -94,9 +90,7 @@
   "languageserver": {
     "asm-lsp": {
       "command": "asm-lsp",
-      "filetypes": [
-        "asm", "s", "S"
-      ]
+      "filetypes": ["asm", "s", "S"]
     },
     "bash": {
       "command": "bash-language-server",
@@ -121,8 +115,7 @@
     },
     "golang": {
       "command": "$HOME/go/bin/gopls",
-      "rootPatterns": ["go.mod"],
-      "disableWorkspaceFolders": true,
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"],
       "initializationOptions": {
         "usePlaceholders": true

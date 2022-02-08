@@ -1,4 +1,4 @@
-require('options').load_options()
-require('mappings').load_mappings()
-require('dein').load_repos()
+require('core.options').load_options()
+require('core.mappings').load_mappings()
+require('plugins')
 require('plugin-configs')

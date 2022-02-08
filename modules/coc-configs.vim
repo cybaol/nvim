@@ -11,12 +11,8 @@ let g:coc_global_extensions = [
             \'coc-tslint-plugin',
             \'coc-tsserver',
             \'coc-vimlsp',
-            \'coc-vimtex',
             \'coc-yank',
             \]
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
 " To show documentation details
 nnoremap <silent> ? :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -30,11 +26,23 @@ function! s:show_documentation()
 endfunction
 
 " some powerful mappings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-reference)
+function! s:goto_tag(tagkind) abort
+  let tagname = expand('<cWORD>')
+  let winnr = winnr()
+  let pos = getcurpos()
+  let pos[0] = bufnr()
+  " Note: use <C-t> to back operations
+  if CocAction('jump' . a:tagkind)
+    call settagstack(winnr, {
+            \ 'curidx': gettagstack()['curidx'],
+            \ 'items': [{'tagname': tagname, 'from': pos}]
+            \ }, 't')
+  endif
+endfunction
 nmap <silent> rn <Plug>(coc-rename)
+nmap <silent> gd :call <SID>goto_tag("Definition")<CR>
+nmap <silent> gi :call <SID>goto_tag("Implementation")<CR>
+nmap <silent> gr :call <SID>goto_tag("References")<CR>
 
 " coc-diagnostic
 nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
@@ -45,7 +53,6 @@ inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -54,6 +61,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 let g:snips_author     = 'Kino'
 let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
 
 " float scroll
 nnoremap <nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-j>"

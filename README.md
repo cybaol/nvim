@@ -1,8 +1,8 @@
 ### Please Read README Before Usage !
 
-### my Platform : [Arch Linux](https://www.archlinux.org)
+### OS : [Arch Linux](https://www.archlinux.org)
 
-### my Plugmanager : [dein.vim](https://github.com/Shougo/dein.vim)
+### Plugmanager : [packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 ## Dependence Installation
 
@@ -10,13 +10,7 @@
 
 ```bash
 sudo pacman -S nodejs npm &&
-sudo npm install -g neovim
-```
-
-#### [fzf.vim](https://github.com/junegunn/fzf.vim) depends on 'ag' & 'bat' & 'fd' & 'fzf' & 'perl' & 'rg'
-
-```bash
-sudo pacman -S bat fd fzf perl ripgrep the_silver_searcher
+npm install neovim
 ```
 
 #### [vimtex](https://github.com/lervag/vimtex) depends on 'Tex Live' & 'zathura'
@@ -44,6 +38,7 @@ sudo pacman -S clang llvm-libs
 ```
 
 ## [cmake-language-server](https://github.com/regen100/cmake-language-server) Installation
+
 ```bash
 yay -S cmake-language-server
 ```
@@ -59,14 +54,10 @@ sudo pacman -S lua-language-server
 ```bash
 sudo pacman -S neovim
 
-sudo nvim /etc/hosts
-
 git clone https://github.com/cybaol/nvim.git ~/.config/nvim
-
-nvim
-
-:checkhealth
 ```
+
+Run command `:checkhealth` to check other dependences
 
 ## Other Useful Tools
 
@@ -77,8 +68,7 @@ git clone https://github.com/cybaol/zsh.git ~/.config/zsh &&
 cp ~/.config/zsh/zshrc ~/.zshrc &&
 git clone https://github.com/cybaol/ranger.git ~/.config/ranger &&
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons &&
-git clone https://github.com/maximtrp/ranger-archives ~/.config/ranger/plugins/ranger-archives &&
-cd ~/.config/ranger/plugins/ranger-archives && make install
+git clone https://github.com/maximtrp/ranger-archives ~/.config/ranger/plugins/ranger-archives
 ```
 
 if you want to have a better experience, recommend to install [nerdfonts](https://www.nerdfonts.com)<br>

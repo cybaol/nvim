@@ -1,90 +1,81 @@
-require'formatter'.setup {
+require('formatter').setup({
   logging = false,
   filetype = {
     c = {
       function()
         return {
-          exe = "clang-format",
-          args = {"--style", "google", vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          exe = 'clang-format',
+          args = { '--style', 'google', '--assume-filename', vim.api.nvim_buf_get_name(0) },
+          stdin = true,
+          cwd = vim.fn.expand('%:p:h'),
         }
-      end
+      end,
     },
     cpp = {
       function()
         return {
-          exe = "clang-format",
-          args = {"--style", "google", vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          exe = 'clang-format',
+          args = { '--style', 'google', '--assume-filename', vim.api.nvim_buf_get_name(0) },
+          stdin = true,
+          cwd = vim.fn.expand('%:p:h'),
         }
-      end
-    },
-    html = {
-      function()
-        return {
-          exe = "js-beautify",
-          args = {"--indent-size", 2, vim.api.nvim_buf_get_name(0)},
-          stdin = true
-        }
-      end
+      end,
     },
     json = {
       function()
         return {
-          exe = "js-beautify",
-          args = {"--indent-size", 2, vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          exe = 'js-beautify',
+          args = { '--indent-size', 2, vim.api.nvim_buf_get_name(0) },
+          stdin = true,
         }
-      end
+      end,
     },
     javascript = {
       function()
         return {
-          exe = "prettier",
+          exe = 'prettier',
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'
+            '--stdin-filepath',
+            vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
+            '--single-quote',
           },
-          stdin = true
+          stdin = true,
         }
-      end
+      end,
     },
     lua = {
       function()
         return {
-          exe = "luafmt",
-          args = {"--indent-count", 2, "--stdio"},
-          stdin = true
+          exe = 'stylua',
+          args = {
+            '--config-path ' .. os.getenv('HOME') .. '/.config/nvim/static/stylua.toml',
+            '-',
+          },
+          stdin = true,
         }
-      end
+      end,
     },
     markdown = {
       function()
         return {
-          exe = "prettier",
+          exe = 'prettier',
           args = {
-            "--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'
+            '--stdin-filepath',
+            vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
+            '--single-quote',
           },
-          stdin = true
+          stdin = true,
         }
-      end
+      end,
     },
     sh = {
       function()
         return {
-          exe = "shfmt",
-          args = {vim.api.nvim_buf_get_name(0)},
-          stdin = true
+          exe = 'shfmt',
+          args = { '-i', 2, vim.api.nvim_buf_get_name(0) },
+          stdin = true,
         }
-      end
+      end,
     },
-    typescript = {
-      function()
-        return {
-          exe = "clang-format",
-          args = {"--style", "google", vim.api.nvim_buf_get_name(0)},
-          stdin = true
-        }
-      end
-    }
-  }
-}
+  },
+})
