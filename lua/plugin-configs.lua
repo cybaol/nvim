@@ -122,6 +122,11 @@ require('nvim-treesitter.configs').setup({
 -- onedark.nvim
 require('onedark').load()
 
+-- surround.nvim
+require('surround').setup({
+  mappings_style = 'surround',
+})
+
 -- tabular
 vim.api.nvim_set_keymap('v', '<leader><tab>', ':Tabularize /', { noremap = true })
 

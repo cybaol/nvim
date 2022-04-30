@@ -39,7 +39,7 @@ return require('packer').startup({
 
     use({ 'windwp/nvim-autopairs' })
 
-    use({ 'akinsho/nvim-bufferline.lua', requires = { 'kyazdani42/nvim-web-devicons', opt = true } })
+    use({ 'akinsho/bufferline.nvim', tag = '*', requires = { 'kyazdani42/nvim-web-devicons', opt = true } })
 
     use({ 'norcalli/nvim-colorizer.lua' })
 
@@ -59,7 +59,7 @@ return require('packer').startup({
 
     use({ 'lambdalisue/suda.vim' })
 
-    use({ 'blackCauldron7/surround.nvim' })
+    use({ 'ur4ltz/surround.nvim' })
 
     use({ 'godlygeek/tabular', cmd = 'Tabularize' })
 

@@ -22,7 +22,7 @@ sudo pacman -S texlive-most texlive-lang zathura-pdf-poppler
 #### [vista.vim](https://github.com/liuchengxu/vista.vim) depends on 'universal-ctags'
 
 ```bash
-sudo pacman -S universal-ctags
+sudo pacman -S ctags
 ```
 
 ## [bash-language-server](https://github.com/bash-lsp/bash-language-server) Installation
