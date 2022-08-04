@@ -1,5 +1,4 @@
 let g:coc_global_extensions = [
-            \'coc-actions',
             \'coc-css',
             \'coc-diagnostic',
             \'coc-html',
@@ -16,16 +15,14 @@ let g:coc_global_extensions = [
 " To show documentation details
 nnoremap <silent> ? :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('?', 'in')
   endif
 endfunction
 
-" some powerful mappings
+" code jump
 function! s:goto_tag(tagkind) abort
   let tagname = expand('<cWORD>')
   let winnr = winnr()
@@ -48,17 +45,16 @@ nmap <silent> gr :call <SID>goto_tag("References")<CR>
 nmap <silent> <leader>- <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>= <Plug>(coc-diagnostic-next)
 
-" coc-snippets
+" code completion
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
+            \ coc#pum#visible() ? coc#pum#next(1):
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 let g:snips_author     = 'Kino'
 let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<s-tab>'

@@ -34,7 +34,7 @@ sudo pacman -S bash-language-server
 ## [clangd](https://clangd.llvm.org/installation.html) Installation
 
 ```bash
-sudo pacman -S clang llvm-libs
+sudo pacman -S clang
 ```
 
 ## [cmake-language-server](https://github.com/regen100/cmake-language-server) Installation

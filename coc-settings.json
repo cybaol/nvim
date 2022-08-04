@@ -1,7 +1,4 @@
 {
-  "coc-actions.hideCursor": false,
-  "coc-actions.showActionKind": true,
-  "coc.preferences.enableFloatHighlight": true,
   "coc.preferences.snippetStatusText": "Ⓢ ",
   "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnSaveFiletypes": [
@@ -47,13 +44,11 @@
   ],
   "suggest.labelMaxLength": 30,
   "suggest.detailMaxLength": 30,
-  "suggest.noselect": true,
+  "suggest.noselect": false,
   "suggest.enablePreselect": false,
   "suggest.maxCompleteItemCount": 100,
   "suggest.triggerAfterInsertEnter": false,
   "suggest.timeout": 5000,
-  "suggest.enablePreview": true,
-  "suggest.floatEnable": true,
   "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
   "suggest.triggerCompletionWait": 50,
@@ -98,8 +93,11 @@
     },
     "clangd": {
       "command": "clangd",
+      "args": ["--all-scopes-completion", "--clang-tidy",
+        "-j=4", "--completion-style=detailed", "--pch-storage=memory"
+      ],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+      "filetypes": ["c", "cc", "cpp", "c++", "cuda", "objc", "objcpp"]
     },
     "cmake": {
       "command": "cmake-language-server",

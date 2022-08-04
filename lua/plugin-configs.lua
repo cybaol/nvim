@@ -18,31 +18,17 @@ require('code_runner').setup({
     python = 'python3 $fileName',
   },
 })
-vim.api.nvim_set_keymap('n', '<leader>cr', ':RunCode<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cr', ':RunFile<CR>', { noremap = true, silent = true })
 
 -- Comment.nvim
 require('Comment').setup()
 
 -- dashboard.nvim
-vim.g.dashboard_default_executive = 'telescope'
-vim.api.nvim_set_keymap('n', '<leader>sl', ':<C-u>SessionLoad<CR>', { noremap = false, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fb', ':DashboardJumpMark<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>cs', ':DashboardChangeColorscheme<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>ff', ':DashboardFindFile<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fh', ':DashboardFindHistory<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fw', ':DashboardFindWord<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>nf', ':DashboardNewFile<CR>', { noremap = true, silent = true })
-vim.g.dashboard_footer_icon = '🐬'
-vim.g.dashboard_custom_shortcut = {
-  last_session = 'SPC s l',
-  find_history = 'SPC f h',
-  find_file = 'SPC f f',
-  new_file = 'SPC n f',
-  change_colorscheme = 'SPC c s',
-  find_word = 'SPC f w',
-  book_marks = 'SPC f b',
-}
-vim.g.dashboard_custom_header = {
+local dashboard = require('dashboard')
+dashboard.preview_file_width = 80
+dashboard.preview_file_height = 12
+dashboard.custom_header = {
+  '                                                       ',
   '                                                       ',
   '                                                       ',
   ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
@@ -53,6 +39,63 @@ vim.g.dashboard_custom_header = {
   ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
   '                                                       ',
   '                                                       ',
+}
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>fh',
+  ":lua require('telescope.builtin').oldfiles()<CR>",
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>ff',
+  ":lua require('telescope.builtin').find_files()<CR>",
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>fw',
+  ":lua require('telescope.builtin').live_grep()<CR>",
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap('n', '<leader>nf', ':DashboardNewFile<CR>', { noremap = true, silent = true })
+dashboard.custom_center = {
+  {
+    icon = '  ',
+    desc = 'Recently laset session                  ',
+    shortcut = 'SPC s l',
+    action = 'SessionLoad',
+  },
+  {
+    icon = '  ',
+    desc = 'Recently opened files                   ',
+    action = 'Telescope oldfiles',
+    shortcut = 'SPC f h',
+  },
+  {
+    icon = '  ',
+    desc = 'Find  File                              ',
+    action = 'Telescope find_files find_command=rg,--hidden,--files',
+    shortcut = 'SPC f f',
+  },
+  {
+    icon = '  ',
+    desc = 'Find  Word                              ',
+    aciton = 'Telescope live_grep',
+    shortcut = 'SPC f w',
+  },
+  {
+    icon = '  ',
+    desc = 'File Browser                            ',
+    action = 'Telescope file_browser',
+    shortcut = 'SPC f b',
+  },
+  {
+    icon = '  ',
+    desc = 'New   File                              ',
+    action = 'DashboardNewFile',
+    shortcut = 'SPC n f',
+  },
 }
 
 -- formatter.nvim
@@ -121,6 +164,14 @@ require('nvim-treesitter.configs').setup({
 
 -- onedark.nvim
 require('onedark').load()
+local highlight = function(group, fg, bg, attr, sp)
+  fg = fg and 'guifg=' .. fg or 'guifg=NONE'
+  bg = bg and 'guibg=' .. bg or 'guibg=NONE'
+  attr = attr and 'gui=' .. attr or 'gui=NONE'
+  sp = sp and 'guisp=' .. sp or ''
+  vim.api.nvim_command('highlight ' .. group .. ' ' .. fg .. ' ' .. bg .. ' ' .. attr .. ' ' .. sp)
+end
+highlight('CocMenuSel', '#F19EE2', nil, 'none', nil)
 
 -- surround.nvim
 require('surround').setup({
