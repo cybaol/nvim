@@ -32,18 +32,20 @@ for _, fileName in ipairs(files) do
     for _, opened in ipairs(opened_files) do
       if fileName .. '.swp' == opened then
         fileNameWithoutExt = get_file_basename(fileName)
-        local extra_compiler_flags = '-g -Wall -llua -lm -ldl -mavx -mfma '
+        local extra_compiler_flags = '-g -Wall -llua -lm -ldl -mfma -mavx2 '
           .. fileName
           .. ' -o '
           .. fileNameWithoutExt
           .. ' && ./'
           .. fileNameWithoutExt
-        if is_file_exists(cwd .. '/CMakeLists.txt') then
+        if is_file_exists(cwd .. '/xmake.lua') then
+          os.execute('xmake && xmake run ' .. fileNameWithoutExt)
+        elseif is_file_exists(cwd .. '/CMakeLists.txt') then
           os.execute('cmake -Bbuild -DCMAKE_EXPORT_COMPILE_COMMANDS=1 && cmake --build build && ./build/' .. fileNameWithoutExt)
         elseif fileExt == 'c' then
           os.execute('gcc -std=c17 -lpthread ' .. extra_compiler_flags)
         else
-          os.execute('clang++ -std=c++17 -stdlib=libstdc++ -lfmt ' .. extra_compiler_flags)
+          os.execute('clang++ -std=c++17 -stdlib=libstdc++ -lfmt -ltbb ' .. extra_compiler_flags)
         end
       end
     end

@@ -3,6 +3,7 @@ local options = setmetatable({}, { __index = { global_local = {}, buffer_window_
 
 function options:load_options()
   global_local = {
+    mouse = '',
     termguicolors = true,
     encoding = 'utf-8',
     clipboard = 'unnamedplus',
@@ -71,6 +72,8 @@ function options:load_options()
   vim.api.nvim_command('filetype plugin on')
   vim.api.nvim_command('syntax on')
 
+  vim.g.loaded_ruby_provider = 0
+  vim.g.loaded_perl_provider = 0
   vim.g.python_host_prog = '/usr/bin/python2'
   vim.g.python3_host_prog = '/usr/bin/python3'
 

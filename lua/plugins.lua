@@ -15,6 +15,8 @@ vim.cmd([[ packadd packer.nvim ]])
 
 return require('packer').startup({
   function(use)
+    use({ 'akinsho/bufferline.nvim', tag = '*', requires = { 'kyazdani42/nvim-web-devicons', opt = true } })
+
     use({ 'neoclide/coc.nvim', branch = 'release' })
 
     use({ 'CRAG666/code_runner.nvim', requires = 'nvim-lua/plenary.nvim' })
@@ -22,8 +24,6 @@ return require('packer').startup({
     use({ 'numToStr/Comment.nvim' })
 
     use({ 'glepnir/dashboard-nvim', requires = 'nvim-telescope/telescope.nvim' })
-
-    use({ 'rafamadriz/friendly-snippets' })
 
     use({ 'mhartington/formatter.nvim' })
 
@@ -38,8 +38,6 @@ return require('packer').startup({
     use({ 'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install' })
 
     use({ 'windwp/nvim-autopairs' })
-
-    use({ 'akinsho/bufferline.nvim', tag = '*', requires = { 'kyazdani42/nvim-web-devicons', opt = true } })
 
     use({ 'norcalli/nvim-colorizer.lua' })
 
@@ -71,6 +69,8 @@ return require('packer').startup({
 
     use({ 'yuezk/vim-js' })
 
+    use({ 'honza/vim-snippets' })
+
     use({ 'dhruvasagar/vim-table-mode', cmd = 'TableModeToggle' })
 
     use({ 'voldikss/vim-translator' })
@@ -80,8 +80,6 @@ return require('packer').startup({
       ft = { 'c', 'cpp', 'go', 'python' },
       run = ':VimspectorUpdate vscode-cpptools delve debugpy',
     })
-
-    use({ 'lervag/vimtex', ft = 'tex' })
 
     use({ 'liuchengxu/vista.vim', cmd = 'Vista' })
 

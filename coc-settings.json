@@ -1,12 +1,6 @@
 {
-  "coc.preferences.snippetStatusText": "Ⓢ ",
   "coc.preferences.extensionUpdateCheck": "daily",
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "html",
-    "python",
-    "typescript"
-  ],
+  "coc.preferences.formatOnSave": false,
   "diagnostic.errorSign": "●",
   "diagnostic.warningSign": "●",
   "diagnostic.infoSign": "ღ",
@@ -30,7 +24,6 @@
     "elixir": "mix_format",
     "eelixir": "mix_format"
   },
-  "javascript.referencesCodeLens.enable": true,
   "javascript.showUnused": true,
   "javascript.suggest.names": true,
   "javascript.suggestionActions.enabled": true,
@@ -40,10 +33,10 @@
   "prettier.trailingComma": "all",
   "python.formatting.provider": "black",
   "snippets.ultisnips.directories": [
-    "$HOME/.config/nvim/UltiSnips/"
+    "$HOME/.config/nvim/UltiSnips/",
+    "$HOME/.local/share/nvim/site/pack/packer/start/vim-snippets/UltiSnips/"
   ],
   "suggest.labelMaxLength": 30,
-  "suggest.detailMaxLength": 30,
   "suggest.noselect": false,
   "suggest.enablePreselect": false,
   "suggest.maxCompleteItemCount": 100,
@@ -129,7 +122,7 @@
           "diagnostics": {
             "enable": true,
             "globals": ["hs", "vim", "it", "describe", "before_each", "after_each"],
-            "disable": ["lowercase-global"]
+            "disable": ["lowercase-global", "undefined-global"]
           },
           "runtime": {
             "version": "Lua 5.4"

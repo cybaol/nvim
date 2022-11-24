@@ -13,12 +13,6 @@ sudo pacman -S nodejs npm &&
 npm install neovim
 ```
 
-#### [vimtex](https://github.com/lervag/vimtex) depends on 'Tex Live' & 'zathura'
-
-```bash
-sudo pacman -S texlive-most texlive-lang zathura-pdf-poppler
-```
-
 #### [vista.vim](https://github.com/liuchengxu/vista.vim) depends on 'universal-ctags'
 
 ```bash

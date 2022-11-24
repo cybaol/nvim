@@ -10,6 +10,7 @@ let g:coc_global_extensions = [
             \'coc-tslint-plugin',
             \'coc-tsserver',
             \'coc-vimlsp',
+            \'coc-xmake',
             \'coc-yank',
             \]
 " To show documentation details
