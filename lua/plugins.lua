@@ -15,7 +15,7 @@ vim.cmd([[ packadd packer.nvim ]])
 
 return require('packer').startup({
   function(use)
-    use({ 'akinsho/bufferline.nvim', tag = '*', requires = { 'kyazdani42/nvim-web-devicons', opt = true } })
+    use({ 'akinsho/bufferline.nvim', tag = '*', requires = { 'nvim-tree/nvim-web-devicons', opt = true } })
 
     use({ 'neoclide/coc.nvim', branch = 'release' })
 
@@ -29,11 +29,11 @@ return require('packer').startup({
 
     use({ 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } })
 
-    use({ 'phaazon/hop.nvim' })
-
     use({ 'lukas-reineke/indent-blankline.nvim' })
 
-    use({ 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } })
+    use({ 'ggandor/leap.nvim' })
+
+    use({ 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } })
 
     use({ 'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install' })
 
@@ -41,13 +41,13 @@ return require('packer').startup({
 
     use({ 'norcalli/nvim-colorizer.lua' })
 
-    use({ 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons', opt = true } })
+    use({ 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' }, tag = 'nightly' })
 
     use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
 
     use({ 'p00f/nvim-ts-rainbow', requires = { 'nvim-treesitter/nvim-treesitter' } })
 
-    use({ 'kyazdani42/nvim-web-devicons' })
+    use({ 'nvim-tree/nvim-web-devicons' })
 
     use({ 'navarasu/onedark.nvim' })
 

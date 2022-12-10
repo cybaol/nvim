@@ -6,8 +6,7 @@ function mappings.load_mappings()
 
   -- terminal
   vim.g.neoterm_autoscroll = 1
-  vim.api.nvim_set_keymap('', 'ss', ':set nosplitright<CR>:vsplit<CR>', {})
-  vim.api.nvim_set_keymap('', 'st', ':vs term://$SHELL<CR>', {})
+  vim.api.nvim_set_keymap('', 'tt', ':vs term://$SHELL<CR>', {})
   vim.api.nvim_set_keymap('t', '<C-n>', '<C-\\><C-N>', { noremap = true })
   vim.api.nvim_set_keymap('t', '<C-o>', '<C-\\><C-N><C-O>', { noremap = true })
 

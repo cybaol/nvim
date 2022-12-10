@@ -105,14 +105,13 @@ vim.api.nvim_set_keymap('n', 'fm', ':w<CR>:Format<CR>', { noremap = true })
 -- gitsigns.nvim
 require('gitsigns').setup()
 
--- hop.nvim
-require('hop').setup()
-vim.api.nvim_set_keymap('n', 'mv', ':HopPattern<CR>', { noremap = true })
-
 -- indent-blankline.nvim
 vim.opt.list = true
 require('indent_blankline').setup()
 vim.g.indent_blankline_filetype_exclude = { 'dashboard' }
+
+-- leap.nvim
+require('leap').add_default_mappings()
 
 -- lualine.nvim
 require('lualine').setup({
@@ -143,7 +142,7 @@ require('colorizer').setup()
 -- nvim-tree.lua
 require('nvim-tree').setup()
 vim.g.nvim_tree_indent_markers = 1
-vim.api.nvim_set_keymap('n', 'nt', ':NvimTreeToggle<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader><tab>', ':NvimTreeToggle<CR>', { noremap = true })
 
 -- nvim-treesitter
 require('nvim-treesitter.install').prefer_git = true
@@ -259,4 +258,4 @@ vim.g.vista_icon_indent = { '╰─▸ ', '├─▸ ' }
 vim.g.vista_default_executive = 'ctags'
 vim.g.vista_fzf_preview = { 'right:50%' }
 vim.cmd('let g:vista#renderer#enable_icon = 1')
-vim.api.nvim_set_keymap('n', 'tb', ':Vista<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>]', ':Vista<CR>', { noremap = true })
