@@ -7,7 +7,6 @@ let g:coc_global_extensions = [
             \'coc-pyright',
             \'coc-snippets',
             \'coc-syntax',
-            \'coc-tslint-plugin',
             \'coc-tsserver',
             \'coc-vimlsp',
             \'coc-xmake',
@@ -29,7 +28,7 @@ function! s:goto_tag(tagkind) abort
   let winnr = winnr()
   let pos = getcurpos()
   let pos[0] = bufnr()
-  " Note: use <C-t> to back operations
+  " NOTE: use <C-t> to back operations
   if CocAction('jump' . a:tagkind)
     call settagstack(winnr, {
             \ 'curidx': gettagstack()['curidx'],

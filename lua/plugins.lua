@@ -63,6 +63,8 @@ return require('packer').startup({
 
     use({ 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } })
 
+    use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
+
     use({ 'mbbill/undotree', cmd = 'UndotreeToggle' })
 
     use({ 'fatih/vim-go', ft = 'go', run = ':GoInstallBinaries' })
@@ -78,7 +80,7 @@ return require('packer').startup({
     use({
       'puremourning/vimspector',
       ft = { 'c', 'cpp', 'go', 'python' },
-      run = ':VimspectorUpdate vscode-cpptools delve debugpy',
+      -- run = ':VimspectorUpdate vscode-cpptools delve debugpy',
     })
 
     use({ 'liuchengxu/vista.vim', cmd = 'Vista' })

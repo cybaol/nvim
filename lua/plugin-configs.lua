@@ -24,22 +24,54 @@ vim.api.nvim_set_keymap('n', '<leader>cr', ':RunFile<CR>', { noremap = true, sil
 require('Comment').setup()
 
 -- dashboard.nvim
-local dashboard = require('dashboard')
-dashboard.preview_file_width = 80
-dashboard.preview_file_height = 12
-dashboard.custom_header = {
-  '                                                       ',
-  '                                                       ',
-  '                                                       ',
-  ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-  ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-  ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-  ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-  ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-  ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-  '                                                       ',
-  '                                                       ',
-}
+require('dashboard').setup({
+  theme = 'doom',
+  config = {
+    header = {
+      '                                                       ',
+      '                                                       ',
+      '                                                       ',
+      ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+      ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+      ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+      ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+      ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+      ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+      '                                                       ',
+      '                                                       ',
+    },
+    center = {
+      {
+        icon = '  ',
+        icon_hi = 'Title',
+        desc = 'Find  File                           ',
+        desc_hi = 'String',
+        key = 'ff',
+        keymap = 'SPC f f',
+        action = 'Telescope find_files find_command=rg,--hidden,--files',
+      },
+      {
+        icon = '  ',
+        icon_hi = 'Title',
+        desc = 'Find  Word                           ',
+        desc_hi = 'String',
+        key = 'fw',
+        keymap = 'SPC f w',
+        aciton = 'Telescope live_grep',
+      },
+      {
+        icon = '  ',
+        icon_hi = 'Title',
+        desc = 'Recently opened files                ',
+        desc_hi = 'String',
+        key = 'fh',
+        keymap = 'SPC f h',
+        action = 'Telescope oldfiles',
+      },
+    },
+    footer = { "Kino's neovim yyds" },
+  },
+})
 vim.api.nvim_set_keymap(
   'n',
   '<leader>fh',
@@ -58,45 +90,6 @@ vim.api.nvim_set_keymap(
   ":lua require('telescope.builtin').live_grep()<CR>",
   { noremap = true, silent = true }
 )
-vim.api.nvim_set_keymap('n', '<leader>nf', ':DashboardNewFile<CR>', { noremap = true, silent = true })
-dashboard.custom_center = {
-  {
-    icon = '  ',
-    desc = 'Recently laset session                  ',
-    shortcut = 'SPC s l',
-    action = 'SessionLoad',
-  },
-  {
-    icon = '  ',
-    desc = 'Recently opened files                   ',
-    action = 'Telescope oldfiles',
-    shortcut = 'SPC f h',
-  },
-  {
-    icon = '  ',
-    desc = 'Find  File                              ',
-    action = 'Telescope find_files find_command=rg,--hidden,--files',
-    shortcut = 'SPC f f',
-  },
-  {
-    icon = '  ',
-    desc = 'Find  Word                              ',
-    aciton = 'Telescope live_grep',
-    shortcut = 'SPC f w',
-  },
-  {
-    icon = '  ',
-    desc = 'File Browser                            ',
-    action = 'Telescope file_browser',
-    shortcut = 'SPC f b',
-  },
-  {
-    icon = '  ',
-    desc = 'New   File                              ',
-    action = 'DashboardNewFile',
-    shortcut = 'SPC n f',
-  },
-}
 
 -- formatter.nvim
 require('format')
@@ -180,6 +173,9 @@ require('surround').setup({
 -- tabular
 vim.api.nvim_set_keymap('v', '<leader><tab>', ':Tabularize /', { noremap = true })
 
+-- todo-comments.nvim
+require('todo-comments').setup({})
+
 -- undotree
 vim.cmd('silent !mkdir -p ~/.config/nvim/tmp/backup')
 vim.cmd('silent !mkdir -p ~/.config/nvim/tmp/undo')
@@ -249,7 +245,7 @@ vim.api.nvim_exec(
   nnoremap <F7> :call vimspector#Reset()<CR>
   nmap <Leader>di <Plug>VimspectorBalloonEval
   xmap <Leader>di <Plug>VimspectorBalloonEval
-]],
+  ]],
   false
 )
 
