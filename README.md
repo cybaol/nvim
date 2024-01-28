@@ -2,7 +2,7 @@
 
 ### OS : [Arch Linux](https://www.archlinux.org)
 
-### Plugmanager : [packer.nvim](https://github.com/wbthomason/packer.nvim)
+### Plugmanager : [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ## Dependence Installation
 

@@ -4,3 +4,4 @@ pack/
 plugin/
 sessions/
 tmp/
+lazy-lock.json

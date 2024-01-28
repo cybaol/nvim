@@ -35,8 +35,8 @@ function mappings.load_mappings()
   -- close search highlights
   vim.api.nvim_set_keymap('n', '<leader><cr>', ':nohl<CR>', { noremap = true })
 
-  -- update all plugins with packer.nvim
-  vim.api.nvim_set_keymap('n', 'U', ':PackerSync<CR>', { noremap = true })
+  -- update all plugins with lazy.nvim
+  vim.api.nvim_set_keymap('n', 'U', ':Lazy sync<CR>', { noremap = true })
 end
 
 return mappings

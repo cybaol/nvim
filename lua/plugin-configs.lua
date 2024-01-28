@@ -100,8 +100,9 @@ require('gitsigns').setup()
 
 -- indent-blankline.nvim
 vim.opt.list = true
-require('indent_blankline').setup()
-vim.g.indent_blankline_filetype_exclude = { 'dashboard' }
+require('ibl').setup({
+  exclude = { filetypes = { 'dashboard' } },
+})
 
 -- leap.nvim
 require('leap').add_default_mappings()
@@ -132,6 +133,9 @@ require('bufferline').setup({
 -- nvim-colorizer.lua
 require('colorizer').setup()
 
+-- nvim-surround
+require('nvim-surround').setup()
+
 -- nvim-tree.lua
 require('nvim-tree').setup()
 vim.g.nvim_tree_indent_markers = 1
@@ -147,11 +151,6 @@ require('nvim-treesitter.configs').setup({
   indent = {
     enable = false,
   },
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
-  },
 })
 
 -- onedark.nvim
@@ -165,16 +164,33 @@ local highlight = function(group, fg, bg, attr, sp)
 end
 highlight('CocMenuSel', '#F19EE2', nil, 'none', nil)
 
--- surround.nvim
-require('surround').setup({
-  mappings_style = 'surround',
-})
+-- rainbow-delimiters.nvim
+local rainbow_delimiters = require('rainbow-delimiters')
+vim.g.rainbow_delimiters = {
+  strategy = {
+    [''] = rainbow_delimiters.strategy['global'],
+    vim = rainbow_delimiters.strategy['local'],
+  },
+  query = {
+    [''] = 'rainbow-delimiters',
+    lua = 'rainbow-blocks',
+  },
+  highlight = {
+    'RainbowDelimiterRed',
+    'RainbowDelimiterGreen',
+    'RainbowDelimiterCyan',
+    'RainbowDelimiterBlue',
+    'RainbowDelimiterViolet',
+    'RainbowDelimiterOrange',
+    'RainbowDelimiterYellow',
+  },
+}
 
 -- tabular
 vim.api.nvim_set_keymap('v', '<leader><tab>', ':Tabularize /', { noremap = true })
 
 -- todo-comments.nvim
-require('todo-comments').setup({})
+require('todo-comments').setup()
 
 -- undotree
 vim.cmd('silent !mkdir -p ~/.config/nvim/tmp/backup')

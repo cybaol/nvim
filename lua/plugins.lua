@@ -1,101 +1,84 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
     'git',
     'clone',
-    '--depth',
-    '1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path,
+    '--filter=blob:none',
+    'https://hub.nuaa.cf/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
   })
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[ packadd packer.nvim ]])
+require('lazy').setup({
+  { 'akinsho/bufferline.nvim', version = '*', dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
-return require('packer').startup({
-  function(use)
-    use({ 'akinsho/bufferline.nvim', tag = '*', requires = { 'nvim-tree/nvim-web-devicons', opt = true } })
+  { 'neoclide/coc.nvim', branch = 'release' },
 
-    use({ 'neoclide/coc.nvim', branch = 'release' })
+  { 'CRAG666/code_runner.nvim', config = true },
 
-    use({ 'CRAG666/code_runner.nvim', requires = 'nvim-lua/plenary.nvim' })
+  { 'numToStr/Comment.nvim', lazy = false },
 
-    use({ 'numToStr/Comment.nvim' })
+  { 'github/copilot.vim' },
 
-    use({ 'glepnir/dashboard-nvim', requires = 'nvim-telescope/telescope.nvim' })
+  { 'glepnir/dashboard-nvim', event = 'VimEnter', dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
-    use({ 'mhartington/formatter.nvim' })
+  { 'mhartington/formatter.nvim' },
 
-    use({ 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } })
+  { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
 
-    use({ 'lukas-reineke/indent-blankline.nvim' })
+  { 'lukas-reineke/indent-blankline.nvim', main = 'ibl' },
 
-    use({ 'ggandor/leap.nvim' })
+  { 'folke/lazy.nvim' },
 
-    use({ 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } })
+  { 'ggandor/leap.nvim' },
 
-    use({ 'iamcco/markdown-preview.nvim', ft = 'markdown', run = 'cd app && yarn install' })
+  { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true } },
 
-    use({ 'windwp/nvim-autopairs' })
+  { 'iamcco/markdown-preview.nvim', ft = 'markdown', build = 'cd app && yarn install' },
 
-    use({ 'norcalli/nvim-colorizer.lua' })
+  { 'windwp/nvim-autopairs', event = 'InsertEnter' },
 
-    use({ 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' }, tag = 'nightly' })
+  { 'norcalli/nvim-colorizer.lua' },
 
-    use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
+  { 'kylechui/nvim-surround', version = '*', event = 'VeryLazy' },
 
-    use({ 'p00f/nvim-ts-rainbow', requires = { 'nvim-treesitter/nvim-treesitter' } })
+  { 'nvim-tree/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true } },
 
-    use({ 'nvim-tree/nvim-web-devicons' })
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
-    use({ 'navarasu/onedark.nvim' })
+  { 'navarasu/onedark.nvim', priority = 1000 },
 
-    use({ 'wbthomason/packer.nvim' })
+  { 'hiphish/rainbow-delimiters.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
 
-    use({ 'nvim-lua/plenary.nvim' })
+  { 'lambdalisue/suda.vim' },
 
-    use({ 'lambdalisue/suda.vim' })
+  { 'godlygeek/tabular', cmd = 'Tabularize' },
 
-    use({ 'ur4ltz/surround.nvim' })
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
-    use({ 'godlygeek/tabular', cmd = 'Tabularize' })
+  { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim' },
 
-    use({ 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } })
+  { 'mbbill/undotree', cmd = 'UndotreeToggle' },
 
-    use({ 'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim' })
+  { 'fatih/vim-go', ft = 'go', build = ':GoInstallBinaries' },
 
-    use({ 'mbbill/undotree', cmd = 'UndotreeToggle' })
+  { 'yuezk/vim-js', ft = 'javascript' },
 
-    use({ 'fatih/vim-go', ft = 'go', run = ':GoInstallBinaries' })
+  { 'honza/vim-snippets' },
 
-    use({ 'yuezk/vim-js' })
+  { 'dhruvasagar/vim-table-mode', cmd = 'TableModeToggle' },
 
-    use({ 'honza/vim-snippets' })
+  { 'voldikss/vim-translator', cmd = 'Translate' },
 
-    use({ 'dhruvasagar/vim-table-mode', cmd = 'TableModeToggle' })
-
-    use({ 'voldikss/vim-translator' })
-
-    use({
-      'puremourning/vimspector',
-      ft = { 'c', 'cpp', 'go', 'python' },
-      -- run = ':VimspectorUpdate vscode-cpptools delve debugpy',
-    })
-
-    use({ 'liuchengxu/vista.vim', cmd = 'Vista' })
-
-    use({ 'gcmt/wildfire.vim' })
-
-    if packer_bootstrap then
-      require('packer').sync()
-    end
-  end,
-  config = {
-    display = {
-      open_fn = function()
-        return require('packer.util').float({ border = 'single' })
-      end,
-    },
+  {
+    'puremourning/vimspector',
+    ft = { 'c', 'cpp', 'go', 'python' },
+    -- build = ':VimspectorUpdate vscode-cpptools delve debugpy',
   },
+
+  { 'liuchengxu/vista.vim', cmd = 'Vista' },
+
+  { 'gcmt/wildfire.vim' },
 })

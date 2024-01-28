@@ -48,7 +48,9 @@ require('formatter').setup({
         return {
           exe = 'stylua',
           args = {
-            '--config-path ' .. os.getenv('HOME') .. '/.config/nvim/static/stylua.toml',
+            '--config-path',
+            os.getenv('HOME') .. '/.config/nvim/static/stylua.toml',
+            '--',
             '-',
           },
           stdin = true,
@@ -65,6 +67,18 @@ require('formatter').setup({
             '--single-quote',
           },
           stdin = true,
+        }
+      end,
+    },
+    python = {
+      function()
+        return {
+          exe = 'black',
+          args = {
+            '--stdin-filename',
+            vim.api.nvim_buf_get_name(0),
+          },
+          stdin = false,
         }
       end,
     },

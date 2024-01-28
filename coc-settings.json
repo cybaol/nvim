@@ -32,9 +32,13 @@
   "prettier.useTabs": true,
   "prettier.trailingComma": "all",
   "python.formatting.provider": "black",
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyPath": "mypy",
+  "python.linting.ruffEnabled": true,
+  "python.linting.ruffPath": "ruff",
   "snippets.ultisnips.directories": [
     "$HOME/.config/nvim/UltiSnips/",
-    "$HOME/.local/share/nvim/site/pack/packer/start/vim-snippets/UltiSnips/"
+    "$HOME/.local/share/nvim/lazy/vim-snippets/UltiSnips/",
   ],
   "suggest.labelMaxLength": 30,
   "suggest.noselect": false,
@@ -136,6 +140,11 @@
           }
         }
       }
-    }
+    },
+    "rust": {
+      "command": "rust-analyzer",
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
+    },
   }
 }
