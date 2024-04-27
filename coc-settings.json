@@ -32,7 +32,7 @@
   "prettier.useTabs": true,
   "prettier.trailingComma": "all",
   "python.formatting.provider": "black",
-  "python.linting.mypyEnabled": true,
+  "python.linting.mypyEnabled": false,
   "python.linting.mypyPath": "mypy",
   "python.linting.ruffEnabled": true,
   "python.linting.ruffPath": "ruff",
