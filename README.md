@@ -4,13 +4,19 @@
 
 ### Plugmanager : [lazy.nvim](https://github.com/folke/lazy.nvim)
 
-## Dependence Installation
+## Dependencies Installation
 
 #### [coc.nvim](https://github.com/neoclide/coc.nvim) depends on 'nodejs'
 
 ```bash
 sudo pacman -S nodejs npm &&
 npm install neovim
+```
+
+#### [code_runner.nvim](https://github.com/CRAG666/code_runner.nvim) depends on 'lua-penlight'
+
+```bash
+sudo pacman -S lua-penlight
 ```
 
 #### [vista.vim](https://github.com/liuchengxu/vista.vim) depends on 'universal-ctags'
@@ -51,7 +57,7 @@ sudo pacman -S neovim
 git clone https://github.com/cybaol/nvim.git ~/.config/nvim
 ```
 
-Run command `:checkhealth` to check other dependences
+Run command `:checkhealth` to check other dependencies
 
 ## Other Useful Tools
 

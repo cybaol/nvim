@@ -3,6 +3,7 @@ local mappings = {}
 
 function mappings.load_mappings()
   vim.g.mapleader = ' '
+  vim.g.maplocalleader = "\\"
 
   -- terminal
   vim.g.neoterm_autoscroll = 1

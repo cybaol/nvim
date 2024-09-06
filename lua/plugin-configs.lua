@@ -1,7 +1,15 @@
 local vim = vim
 
 -- coc.nvim
-vim.api.nvim_exec('source ~/.config/nvim/modules/coc-configs.vim', false)
+vim.cmd('source ~/.config/nvim/modules/coc-configs.vim')
+
+-- codeium.vim
+-- vim.g.codeium_enabled = true
+-- vim.g.codeium_disable_bindings = 1
+-- vim.keymap.set('i', '<C-p>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+-- vim.keymap.set('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
+-- vim.keymap.set('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
+-- vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
 
 -- code_runner.nvim
 require('code_runner').setup({
@@ -10,9 +18,9 @@ require('code_runner').setup({
     size = 15,
   },
   filetype = {
-    c = 'lua ~/.config/nvim/lua/compile.lua',
-    cpp = 'lua ~/.config/nvim/lua/compile.lua',
-    cuda = 'lua ~/.config/nvim/lua/compile.lua',
+    c = '~/.config/nvim/lua/modules/compile.lua',
+    cpp = '~/.config/nvim/lua/modules/compile.lua',
+    cuda = '~/.config/nvim/lua/modules/compile.lua',
     go = 'go run .',
     lua = 'lua $fileName',
     python = 'python3 $fileName',
@@ -91,12 +99,25 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
+-- fittencode.nvim
+require('fittencode').setup({
+  use_default_keymaps = false,
+  keymaps = {
+    inline = {
+      ['<C-p>'] = 'accept_all_suggestions',
+    },
+  },
+})
+
 -- formatter.nvim
-require('format')
+require('modules.format')
 vim.api.nvim_set_keymap('n', 'fm', ':w<CR>:Format<CR>', { noremap = true })
 
 -- gitsigns.nvim
 require('gitsigns').setup()
+
+-- fzf.vim
+vim.g.fzf_vim = {}
 
 -- indent-blankline.nvim
 vim.opt.list = true
@@ -116,6 +137,9 @@ require('lualine').setup({
 
 -- markdown-preview.nvim
 vim.g.mkdp_auto_start = 1
+vim.g.mkdp_open_to_the_world = 1
+vim.g.mkdp_open_ip = ''
+vim.g.mkdp_port = 1459
 
 -- nvim-autopairs
 require('nvim-autopairs').setup({
@@ -246,7 +270,7 @@ vim.api.nvim_set_keymap('n', 'ts', ':Translate --engines=haici<CR>', { noremap =
 vim.api.nvim_set_keymap('v', 'ts', ':Translate --engines=haici<CR>', { noremap = false, silent = true })
 
 -- vimspector
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
   let g:vimspector_enable_mappings = 'HUMAN'
   function! s:read_template_into_buffer(template)
@@ -262,7 +286,7 @@ vim.api.nvim_exec(
   nmap <Leader>di <Plug>VimspectorBalloonEval
   xmap <Leader>di <Plug>VimspectorBalloonEval
   ]],
-  false
+  {}
 )
 
 -- vista

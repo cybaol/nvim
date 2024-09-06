@@ -1,13 +1,17 @@
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://hub.nuaa.cf/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+      { out, 'WarningMsg' },
+      { '\nPress any key to exit...' },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -16,15 +20,21 @@ require('lazy').setup({
 
   { 'neoclide/coc.nvim', branch = 'release' },
 
+  -- { 'Exafunction/codeium.vim', event = 'BufEnter' },
+
   { 'CRAG666/code_runner.nvim', config = true },
 
   { 'numToStr/Comment.nvim', lazy = false },
 
-  { 'github/copilot.vim' },
-
   { 'glepnir/dashboard-nvim', event = 'VimEnter', dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
+  { 'luozhiya/fittencode.nvim' },
+
   { 'mhartington/formatter.nvim' },
+
+  { 'junegunn/fzf' },
+
+  { 'junegunn/fzf.vim' },
 
   { 'lewis6991/gitsigns.nvim', dependencies = { 'nvim-lua/plenary.nvim' } },
 
