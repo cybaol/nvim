@@ -91,5 +91,23 @@ require('formatter').setup({
         }
       end,
     },
+    verilog = {
+      function()
+        return {
+          exe = 'verible-verilog-format',
+          args = { '-' },
+          stdin = true,
+        }
+      end,
+    },
+    systemverilog = {
+      function()
+        return {
+          exe = 'verible-verilog-format',
+          args = { '-' },
+          stdin = true,
+        }
+      end,
+    },
   },
 })

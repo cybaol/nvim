@@ -146,5 +146,16 @@
       "filetypes": ["rust"],
       "rootPatterns": ["Cargo.toml"]
     },
+    "svlangserver": {
+      "command": "svlangserver",
+      "filetypes": ["verilog", "systemverilog"],
+      "settings": {
+        "systemverilog.includeIndexing": ["**/*.{v,vh,sv,svh}"],
+        "systemverilog.excludeIndexing": ["test/**/*.v*", "test/**/*.sv*"],
+        "systemverilog.defines" : [],
+        "systemverilog.launchConfiguration": "verilator -sv -Wall --lint-only",
+        "systemverilog.formatCommand": "verible-verilog-format"
+      }
+    },
   }
 }

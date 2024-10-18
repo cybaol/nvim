@@ -49,6 +49,11 @@ yay -S cmake-language-server
 sudo pacman -S lua-language-server
 ```
 
+## [svlangserver](https://github.com/imc-trading/svlangserver) Installation
+```bash
+yay -S svlangserver
+```
+
 ## Start Installation
 
 ```bash
