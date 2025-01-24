@@ -1,5 +1,10 @@
 local vim = vim
 
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = 'PKGBUILD',
+  command = 'set filetype=sh',
+})
+
 -- coc.nvim
 vim.cmd('source ~/.config/nvim/modules/coc-configs.vim')
 
