@@ -54,7 +54,7 @@ function options:load_options()
   }
 
   for name, value in pairs(global_local) do
-    vim.api.nvim_set_option(name, value)
+    vim.opt[name] = value
   end
 
   for name, value in pairs(buffer_window_local) do
