@@ -9,6 +9,7 @@ let g:coc_global_extensions = [
             \'coc-syntax',
             \'coc-tsserver',
             \'coc-vimlsp',
+            \'@yaegassy/coc-volar',
             \'coc-xmake',
             \'coc-yank',
             \]
