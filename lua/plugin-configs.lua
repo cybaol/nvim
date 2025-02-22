@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 })
 
 -- coc.nvim
-vim.cmd('source ~/.config/nvim/modules/coc-configs.vim')
+require('modules.coc-configs')
 
 -- codeium.vim
 -- vim.g.codeium_enabled = true
