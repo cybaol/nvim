@@ -104,17 +104,6 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
--- dracula.nvim
-vim.cmd[[colorscheme dracula]]
-local highlight = function(group, fg, bg, attr, sp)
-  fg = fg and 'guifg=' .. fg or 'guifg=NONE'
-  bg = bg and 'guibg=' .. bg or 'guibg=NONE'
-  attr = attr and 'gui=' .. attr or 'gui=NONE'
-  sp = sp and 'guisp=' .. sp or ''
-  vim.api.nvim_command('highlight ' .. group .. ' ' .. fg .. ' ' .. bg .. ' ' .. attr .. ' ' .. sp)
-end
-highlight('CocMenuSel', '#F19EE2', nil, 'none', nil)
-
 -- fittencode.nvim
 require('fittencode').setup({
   use_default_keymaps = false,
@@ -129,11 +118,11 @@ require('fittencode').setup({
 require('modules.format')
 vim.api.nvim_set_keymap('n', 'fm', ':w<CR>:Format<CR>', { noremap = true })
 
--- gitsigns.nvim
-require('gitsigns').setup()
-
 -- fzf.vim
 vim.g.fzf_vim = {}
+
+-- gitsigns.nvim
+require('gitsigns').setup()
 
 -- indent-blankline.nvim
 vim.opt.list = true
@@ -147,7 +136,7 @@ require('leap').add_default_mappings()
 -- lualine.nvim
 require('lualine').setup({
   options = {
-    theme = 'dracula-nvim',
+    theme = 'dracula',
   },
 })
 
@@ -192,6 +181,17 @@ require('nvim-treesitter.configs').setup({
     enable = false,
   },
 })
+
+-- onedark.nvim
+require('onedark').load()
+local highlight = function(group, fg, bg, attr, sp)
+  fg = fg and 'guifg=' .. fg or 'guifg=NONE'
+  bg = bg and 'guibg=' .. bg or 'guibg=NONE'
+  attr = attr and 'gui=' .. attr or 'gui=NONE'
+  sp = sp and 'guisp=' .. sp or ''
+  vim.api.nvim_command('highlight ' .. group .. ' ' .. fg .. ' ' .. bg .. ' ' .. attr .. ' ' .. sp)
+end
+highlight('CocMenuSel', '#F19EE2', nil, 'none', nil)
 
 -- rainbow-delimiters.nvim
 local rainbow_delimiters = require('rainbow-delimiters')

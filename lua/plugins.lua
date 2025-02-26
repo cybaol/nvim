@@ -28,8 +28,6 @@ require('lazy').setup({
 
   { 'glepnir/dashboard-nvim', event = 'VimEnter', dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
-  { 'Mofiqul/dracula.nvim' },
-
   { 'luozhiya/fittencode.nvim' },
 
   { 'mhartington/formatter.nvim' },
@@ -59,6 +57,8 @@ require('lazy').setup({
   { 'nvim-tree/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true } },
 
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+
+  { 'navarasu/onedark.nvim', priority = 1000 },
 
   { 'hiphish/rainbow-delimiters.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
 
