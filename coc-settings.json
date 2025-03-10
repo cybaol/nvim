@@ -1,5 +1,5 @@
 {
-  "coc.preferences.extensionUpdateCheck": "daily",
+  "extensions.updateCheck": "daily",
   "coc.preferences.formatOnSave": false,
   "diagnostic.errorSign": "●",
   "diagnostic.warningSign": "●",
