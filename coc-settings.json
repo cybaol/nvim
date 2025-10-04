@@ -1,5 +1,4 @@
 {
-  "extensions.updateCheck": "daily",
   "coc.preferences.formatOnSave": false,
   "diagnostic.errorSign": "●",
   "diagnostic.warningSign": "●",
@@ -24,6 +23,8 @@
     "elixir": "mix_format",
     "eelixir": "mix_format"
   },
+  "extensions.updateCheck": "daily",
+  "inlayHint.enable": true,
   "javascript.showUnused": true,
   "javascript.suggest.names": true,
   "javascript.suggestionActions.enabled": true,
@@ -48,7 +49,7 @@
   "suggest.timeout": 5000,
   "suggest.detailField": "preview",
   "suggest.snippetIndicator": "",
-  "suggest.triggerCompletionWait": 50,
+  "suggest.triggerCompletionWait": 10,
   "suggest.completionItemKindLabels": {
     "class": "\uf0e8",
     "color": "\ue22b",
