@@ -89,13 +89,25 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": []
     },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cache": {
+          "directory": ".cache"
+        }
+      },
+      "enable": true
+    },
     "clangd": {
       "command": "clangd",
       "args": ["--all-scopes-completion", "--clang-tidy",
         "-j=4", "--completion-style=detailed", "--pch-storage=memory"
       ],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-      "filetypes": ["c", "cc", "cpp", "c++", "cuda", "objc", "objcpp"]
+      "filetypes": ["c", "cc", "cpp", "c++", "cuda", "objc", "objcpp"],
+      "enable": false
     },
     "cmake": {
       "command": "cmake-language-server",
