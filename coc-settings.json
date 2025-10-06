@@ -24,7 +24,7 @@
     "eelixir": "mix_format"
   },
   "extensions.updateCheck": "daily",
-  "inlayHint.enable": true,
+  "inlayHint.enable": false,
   "javascript.showUnused": true,
   "javascript.suggest.names": true,
   "javascript.suggestionActions.enabled": true,
