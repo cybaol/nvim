@@ -98,7 +98,7 @@
           "directory": ".cache"
         }
       },
-      "enable": true
+      "enable": false
     },
     "clangd": {
       "command": "clangd",
@@ -107,7 +107,7 @@
       ],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
       "filetypes": ["c", "cc", "cpp", "c++", "cuda", "objc", "objcpp"],
-      "enable": false
+      "enable": true
     },
     "cmake": {
       "command": "cmake-language-server",
