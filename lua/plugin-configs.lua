@@ -183,6 +183,16 @@ require('nvim-treesitter.configs').setup({
 })
 
 -- onedark.nvim
+require('onedark').setup({
+  style = 'dark',
+  code_style = {
+    comments = 'italic',
+    keywords = 'none',
+    functions = 'bold',
+    strings = 'none',
+    variables = 'none',
+  },
+})
 require('onedark').load()
 local highlight = function(group, fg, bg, attr, sp)
   fg = fg and 'guifg=' .. fg or 'guifg=NONE'
