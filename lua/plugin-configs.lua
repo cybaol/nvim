@@ -130,9 +130,6 @@ require('ibl').setup({
   exclude = { filetypes = { 'dashboard' } },
 })
 
--- leap.nvim
-require('leap').add_default_mappings()
-
 -- lualine.nvim
 require('lualine').setup({
   options = {

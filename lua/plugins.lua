@@ -42,8 +42,6 @@ require('lazy').setup({
 
   { 'folke/lazy.nvim' },
 
-  { 'ggandor/leap.nvim' },
-
   { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true } },
 
   { 'iamcco/markdown-preview.nvim', ft = 'markdown', build = 'cd app && yarn install' },
