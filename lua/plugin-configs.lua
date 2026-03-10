@@ -168,15 +168,15 @@ vim.g.nvim_tree_indent_markers = 1
 vim.api.nvim_set_keymap('n', '<leader><tab>', ':NvimTreeToggle<CR>', { noremap = true })
 
 -- nvim-treesitter
-require('nvim-treesitter.install').prefer_git = true
-require('nvim-treesitter.configs').setup({
-  ensure_installed = { 'c', 'cpp', 'cuda', 'go', 'lua', 'python' },
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enable = false,
-  },
+require('nvim-treesitter').setup({
+  install_dir = vim.fn.stdpath('data') .. '/site',
+})
+require('nvim-treesitter').install({ 'c', 'cpp', 'cuda', 'go', 'lua', 'python' })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp', 'cuda', 'go', 'lua', 'python' },
+  callback = function()
+    vim.treesitter.start()
+  end,
 })
 
 -- onedark.nvim

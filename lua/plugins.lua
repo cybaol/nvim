@@ -54,7 +54,7 @@ require('lazy').setup({
 
   { 'nvim-tree/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true } },
 
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter', lazy = false, build = ':TSUpdate' },
 
   { 'navarasu/onedark.nvim', priority = 1000 },
 
