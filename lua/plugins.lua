@@ -64,7 +64,14 @@ require('lazy').setup({
 
   { 'godlygeek/tabular', cmd = 'Tabularize' },
 
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope.nvim',
+    version = '*',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    },
+  },
 
   { 'folke/todo-comments.nvim', dependencies = 'nvim-lua/plenary.nvim' },
 
