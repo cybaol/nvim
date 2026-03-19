@@ -168,8 +168,10 @@ vim.g.nvim_tree_indent_markers = 1
 vim.api.nvim_set_keymap('n', '<leader><tab>', ':NvimTreeToggle<CR>', { noremap = true })
 
 -- nvim-treesitter
+local parser_dir = vim.fn.stdpath('data') .. '/site/'
+vim.opt.runtimepath:prepend(parser_dir)
 require('nvim-treesitter').setup({
-  install_dir = vim.fn.stdpath('data') .. '/site',
+  install_dir = parser_dir,
 })
 require('nvim-treesitter').install({ 'c', 'cpp', 'cuda', 'go', 'lua', 'python' })
 vim.api.nvim_create_autocmd('FileType', {
