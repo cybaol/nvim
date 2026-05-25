@@ -48,7 +48,7 @@ require('lazy').setup({
 
   { 'windwp/nvim-autopairs', event = 'InsertEnter' },
 
-  { 'norcalli/nvim-colorizer.lua' },
+  { 'catgoose/nvim-colorizer.lua', event = 'BufReadPre', opts = {} },
 
   { 'kylechui/nvim-surround', version = '*', event = 'VeryLazy' },
 
