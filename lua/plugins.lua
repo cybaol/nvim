@@ -16,6 +16,29 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  {
+    'yetone/avante.nvim',
+    build = 'make',
+    event = 'VeryLazy',
+    version = false,
+    opts = {
+      instructions_file = 'avante.md',
+      provider = 'deepseek',
+      providers = {
+        deepseek = {
+          __inherited_from = 'openai',
+          api_key_name = 'AVANTE_DEEPSEEK_API_KEY',
+          endpoint = 'https://api.deepseek.com',
+          model = 'deepseek-v4-flash',
+        },
+      },
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+    },
+  },
+
   { 'akinsho/bufferline.nvim', version = '*', dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
   { 'neoclide/coc.nvim', branch = 'release' },
