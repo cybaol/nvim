@@ -20,15 +20,11 @@ require('lazy').setup({
 
   { 'neoclide/coc.nvim', branch = 'release' },
 
-  -- { 'Exafunction/codeium.vim', event = 'BufEnter' },
-
   { 'CRAG666/code_runner.nvim', config = true },
 
   { 'numToStr/Comment.nvim', lazy = false },
 
   { 'glepnir/dashboard-nvim', event = 'VimEnter', dependencies = { 'nvim-tree/nvim-web-devicons' } },
-
-  { 'luozhiya/fittencode.nvim' },
 
   { 'mhartington/formatter.nvim' },
 
@@ -96,4 +92,6 @@ require('lazy').setup({
   { 'liuchengxu/vista.vim', cmd = 'Vista' },
 
   { 'gcmt/wildfire.vim' },
+
+  { 'Exafunction/windsurf.vim', event = 'BufEnter' },
 })

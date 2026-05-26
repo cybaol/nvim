@@ -8,14 +8,6 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 -- coc.nvim
 require('modules.coc-configs')
 
--- codeium.vim
--- vim.g.codeium_enabled = true
--- vim.g.codeium_disable_bindings = 1
--- vim.keymap.set('i', '<C-p>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
--- vim.keymap.set('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
--- vim.keymap.set('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
--- vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
-
 -- code_runner.nvim
 require('code_runner').setup({
   term = {
@@ -103,16 +95,6 @@ vim.api.nvim_set_keymap(
   ":lua require('telescope.builtin').live_grep()<CR>",
   { noremap = true, silent = true }
 )
-
--- fittencode.nvim
-require('fittencode').setup({
-  use_default_keymaps = false,
-  keymaps = {
-    inline = {
-      ['<C-p>'] = 'accept_all_suggestions',
-    },
-  },
-})
 
 -- formatter.nvim
 require('modules.format')
@@ -309,3 +291,11 @@ vim.g.vista_default_executive = 'ctags'
 vim.g.vista_fzf_preview = { 'right:50%' }
 vim.cmd('let g:vista#renderer#enable_icon = 1')
 vim.api.nvim_set_keymap('n', '<leader>]', ':Vista<CR>', { noremap = true })
+
+-- windsurf.vim
+vim.g.codeium_enabled = true
+vim.g.codeium_disable_bindings = 1
+vim.keymap.set('i', '<C-p>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+vim.keymap.set('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
+vim.keymap.set('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
+vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
