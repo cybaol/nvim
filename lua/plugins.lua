@@ -30,6 +30,9 @@ require('lazy').setup({
           api_key_name = 'AVANTE_DEEPSEEK_API_KEY',
           endpoint = 'https://api.deepseek.com',
           model = 'deepseek-v4-flash',
+          extra_request_body = {
+            thinking = { type = 'disabled' },
+          },
         },
       },
     },
