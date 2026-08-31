@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   {
-    'yetone/avante.nvim',
+    'avante-corp/avante.nvim',
     build = 'make',
     event = 'VeryLazy',
     version = false,
@@ -31,7 +31,9 @@ require('lazy').setup({
           endpoint = 'https://api.deepseek.com',
           model = 'deepseek-v4-flash',
           extra_request_body = {
-            thinking = { type = 'disabled' },
+            thinking = { type = 'enabled' },
+            reasoning_effort = 'high',
+            stream = true,
           },
         },
       },
