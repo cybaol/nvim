@@ -22,7 +22,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     version = false,
     opts = {
-      instructions_file = 'avante.md',
+      instructions_file = 'AGENTS.md',
       provider = 'deepseek',
       providers = {
         deepseek = {
