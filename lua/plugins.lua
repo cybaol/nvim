@@ -18,7 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   {
     'avante-corp/avante.nvim',
-    build = 'make',
+    build = 'bash build.sh',
     event = 'VeryLazy',
     version = false,
     opts = {
