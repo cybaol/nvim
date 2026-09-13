@@ -37,6 +37,7 @@ require('lazy').setup({
           },
         },
       },
+      disabled_tools = { 'dispatch_agent', 'run_python' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
