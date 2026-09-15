@@ -22,6 +22,15 @@ require('lazy').setup({
     event = 'VeryLazy',
     version = false,
     opts = {
+      system_prompt = function()
+        local hub = require('mcphub').get_hub_instance()
+        return hub and hub:get_active_servers_prompt() or ''
+      end,
+      custom_tools = function()
+        return {
+          require('mcphub.extensions.avante').mcp_tool(),
+        }
+      end,
       instructions_file = 'AGENTS.md',
       provider = 'deepseek',
       providers = {
@@ -37,7 +46,20 @@ require('lazy').setup({
           },
         },
       },
-      disabled_tools = { 'dispatch_agent', 'run_python' },
+      disabled_tools = {
+        'dispatch_agent',
+        'run_python',
+        'list_files',
+        'search_files',
+        'read_file',
+        'create_file',
+        'rename_file',
+        'delete_file',
+        'create_dir',
+        'rename_dir',
+        'delete_dir',
+        'bash',
+      },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -50,6 +72,19 @@ require('lazy').setup({
           file_types = { 'markdown', 'Avante' },
         },
         ft = { 'markdown', 'Avante' },
+      },
+      {
+        'ravitemer/mcphub.nvim',
+        build = 'bundled_build.lua',
+        opts = {
+          auto_approve = true,
+          use_bundled_binary = true,
+          extensions = {
+            avante = {
+              make_slash_commands = true,
+            },
+          },
+        },
       },
     },
   },
