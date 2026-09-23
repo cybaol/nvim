@@ -117,6 +117,47 @@ require('lualine').setup({
   options = {
     theme = 'dracula',
   },
+  sections = {
+    lualine_x = {
+      {
+        function()
+          if not vim.g.loaded_mcphub then
+            return '󰐻 -'
+          end
+
+          local status = vim.g.mcphub_status or 'stopped'
+          if status == 'stopped' then
+            return '󰐻 -'
+          end
+
+          if vim.g.mcphub_executing or status == 'starting' or status == 'restarting' then
+            local frames = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+            local frame = math.floor((vim.uv or vim.loop).now() / 100) % #frames + 1
+            return '󰐻 ' .. frames[frame]
+          end
+
+          return '󰐻 ' .. (vim.g.mcphub_servers_count or 0)
+        end,
+        color = function()
+          if not vim.g.loaded_mcphub then
+            return { fg = '#6272a4' }
+          end
+
+          local status = vim.g.mcphub_status or 'stopped'
+          if status == 'ready' or status == 'restarted' then
+            return { fg = '#50fa7b' }
+          elseif status == 'starting' or status == 'restarting' then
+            return { fg = '#ffb86c' }
+          end
+
+          return { fg = '#ff5555' }
+        end,
+      },
+      'encoding',
+      'fileformat',
+      'filetype',
+    },
+  },
 })
 
 -- markdown-preview.nvim
