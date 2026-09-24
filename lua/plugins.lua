@@ -60,6 +60,9 @@ require('lazy').setup({
         'delete_dir',
         'bash',
       },
+      windows = {
+        input = { height = math.floor(vim.o.lines * 0.30) },
+      },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
