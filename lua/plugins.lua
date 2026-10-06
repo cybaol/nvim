@@ -67,6 +67,7 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
+      { 'ColinKennedy/mega.cmdparse', dependencies = { 'ColinKennedy/mega.logging' } },
       'nvim-telescope/telescope.nvim',
       'nvim-tree/nvim-web-devicons',
       {
