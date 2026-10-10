@@ -130,7 +130,7 @@
     "lua": {
       "command": "lua-language-server",
       "filetypes": ["lua"],
-      "rootPatterns": [".git/"],
+      "rootPatterns": [".luarc.json", ".luarc.jsonc", ".git/"],
       "settings": {
         "Lua": {
           "completion": {
@@ -142,12 +142,17 @@
             "disable": ["lowercase-global", "undefined-global"]
           },
           "runtime": {
-            "version": "Lua 5.4"
+            "version": "LuaJIT",
+            "special": {
+              "reload": "require"
+            }
           },
           "workspace": {
-            "library": {
-              "/usr/share/nvim/runtime/lua": true
-            },
+            "library": [
+              "${env:VIMRUNTIME}/lua",
+              "${env:VIMRUNTIME}/lua/vim/lsp",
+              "${userHome}/.local/share/nvim/lazy/lazy.nvim/lua/lazy"
+            ],
             "maxPreload": 2000,
             "preloadFileSize": 1000
           }
