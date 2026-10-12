@@ -48,7 +48,7 @@ function options:load_options()
     list = true,
     listchars = [[tab:\¦\ ,trail:▫]],
     number = true,
-    relativenumber = true,
+    relativenumber = false,
     signcolumn = 'yes',
     wrap = false,
   }
