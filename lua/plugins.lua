@@ -15,6 +15,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local mcphub_enabled = false
+
 require('lazy').setup({
   {
     'avante-corp/avante.nvim',
@@ -22,15 +24,15 @@ require('lazy').setup({
     event = 'VeryLazy',
     version = false,
     opts = {
-      system_prompt = function()
+      system_prompt = mcphub_enabled and function()
         local hub = require('mcphub').get_hub_instance()
         return hub and hub:get_active_servers_prompt() or ''
-      end,
-      custom_tools = function()
+      end or nil,
+      custom_tools = mcphub_enabled and function()
         return {
           require('mcphub.extensions.avante').mcp_tool(),
         }
-      end,
+      end or nil,
       instructions_file = 'AGENTS.md',
       provider = 'deepseek',
       providers = {
@@ -38,7 +40,7 @@ require('lazy').setup({
           __inherited_from = 'openai',
           api_key_name = 'AVANTE_DEEPSEEK_API_KEY',
           endpoint = 'https://api.deepseek.com',
-          model = 'deepseek-v4-flash',
+          model = 'deepseek-flash',
           extra_request_body = {
             thinking = { type = 'enabled' },
             reasoning_effort = 'high',
@@ -46,9 +48,7 @@ require('lazy').setup({
           },
         },
       },
-      disabled_tools = {
-        'dispatch_agent',
-        'run_python',
+      disabled_tools = vim.list_extend({ 'dispatch_agent', 'run_python' }, mcphub_enabled and {
         'list_files',
         'search_files',
         'read_file',
@@ -59,7 +59,7 @@ require('lazy').setup({
         'rename_dir',
         'delete_dir',
         'bash',
-      },
+      } or {}),
       windows = {
         input = { height = math.floor(vim.o.lines * 0.30) },
       },
