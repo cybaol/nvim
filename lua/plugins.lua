@@ -37,14 +37,12 @@ require('lazy').setup({
       provider = 'deepseek',
       providers = {
         deepseek = {
-          __inherited_from = 'openai',
           api_key_name = 'AVANTE_DEEPSEEK_API_KEY',
           endpoint = 'https://api.deepseek.com',
           model = 'deepseek-flash',
           extra_request_body = {
             thinking = { type = 'enabled' },
             reasoning_effort = 'high',
-            stream = true,
           },
         },
       },
