@@ -167,6 +167,4 @@ require('lazy').setup({
   { 'liuchengxu/vista.vim', cmd = 'Vista' },
 
   { 'gcmt/wildfire.vim' },
-
-  { 'Exafunction/windsurf.vim', event = 'BufEnter' },
 })
