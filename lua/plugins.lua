@@ -61,6 +61,8 @@ require('lazy').setup({
       windows = {
         input = { height = math.floor(vim.o.lines * 0.30) },
       },
+      input = { provider = 'snacks' },
+      selector = { provider = 'snacks' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -68,6 +70,21 @@ require('lazy').setup({
       { 'ColinKennedy/mega.cmdparse', dependencies = { 'ColinKennedy/mega.logging' } },
       'nvim-telescope/telescope.nvim',
       'nvim-tree/nvim-web-devicons',
+      { 'folke/snacks.nvim', opts = {} },
+      {
+        'hrsh7th/nvim-cmp',
+        config = function()
+          local cmp = require('cmp')
+          -- Avante enables its own completion sources for its input filetypes.
+          cmp.setup({ enabled = false, mapping = cmp.mapping.preset.insert() })
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = { 'AvanteInput', 'AvantePromptInput' },
+            callback = function(event)
+              vim.b[event.buf].coc_suggest_disable = true
+            end,
+          })
+        end,
+      },
       {
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
